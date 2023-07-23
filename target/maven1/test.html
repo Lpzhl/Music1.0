@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/axios.min.js"></script>
+</head>
+<body>
+
+
+<script>
+      //1. get
+/*      axios({
+        method:"get",
+        url:"http://localhost:8080/test1_war/servlet?username=zhangsan"
+      }).then(function (resp){
+          console.log(resp.data);
+          alert(resp.date);
+      })*/
+      //axios.get()
+/*      axios.get("http://localhost:8080/test1_war/servlet?username=zhangsan").then(function (res){
+          alert(res.date);
+      })*/
+/*      axios.post("http://localhost:8080/test1_war/servlet","username=zhangsan").then(function (res){
+          alert(res.date);
+      })*/
+
+/*
+      var json = {
+          "name":"廖梓行",
+          "age":123,
+          "addr":["湖南","上海","西安"]
+      };
+
+      //获取值
+      alert(json.name);
+*/
+
+
+      //点击注册按钮(注册事件)
+      const RegisterButton = document.querySelector('.Register-button');
+      RegisterButton.addEventListener('click', e => {
+
+          const email=document.querySelector(".email").value
+          const code=document.querySelector(".code").value
+          let password =document.querySelector("#bcd").value
+          const confirm=document.querySelector(".confirm").value
+          // 遍历每个输入框元素
+
+          if (email === ""||verifyEmail()===false) {
+              alert("邮箱为空或格式不正确")
+              return;
+          }
+          if (code === "") {
+              alert("验证码不能为空")
+              return;
+
+          }
+          if (password === "" ||verifyPassword()===false) {
+              alert("密码为空或密码格式不正确")
+              return;
+          }
+          if(confirm===""){
+              alert("密码为空或密码格式不正确")
+              return;
+          }
+
+          //用MD5加密
+        //  password=CryptoJS.MD5(password).toString();
+
+          // axios({
+          //     url: '/Blog/RegisterTest',
+          //     method: 'post',
+          //     params: {email,code,password}
+          // }).then(result => {
+          //     console.log("result:" + result.data)
+          // }).catch(error => {
+          //     console.log("error:" + error.response.data)
+          // })
+          axios({
+              url: '/Blog/RegisterTest',
+              method: 'post',
+              params: {email,code,password}
+          }).then(result => {
+              let D=JSON.parse(result.data)
+              console.log(D)
+              console.log(D.success)
+              console.log(result.data)
+              console.log("result:" + result.data.success)
+              const response=result.data.success
+              const div=document.querySelector('.alert')
+              function modal(response){
+                  console.log('进入modal')
+                  if(response=='repeat'){
+                      div.innerHTML='该账号重复注册'
+                      console.log('div.classList.add(\'success\')')
+                      div.classList.add('success')
+                      div.style.backgroundColor = "#d29d85";
+                  }
+                  else if(response=='codeFail'){
+                      div.innerHTML='验证码错误'
+                      console.log('div.classList.add(\'codeFail\')')
+                      div.classList.add('codeFail')
+                      div.style.backgroundColor = "#d29d85";
+                  }
+                  else if(response=='codeExpire'){
+                      div.innerHTML='验证码过期'
+                      console.log('div.classList.add(\'codeExpire\')')
+                      div.classList.add('codeExpire')
+                      div.style.backgroundColor = "#d29d85";
+                  }
+                  else if(response=='register success'){
+                      div.innerHTML='注册成功'
+                      console.log('div.classList.add(\'register success\')')
+                      div.classList.add('register success')
+                      div.style.backgroundColor = "#bde7b5";
+                  }
+                  else if(response=='register fail'){
+                      div.innerHTML='注册失败'
+                      console.log('div.classList.add(\'register fail\')')
+                      div.classList.add('register fail')
+                      div.style.backgroundColor = "#d29d85";
+                  }
+                  div.classList.add('show')
+                  setTimeout(()=>
+                  {
+                      div.innerHTML=''
+                      div.classList.remove('.show')
+                      div.style.backgroundColor = "transparent";
+                      div.classList.add('.disappear')
+
+                  },2000)
+                  if(response=='register success'){
+                      setTimeout(()=>{
+                          console.log("页面跳转到登录页面")
+                          window.location.href = '../Login.html';
+                      },1000)
+                  }
+              }
+              modal(response)
+          }).catch(error => {
+              console.log("error:" + error.response.data.message)
+          })
+
+
+      })
+
+
+</script>
+</body>
+</html>

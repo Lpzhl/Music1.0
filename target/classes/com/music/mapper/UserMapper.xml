@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace:名称空间-->
+<mapper namespace="com.music.mapper.UserMapper">
+    <update id="updateUser" >
+        UPDATE users SET nickname=#{nickname}, avatar=#{avatar} WHERE id=#{id}
+    </update>
+
+    <!--        <typeAliases>
+            <package name="com.music.app"/> 使用别名扫描com.music.mapper包里面的内容
+        </typeAliases>
+        如果使用了别名那就不需要加com.music.app.
+        直接这样 大小写都可以-->
+    <select id="selectAll" resultType="com.music.app.User">
+        select * from users;
+    </select>
+<!--    <select id="selectAll" resultType="com.music.app.User">
+        select * from users;
+    </select>-->
+    <select id="getUserByUsername" resultType="com.music.app.User">
+        SELECT * FROM users WHERE username = #{username}
+    </select>
+
+    <select id="selectSongs" resultType="com.music.app.Song">
+        SELECT * FROM songs ORDER BY id DESC LIMIT 4
+    </select>
+
+    <select id="getUserById" resultType="com.music.app.User">
+        SELECT * FROM users WHERE id = #{id}
+    </select>
+
+
+
+    <!--    &lt;!&ndash;
+                数据库表的字段名称 和 实体类的属性名称 不一样，则不能自动封装数据
+                resultMap
+                id:完成主键字段的映射
+                coLumn:表的列名
+                property: 实体类的属性名
+                result: 完成一般字段的映射
+
+    1.定义<resultMap>标签
+    2.在<seLect>标签中，使用resultMap属性替换 resultType属性
+        &ndash;&gt;
+        <resultMap id="brandResultMap" type="brand">
+            <result column="brand_name" property="brandName"/>
+        </resultMap>
+
+        <select id="selectAll1" resultMap="brandResultMap">
+            select *from users;
+        </select>-->
+
+</mapper>

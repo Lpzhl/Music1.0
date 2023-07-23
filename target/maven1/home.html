@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>简单音乐播放器</title>
+    <link rel="stylesheet" type="text/css" href="css/home.css">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+    <script src="https://kit.fontawesome.com/ca18b065e2.js" crossorigin="anonymous"></script>
+
+    <script src="js/axios.min.js"></script>
+
+</head>
+<body>
+<div class="container">
+    <div class="container-head">
+        <!-- 左侧导航栏 -->
+        <div class="main-left">
+            <div class="main-item">
+                <div class="image">
+                    <img src="{{avatar}}" width="50%">
+                    <h3 class="user-name">{{nickname}}</h3>
+                    <div class="hover-menu">
+                        <ul>
+                            <li><a href="infor.html">我的主页</a></li><br>
+                            <li><a href="infor.html">个人设置</a></li><br>
+                            <li><a href="login.html">退出</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <ul>
+                    <li>
+                        <div class="music_title">在线音乐</div>
+                        <ul class="main_left_subnav">
+                            <li>
+                                <a href="#">
+                                    <!-- <i class="fa fa-music"></i>-->
+                                    <i class="fa fa-music fa-shake"></i>
+                                    <!-- <img src="image/音乐.png" width="10%">-->
+                                    <span>音乐馆</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <!-- <img src="image/短视频话题.png" width="10%">-->
+                                    <i class="fa fa-video"></i>
+                                    <span>视频</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <!--<img src="image/电台.png" width="10%">-->
+                                    <i class="fa fa-tower-broadcast"></i>
+                                    <span>关注</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div class="music_title">我的音乐</div>
+                        <ul  class="main_left_subnav">
+                            <li>
+                                <a href="#">
+                                    <!--<img src="image/音乐.png" width="10%">-->
+                                    <!-- <i class="fa fa-heart fa-beat-fade"></i>-->
+                                    <i class="fa fa-heart fa-bounce"></i>
+                                    <span>我的喜欢</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <!--<img src="image/短视频话题.png" width="10%">-->
+                                    <i class="fa fa-location-dot"></i>
+                                    <span>本地与下载</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <!--<img src="image/电台.png" width="10%">-->
+                                    <i class="fa fa-rotate-right"></i>
+                                    <span>最近播播放</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="image/音乐.png" width="10%">
+                                    <span>我的收藏</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="image/短视频话题.png" width="10%">
+                                    <span>试听列表</span>
+                                </a>
+                            </li>
+                        </ul>
+                    <li>
+                        <div class="music_title">创建的歌单</div>
+                        <ul class="main_left_subnav">
+                            <li>
+                                <a href="#">
+                                   <!-- <img src="image/音乐.png" width="10%">-->
+                                    <i class="fa fa-list"></i>
+                                    <span>默认列表</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="image/短视频话题.png" width="10%">
+                                    <span>新建歌单</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 右侧导航栏 -->
+        <div class="main-right">
+            <div class="main-right-search">
+                <input type="text" placeholder="搜索">
+                <!--<img src="image/搜索.png" width="3%">-->
+                <i class="fa fa-magnifying-glass"></i>
+            </div>
+            <div class="main-right-hd">
+                <h1>音乐馆</h1>
+            </div>
+            <div class="main-right-tab">
+                <a href="#">精选</a>
+                <a href="#">有声电台</a>
+                <a href="#">歌手</a>
+                <a href="#">排行</a>
+                <a href="#">分类歌单</a>
+                <a href="#">数字专辑</a>
+            </div>
+            <br><br><br><br><br><br>
+           <!-- 轮播图-->
+            <div class="carousel">
+                <div id="slider">
+                    <div class="slide">
+                        <img src="image/西湖1.jpg" alt="图片">
+                    </div>
+                    <div class="slide">
+                        <img src="image/西湖2.jpg" alt="图片">
+                    </div>；
+                    <div class="slide">
+                        <img src="image/西湖3.jpg" alt="图片">
+                    </div>
+                    <div class="slide">
+                        <img src="image/西湖3.jpg" alt="图片">
+                    </div>
+                </div>
+                <div class="nav-button-container">
+                    <button id="prev" class="nav-button">上一张</button>
+                    <button id="next" class="nav-button">下一张</button>
+                </div>
+                <br> <br> <br>
+                <div class="main-right-switch">
+                    <a href="#" class="selected"></a>
+                    <a href="#"></a>
+                    <a href="#"></a>
+                    <a href="#"></a>
+                </div>
+            </div>
+
+
+
+            <!-- 歌单推荐-->
+            <div class="main-right-hot">
+                <h4>歌单推荐</h4>
+                <ul>
+                    <li>
+                        <img src="image/推荐歌单.png" alt=""/>
+                        <p>今天《恶作剧(0.8x)》爱不释耳私人雷达</p>
+                        <span class="hot_play"></span>
+                    </li>
+                    <li>
+                        <img src="image/推荐歌单1.png" alt=""/>
+                        <p>我想要你的爱，更想被你爱”0.8</p>
+                        <span class="hot_play"></span>
+                    </li>
+                    <li>
+                        <img src="image/推荐歌单2.png" alt=""/>
+                        <p>别在爱情里说反话08X</p>
+                        <span class="hot_play"></span>
+                    </li>
+                    <li>
+                        <img src="image/推荐歌单3.png" alt=""/>
+                        <p>爱你哇</p>
+                        <span class="hot_play"></span>
+                    </li>
+                </ul>
+            </div>
+            <br><br><br>
+            <!--新歌首发-->
+            <div class="main-right-hot">
+                <h4>新歌首发</h4>
+                <ul id="song-list">
+
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+   <!-- 底部框-->
+    <footer>
+        <audio id="audio-player" style="display: none;"></audio>
+        <div class="footer_list">
+            <div class="footer-left">
+                <img src="image/推荐歌单.png" alt="Song Image">
+                <div class="song-details">
+                    <p class="song-name">恐龙抗狼</p>
+                    <p class="artist-name">刘洋</p>
+                </div>
+            </div>
+            <div class="footer-middle">
+<!--                <div class="footer-btn">
+                    <a href="#" class="prev fa fa-backward-fast"></a>&lt;!&ndash;上一首&ndash;&gt;
+                    <a href="#" class="play fa fa-circle-play"></a> &lt;!&ndash;开始&ndash;&gt;
+                    <a href="#" class="pause fa fa-circle-pause"></a> &lt;!&ndash;暂停&ndash;&gt;
+                    <a href="#" class="next fa fa-forward-fast"></a>&lt;!&ndash;下一首&ndash;&gt;
+                </div>-->
+                <div class="footer-btn" >
+                    <a href="#" class="play-mode fa fa-random"></a>
+                    <a href="#" class="prev fa fa-backward-fast"></a><!--上一首-->
+                    <div class="play-pause-btn">
+                        <a href="#" class="play fa fa-circle-play" ></a> <!--开始-->
+                        <a href="#" class="pause fa fa-circle-pause" style="display: none;"></a> <!--暂停-->
+                    </div>
+                    <a href="#" class="next fa fa-forward-fast"></a><!--下一首-->
+                </div>
+
+                <div class="progress-bar" style="width: 80%;">
+                    <span class="current-time">00:00</span>
+                    <input type="range" max="1" min="0" step="0.01" style="width: 100%;">
+                    <span class="total-time">00:00</span>
+                </div>
+            </div><!---->
+            <div class="footer-right">
+
+                <div class="volume-display">100</div><br>
+                <a href="#" class="volume fa fa-volume-up"></a>
+                <input type="range" class="volume-slider" min="0" max="1" step="0.01">
+                <!-- 歌词显示部分 -->
+               <!-- <a href="#" class="lyrics-toggle">显示/隐藏歌词</a>-->
+            </div>
+        </div>
+    </footer>
+
+    <div id="lyrics-container" style="display: none; overflow: auto;">
+        <p id="lyrics"></p>
+        <a href="#" id="close-lyrics-popup">关闭歌词</a>
+    </div>
+
+</div>
+
+
+
+<script src="js/home.js"></script>
+</body>
+</html>

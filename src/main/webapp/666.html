@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+/*    #carousel img {
+      position: absolute;
+      transition: opacity 1s;
+    }
+
+    #carousel img:not(:first-child) {
+      opacity: 0;
+    }*/
+.carousel {
+    perspective: 1000px;
+    width: 300px;
+    height: 200px;
+    position: relative;
+    margin: 0 auto;
+}
+
+.carousel-viewport {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+#slider {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    animation: rotation 8s infinite linear;
+}
+
+.carousel-cell {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    visibility: hidden;
+}
+
+.carousel-cell img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 999;
+    background: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#prev {
+    left: -50px;
+}
+
+#next {
+    right: -50px;
+}
+
+.carousel-nav {
+    position: absolute;
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.carousel-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: #ccc;
+    margin: 0 5px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.carousel-dot.selected {
+    background: #333;
+}
+
+
+
+  </style>
+</head>
+<body>
+<!--<div id="carousel">
+  <img src="image/西湖1.jpg" alt="Image 1">
+  <img src="image/西湖2.jpg" alt="Image 2">
+  <img src="image/西湖3.jpg" alt="Image 3">
+</div>-->
+<div class="carousel">
+    <div class="carousel-viewport">
+        <div id="slider">
+            <div class="carousel-cell">
+                <img src="image/西湖1.jpg" alt="图片">
+            </div>
+            <div class="carousel-cell">
+                <img src="image/西湖2.jpg" alt="图片">
+            </div>
+            <div class="carousel-cell">
+                <img src="image/西湖3.jpg" alt="图片">
+            </div>
+            <div class="carousel-cell">
+                <img src="image/壁纸.jpg" alt="图片">
+            </div>
+        </div>
+    </div>
+    <button id="prev">Previous</button>
+    <button id="next">Next</button>
+    <div class="carousel-nav">
+        <a href="#" class="carousel-dot selected"></a>
+        <a href="#" class="carousel-dot"></a>
+        <a href="#" class="carousel-dot"></a>
+        <a href="#" class="carousel-dot"></a>
+    </div>
+</div>
+
+
+
+<!--<script>
+  let index = 0;
+  const images = document.querySelectorAll('#carousel img');
+  setInterval(function() {
+    images[index].style.opacity = 0;
+    index = (index + 1) % images.length;
+    images[index].style.opacity = 1;
+  }, 5000);
+
+</script>-->
+<script>
+    let slider = document.getElementById("slider");
+    let carouselCells = Array.from(slider.children);
+    let totalCells = carouselCells.length;
+    let selectedIndex = 0;
+    let cellWidth = carouselCells[0].clientWidth;
+    let cellHeight = carouselCells[0].clientHeight;
+    let isHorizontal = true;
+    let rotateFn = isHorizontal ? 'rotateY' : 'rotateX';
+    let radius, theta;
+
+    function rotateCarousel() {
+        let angle = theta * selectedIndex * -1;
+        slider.style.transform = 'translateZ(' + -radius + 'px) ' +
+            rotateFn + '(' + angle + 'deg)';
+    }
+
+    let prevButton = document.getElementById('prev');
+    prevButton.addEventListener( 'click', function() {
+        selectedIndex--;
+        rotateCarousel();
+    });
+
+    let nextButton = document.getElementById('next');
+    nextButton.addEventListener( 'click', function() {
+        selectedIndex++;
+        rotateCarousel();
+    });
+
+    let carouselDots = Array.from(document.querySelectorAll('.carousel-dot'));
+    carouselDots.forEach((dot, index) => {
+        dot.addEventListener('click', function() {
+            selectedIndex = index;
+            rotateCarousel();
+        });
+    });
+
+    function changeCarousel() {
+        theta = 360 / totalCells;
+        let cellSize = isHorizontal ? cellWidth : cellHeight;
+        radius = Math.round( ( cellSize / 2) / Math.tan( Math.PI / totalCells ) );
+        for ( let i=0; i < totalCells; i++ ) {
+            let cell = carouselCells[i];
+            if ( i < totalCells ) {
+                // visible cell
+                cell.style.opacity = 1;
+                let cellAngle = theta * i;
+                cell.style.transform = rotateFn + '(' + cellAngle + 'deg) translateZ(' + radius + 'px)';
+            } else {
+                // hidden cell
+                cell.style.opacity = 0;
+                cell.style.transform = 'none';
+            }
+        }
+        rotateCarousel();
+    }
+
+    changeCarousel();
+
+    setInterval(() => {
+        selectedIndex++;
+        rotateCarousel();
+    }, 2000);
+
+
+</script>
+</body>
+</html>

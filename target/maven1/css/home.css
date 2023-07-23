@@ -1,0 +1,500 @@
+body {
+    min-width: 992px;
+    height: 100vh; /* 使用视口高度作为整个界面的高度 */
+    font-size: 14px;
+    background: #f5c6cb;
+}
+
+.container {
+    width: 100%; /* 使用百分比宽度使容器随窗口大小变化 */
+    height: 100%; /* 使用百分比高度使容器随窗口大小变化 */
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    height: 10%; /* 使用百分比高度使头部随窗口大小变化 */
+}
+
+.content {
+    flex: 1; /* 使用flex-grow属性使内容区域填充剩余空间 */
+}
+
+.footer {
+
+    width: 100vw; /* 100% of the viewport's width */
+    height: 10vh; /* 10% of the viewport's height */
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+html{
+    overflow-x: hidden;
+}
+
+.container-head{
+    display: flex;
+}
+
+.main-left{
+    width: 220px;
+    background-color: #f0f0f0;
+}
+
+.main-right{
+    flex: 1;
+    padding: 10px 30px;
+    width: 70%; /* 70% of the parent element's width */
+    height: 100%; /* 100% of the parent element's height */
+}
+
+
+.fa fa-music{
+    line-height: 40px;
+}
+.main-item{
+    position: fixed;
+    left: 0;
+    top:0;
+    bottom: 0;
+    width: 220px;
+    background-color: #f0f0f0;
+}
+.container-head ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.container-head ul li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.container-head a {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.container-head img,
+.container-head span {
+    margin-right: 5px;
+}
+
+
+.music_title{
+    padding: 15px 20px;
+    color: #777;
+}
+.main_left_subnav li{
+    line-height: 40px;
+}
+.main_left_subnav li a{
+    display: block;
+    padding-left: 20px;
+    font-size: 16px;
+    height: 40px;
+    width: 200px;
+}
+.main_left_subnav li i{
+    padding-right: 10px;
+    font-size: 18px;
+}
+.main_left_subnav li a:hover {
+    background-color: #31C27C;
+    color: #fff;
+}
+
+.main-right-search{
+    position: relative; /* 新增的代码 */
+    text-align: right;
+}
+
+.main-right-search input{
+    padding: 5px 10px;
+    padding-right: 30px; /* 增加的代码，根据你的图标大小进行调整 */
+    width: 200px;
+    outline: none;
+}
+
+.main-right-search i {
+    position: absolute;
+    right: 5px; /* 调整的代码，根据你的需求进行调整 */
+    top: 50%; /* 调整的代码 */
+    transform: translateY(-50%); /* 新增的代码，使图标垂直居中 */
+    width: 20px; /* 新增的代码，调整图标的大小 */
+    height: 20px; /* 新增的代码，调整图标的大小 */
+}
+
+.main-right-search input:focus {
+    border-color: red;
+}
+
+.main-right-hd h2{
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.main-right-tab {
+    text-align: center;
+    height: 50px;
+}
+
+.main-right-tab a{
+    margin: 0 25px;
+    position: relative;
+    font-size: 25px;
+}
+
+.main-right-tab a:hover{
+    color: #31C27C;
+}
+
+.main-right-tab a:before{
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: #7abaff;
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    transform: scale(0);
+    transition: all 0.3s;
+}
+.main-right-tab a:hover::before{
+    transform: scale(1);
+}
+
+
+/*!* 轮播图 *!*/
+.carousel {
+    perspective: 1200px;
+    width: 400px;
+    margin: 0 auto;
+    position: relative;
+}
+
+#slider {
+    width: 100%;
+    height: 200px;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateY(0deg);
+    transition: transform 1s;
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    line-height: 200px;
+    color: white;
+    text-align: center;
+    font-size: 50px;
+    text-shadow: 0 0 5px rgba(0,0,0,0.9);
+}
+
+.slide img {
+    width: 100%;
+    height: auto;
+}
+
+.nav-button-container {
+    position: absolute;
+    top: 40%;
+    left: -250px;
+    right: -250px;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+}
+
+.nav-button {
+    background-color: rgba(128, 128, 128, 0.3);
+    color: white;
+    border: none;
+    padding: 100px 15px;
+    font-size: 16px;
+}
+
+#prev {
+    margin-right: 20px;
+}
+
+#next {
+    margin-left: 10px;
+}
+
+
+/*小圆点*/
+.main-right-switch{
+    text-align: center;
+    padding-top: 20px;
+}
+
+.main-right-switch a{
+    display: inline-block;
+    padding: 4px;
+    border-radius: 50%;
+    background-color: rgb(0,0,0.1);
+    margin: 0 7px;
+}
+
+.main-right-switch .selected{
+    background-color: rgb(0,0,0,.3);
+}
+
+
+/* Navigation buttons */
+button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#prev {
+    left: 10px;
+}
+
+#next {
+    right: 10px;
+}
+
+/*歌单推荐*/
+
+.main-right-hot h4{
+    font-size: 20px;
+    margin-bottom: 25px;
+}
+
+.main-right-hot ul{
+    display: flex;
+    justify-content: space-between;
+}
+.main-right-hot ul li{
+    flex: 0 1 18%;
+    position: relative;
+}
+
+.hot_play{
+    background: url('../image/播放.png');
+    position:absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: scale(0);
+    display: none;
+}
+
+.main-right-hot li:hover.hot_play{
+    display: block;
+    transform: scale(.3);
+}
+
+.main-right-hot li img:hover{
+    transform: scale(1.1);
+}
+
+.main-right-hot li p{
+    margin: 10px 0;
+}
+
+
+/*//!底部音乐栏样式 **/
+/* .footer_list：用于设置页脚部分的样式 */
+footer {
+    min-width: 992px;
+    height: 100px;
+}
+
+/* .footer-middle：页脚部分的中间区域 */
+/*.footer-middle {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    margin-left: 10px;
+}*/
+
+/*!* FontAwesome 图标样式 *!*/
+.footer-btn a {
+    font-size: 30px;
+    color: #333;
+    text-decoration: none;
+    margin: 0 30px;
+
+}
+.footer-btn{
+    display: flex;
+    margin-left: 650px;
+}
+
+
+/* .footer_list：页脚整体样式 */
+.footer_list {
+    display: flex;
+/*  justify-content: space-between;*/
+align-items: center;
+    background-color: #f2f2f2;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 80px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* .footer-left：页脚部分的左侧区域 */
+.footer-left {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+
+.image{
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+/* .footer-left img：页脚左侧的图片 */
+.footer-left img {
+    width: 80px;
+    height: 80px;
+    margin-left: 100px;
+}
+
+/* .song-details：歌曲详情容器，用于包含歌曲名和艺术家名 */
+.song-details {
+    display: flex;
+    flex-direction: column;
+}
+
+/* .song-name, .artist-name：歌曲名和艺术家名的样式 */
+.song-name,
+.artist-name {
+    margin: 5px;
+    font-size:20px;
+}
+
+
+
+/* .progress-bar：进度条样式 */
+.progress-bar {
+   display: flex;
+   /* align-items: center;*/
+    margin-left: 400px;
+    margin-top: 20px;
+}
+
+/* .current-time, .total-time：当前时间和总时间的样式 */
+.current-time,
+.total-time {
+    margin: 0 10px;
+}
+
+
+.fa:hover {
+    color: #666;
+}
+
+.footer-right {
+    font-size: 20px;
+    color: #6c757d;
+    margin-left: 400px;
+}
+.footer-right a{
+    text-decoration: none;
+}
+
+
+.volume-display{
+    margin-left: 85px;
+    color: red;
+    text-decoration: none;
+    margin-bottom: -20px;
+}
+
+
+
+/****鼠标悬停****/
+.image {
+    position: relative;
+    width: 60%;
+    margin-top: 20px;
+}
+
+.user-name {
+    text-align: center;
+}
+
+.hover-menu {
+    display: none;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to bottom, #f9f9f9, #e9e9e9);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.3);
+    padding: 12px 16px;
+    z-index: 1;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.hover-menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.hover-menu li {
+    padding: 5px;
+}
+
+.hover-menu a {
+    color: black;
+    text-decoration: none;
+    display: block;
+    transition: color 0.2s;
+}
+
+.hover-menu a:hover {
+    color: #007BFF;
+}
+
+.image:hover .hover-menu {
+    display: block;
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+
+/*歌词****/
+#lyrics-popup {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 300px;
+    height: 200px;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #ccc;
+    overflow: auto;
+    z-index: 9999;
+}
+
+#close-lyrics-popup {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+}

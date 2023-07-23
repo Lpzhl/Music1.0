@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <style>
+        .toast {
+            position: fixed;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: orangered;
+            min-width: 200px;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+    </style>
+
+    <link rel="stylesheet" href="css/stackpath.bootstrapcdn.com_bootstrap_4.5.2_css_bootstrap.min.css">
+    <script src="js/code.jquery.com_jquery-3.6.0.min.js"></script>
+    <script src="js/cdn.jsdelivr.net_npm_bootstrap@5.0.2_dist_js_bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="css/cdnjs.cloudflare.com_ajax_libs_font-awesome_5.15.3_css_all.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
+
+    <script src="js/axios.min.js"></script>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script>
+        function validateEmail() {
+            var email = document.forms["registerForm"]["email"].value;
+            var emailRe = /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/;
+            if (!emailRe.test(email)) {
+                $('#myToast .toast-body').html("<i class='fas fa-times-circle mr-2'></i>邮箱号不规范");
+                $('#myToast').toast('show');
+                return false;
+            }
+        }
+
+        function validatePassword() {
+            var password = document.forms["registerForm"]["password"].value;
+            var re = /^[a-zA-Z0-9]+$/;
+            if (!re.test(password)) {
+                $('#myToast .toast-body').html("<i class='fas fa-times-circle mr-2'></i>密码只能包含字母和数字");
+                $('#myToast').toast('show');
+                return false;
+            }
+        }
+
+        function validateConfirmPassword() {
+            var password = document.forms["registerForm"]["password"].value;
+            var confirmPassword = document.forms["registerForm"]["confirmPassword"].value;
+            if (password !== confirmPassword) {
+                $('#myToast .toast-body').html("<i class='fas fa-times-circle mr-2'></i>两次输入的密码不一致");
+                $('#myToast').toast('show');
+                return false;
+            }
+        }
+
+        function validateForm() {
+            var x = document.forms["registerForm"]["password"].value;
+            var y = document.forms["registerForm"]["confirmPassword"].value;
+            var email = document.forms["registerForm"]["email"].value;
+            var re = /^[a-zA-Z0-9]+$/;
+            if (!re.test(x)) {
+                $('#myToast .toast-body').html("<i class='fas fa-times-circle mr-2'></i>密码只能包含字母和数字");
+                $('#myToast').toast('show');
+                return ;
+            }
+            if (x != y) {
+                $('#myToast .toast-body').html("<i class='fas fa-times-circle mr-2'></i>两次输入的密码不一致");
+                $('#myToast').toast('show');
+                return ;
+            }
+            var emailRe = /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/;
+            if (!emailRe.test(email)) {
+                $('#myToast .toast-body').html("<i class='fas fa-times-circle mr-2'></i>邮箱号不规范");
+                $('#myToast').toast('show');
+                return ;
+            }
+
+            var xhr = new XMLHttpRequest();
+            xhr.overrideMimeType("text/html;charset=UTF-8");
+            xhr.open("POST", "/Music1_0_war/validateCode", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                var email = document.forms["registerForm"]["email"].value;
+                console.log("之前的："+savedEmail+"现在的："+email)
+                // 检查输入的邮箱是否与之前存储的邮箱匹配
+                if (email !== savedEmail) {
+                    $('#myToast .toast-body').html("<i class='fas fa-times-circle mr-2'></i>邮箱号和验证码不匹配");
+                    $('#myToast').toast('show');
+                    return false;
+                }
+            var code = document.forms["registerForm"]["code"].value;
+            xhr.send("code=" + code);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    console.log("这是什么："+xhr.responseText)
+                    var response = JSON.parse(xhr.responseText);
+                    console.log(response.success)
+                    if (response.success === "true") {
+                        var email = document.forms["registerForm"]["email"].value;
+                        var password = document.forms["registerForm"]["password"].value;
+                        var confirmPassword = document.forms["registerForm"]["confirmPassword"].value;
+
+
+                        var data = new URLSearchParams();
+                        data.append('email', email);
+                        data.append('password', password);
+                        data.append('confirmPassword', confirmPassword);
+                        data.append('code', code);
+
+                        axios.post('/Music1_0_war/register', data)
+                            .then(function(response) {
+                                console.log("这个呢:"+response.data.success)
+                                if (response.data.success=="true") {
+                                    $('#myToast .toast-body').html("<i class='fas fa-check-circle mr-2'></i>" + response.data.message);
+                                    $('#myToast').toast('show');
+                                    setTimeout(function() {
+                                        window.location.href = 'home.html';
+                                    }, 2000);  // 延迟2秒跳转
+                                } else {
+                                    $('#myToast .toast-body').html("<i class='fas fa-times-circle mr-2'></i>" + response.data.message);
+                                    $('#myToast').toast('show');
+                                }
+                            })
+                            .catch(function(error) {
+                                console.log(error);
+                            });
+                    } else {
+                        $('#myToast .toast-body').html("<i class='fas fa-times-circle mr-2'></i>" +response.message);
+                        $('#myToast').toast('show');
+                        return;
+                    }
+                }
+            }
+            return false;
+
+
+        }
+        var countdown = 60;
+
+        // 定义一个变量用于存储邮箱
+        var savedEmail;
+
+        function settime() {
+            var x = document.forms["registerForm"]["password"].value;
+            var y = document.forms["registerForm"]["confirmPassword"].value;
+            var email = document.forms["registerForm"]["email"].value;
+            var re = /^[a-zA-Z0-9]+$/;
+            if (!re.test(x)) {
+                $('#myToast .toast-body').html("<i class='fas fa-times-circle mr-2'></i>密码只能包含字母和数字");
+                $('#myToast').toast('show');
+                return ;
+            }
+            if (x != y) {
+                $('#myToast .toast-body').html("<i class='fas fa-times-circle mr-2'></i>两次输入的密码不一致");
+                $('#myToast').toast('show');
+                return ;
+            }
+            var emailRe = /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/;
+            if (!emailRe.test(email)) {
+                $('#myToast .toast-body').html("<i class='fas fa-times-circle mr-2'></i>邮箱号不规范");
+                $('#myToast').toast('show');
+                return ;
+            }
+            if (countdown == 0) {
+                getCodeBtn.removeAttribute("disabled");
+                getCodeBtn.innerHTML = "获取验证码";
+                countdown = 60;
+                return;
+            } else {
+                // 当倒计时开始时，发送请求
+                if (countdown == 60) {
+                    axios.post('/Music1_0_war/sendCode', new URLSearchParams({email: email}))
+                        .then(function(response) {
+                            console.log("这是什么666："+ response);
+                            var symbol = response.data.success === "正确" ? "<i class='fas fa-check-circle mr-2'></i>" : "<i class='fas fa-times-circle mr-2'></i>";
+                            $('#myToast .toast-body').html(symbol + response.data.message);
+                            $('#myToast').toast('show'); // 显示浮窗
+                            setTimeout(function () {
+                                $('#myToast').toast('hide'); // 3秒后移除浮窗
+                            }, 3000);
+
+                            // 存储当前输入的邮箱
+                            savedEmail = email;
+
+                        })
+                        .catch(function(error) {
+                            console.log(error);
+                        });
+                    getCodeBtn.setAttribute("disabled", true);
+                }
+                getCodeBtn.innerHTML = "(" + countdown + ")";
+                countdown--;
+                setTimeout(settime, 1000);
+            }
+
+
+            function showToast(message) {
+                var toast = document.getElementById('floatingWindow');
+                var toastText = document.getElementById('floatingWindowText');
+
+                // 设置浮窗的内容
+                toastText.textContent = message;
+
+                // 显示浮窗
+                toast.style.display = 'block';
+
+                // 在3秒后隐藏浮窗
+                setTimeout(function () {
+                    toast.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+    </script>
+</head>
+<body>
+
+
+
+<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000" id="myToast">
+    <div class="toast-body"></div>
+</div>
+
+<form name="registerForm">
+    <div class="container">
+        <label for="email"><b>邮箱</b></label>
+        <input type="email" placeholder="输入邮箱" name="email" id="email" required onblur="validateEmail()">
+
+        <label for="psw"><b>密码</b></label>
+        <input type="password" placeholder="输入密码" name="password" id="psw" required onblur="validatePassword()">
+
+        <label for="psw1"><b>确认密码</b></label>
+        <input type="password" placeholder="确认密码" name="confirmPassword" id="psw1" required onblur="validateConfirmPassword()">
+
+        <div class="code-container">
+            <input type="text" placeholder="输入验证码" name="code" id="code" required>
+            <button type="button" id="getCodeBtn" class="btn" onclick="settime()">获取验证码</button>
+        </div>
+
+        <button type="submit" class="btn" onclick="return validateForm()">注册</button>
+        <button type="button" class="btn" onclick="location.href='login.html'">返回</button>
+    </div>
+</form>
+
+</body>
+</html>

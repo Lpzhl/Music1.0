@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <package name="com.music.app"/> <!--使用别名扫描com.music.mapper包里面的内容-->
+    </typeAliases>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+               <!-- 数据库 连接信息-->
+                <property name="driver" value= "com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/music"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123456"/>
+            </dataSource>
+        </environment>
+    </environments>
+    
+
+    <mappers>
+        <!--加载sql映射文件-->
+        <!--<mapper resource="com/music/mapper/UserMapper.xml"/>-->
+
+        <!--Mapper代理方式-->
+        <package name="com.music.mapper"/>
+
+    </mappers>
+</configuration>
+
+
+<!--
+        这个错误消息表示，你的MyBatis配置文件`configuration`元素内部的子元素没有按照MyBatis期望的顺序排列，或者存在MyBatis不认可的元素。在你的`<configuration>`元素中，以下标签必须按照这个顺序出现（如果有的话）：
+
+1. `<properties>`
+2. `<settings>`
+3. `<typeAliases>`
+4. `<typeHandlers>`
+5. `<objectFactory>`
+6. `<objectWrapperFactory>`
+7. `<reflectorFactory>`
+8. `<plugins>`
+9. `<environments>`
+10. `<databaseIdProvider>`
+11. `<mappers>`
+
+每个元素都是可选的，也就是说，你不必在`<configuration>`元素中包含所有这些元素。但是，如果你包含了这些元素，那么它们就必须按照这个顺序出现。
+
+从你之前提供的配置文件看，它的元素顺序和结构是正确的。但如果你修改了文件并出现了这个错误，那就需要检查修改后的文件是否符合上述的元素顺序规则。
+
+另外，确认你没有在`<configuration>`元素中包含任何不被识别的元素。如果有，需要删除这些元素或者将它们替换为MyBatis认可的元素。
+-->
