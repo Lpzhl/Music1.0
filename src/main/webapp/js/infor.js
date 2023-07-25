@@ -1,6 +1,6 @@
 window.onload = function() {
     // 当页面加载完成时，获取用户信息
-    axios.get('/Music1_0_war/edit').then(response => {
+    axios.get('/Music1_0_war/user/edit').then(response => {
         console.log( response.data.nickname)
         console.log(response.data.avatar)
         document.getElementById('nickname').value = response.data.nickname;
@@ -38,7 +38,7 @@ window.onload = function() {
         const formData = new FormData();
         formData.append('nickname', nickname);
         formData.append('avatar', avatarFile);
-        axios.post('/Music1_0_war/edit', formData).then(response => {
+        axios.post('/Music1_0_war/user/edit', formData).then(response => {
             console.log(response)
             document.querySelector('.user-name').textContent =  response.nickname;
             document.querySelector('.image img').src = "/upload/"+ response.data.avatar
@@ -51,3 +51,23 @@ window.onload = function() {
 document.getElementById('back').addEventListener('click', function() {
     window.location.href = 'home.html';
 });
+
+
+var modal = document.getElementById("myModal");
+var span = document.getElementsByClassName("close")[0];
+
+document.getElementById('settings-link').addEventListener('click', function(event) {
+    event.preventDefault();
+    // 这里你可以添加AJAX代码来动态加载个人设置的内容
+    modal.style.display = "block";
+});
+
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}

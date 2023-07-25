@@ -3,13 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>简单音乐播放器</title>
+
     <link rel="stylesheet" type="text/css" href="css/home.css">
+    <link rel="stylesheet" type="text/css" href="css/infor.css">
     <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
     <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
     <script src="https://kit.fontawesome.com/ca18b065e2.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
     <script src="js/axios.min.js"></script>
+    <style>
+        /* 遮罩层样式 */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* 透明度 */
+             z-index: 9999; /* 确保遮罩层在其他元素之上 */
+        }
 
+        /* 模态框内容样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            z-index: 10000; /* 确保模态框在遮罩层之上 */
+            width: 70%; /* 将模态框宽度设置为80% */
+            max-width: 500px; /* 最大宽度限制，防止过度放大 */
+            border-radius: 10px; /* 设置边框圆角效果 */
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -22,27 +53,27 @@
                     <h3 class="user-name">{{nickname}}</h3>
                     <div class="hover-menu">
                         <ul>
-                            <li><a href="infor.html">我的主页</a></li><br>
-                            <li><a href="infor.html">个人设置</a></li><br>
+                            <li><a href="inf好久回or.html">我的主页</a></li><br>
+                            <li><a href="#" onclick="showSettingsModal()">个人设置</a></li><br>
                             <li><a href="login.html">退出</a></li>
                         </ul>
                     </div>
-                </div>
 
+                </div>
                 <ul>
                     <li>
                         <div class="music_title">在线音乐</div>
                         <ul class="main_left_subnav">
-                            <li>
-                                <a href="#">
+                            <li id="music1">
+                                <a href="#" >
                                     <!-- <i class="fa fa-music"></i>-->
-                                    <i class="fa fa-music fa-shake"></i>
+                                    <i class="fa fa-music fa-shake" ></i>
                                     <!-- <img src="image/音乐.png" width="10%">-->
                                     <span>音乐馆</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="https://browser.lenovo.com.cn/bookmarks/13.html">
                                     <!-- <img src="image/短视频话题.png" width="10%">-->
                                     <i class="fa fa-video"></i>
                                     <span>视频</span>
@@ -117,7 +148,7 @@
             </div>
         </div>
         <!-- 右侧导航栏 -->
-        <div class="main-right">
+        <div class="main-right" style="display: none">
             <div class="main-right-search">
                 <input type="text" placeholder="搜索">
                 <!--<img src="image/搜索.png" width="3%">-->
@@ -205,8 +236,24 @@
     </div>
     <br><br>
     <br><br>
-    <br><br>
-    <br><br>
+
+    <div class="lyrics-panel" style="display: none;">
+        <div class="song-details-panel">
+            <div class="image-container">
+                <img src="image/推荐歌单2.png" alt="Song Image" class="song-image">
+                <h3 class="song-name-panel"></h3>
+                <p class="artist-name-panel"></p>
+            </div>
+            <div class="divider"></div>
+            <div class="lyrics" id="lyrics">
+                歌词在这里...
+            </div>
+        </div>
+        <button class="hide-btn">收回</button>
+    </div>
+
+
+
    <!-- 底部框-->
     <footer>
         <audio id="audio-player" style="display: none;"></audio>
@@ -214,7 +261,7 @@
             <div class="footer-left">
                 <img src="image/推荐歌单.png" alt="Song Image">
                 <div class="song-details">
-                    <p class="song-name">恐龙抗狼</p>
+                    <h3 class="song-name">恐龙抗狼</h3>
                     <p class="artist-name">刘洋</p>
                 </div>
             </div>
@@ -243,24 +290,38 @@
             </div><!---->
             <div class="footer-right">
 
+
                 <div class="volume-display">100</div><br>
                 <a href="#" class="volume fa fa-volume-up"></a>
                 <input type="range" class="volume-slider" min="0" max="1" step="0.01">
+                <a href="#" class="fa-solid fa-list"></a>
+
                 <!-- 歌词显示部分 -->
                <!-- <a href="#" class="lyrics-toggle">显示/隐藏歌词</a>-->
             </div>
         </div>
     </footer>
 
-    <div id="lyrics-container" style="display: none; overflow: auto;">
-        <p id="lyrics"></p>
-        <a href="#" id="close-lyrics-popup">关闭歌词</a>
+    <div class="overlay" id="overlay"></div>
+    <div class="modal" id="modal">
+        <h2 align="center">个人信息修改</h2>
+        <form id="userInfoForm">
+            <label class="account">账号:</label><br>
+            <span id="idcard"></span><br>
+            <label>邮箱:</label><br>
+            <span id="email"></span><br>
+            <label for="nickname">昵称:</label><br>
+            <input type="text" id="nickname" name="nickname" value=""><br>
+            <img id="avatarImage" src="" alt="头像">
+            <input type="file" id="avatar" name="avatar" style="display: none;"><br>
+            <input type="button" value="保存" id="save">
+            <input type="button" value="返回" id="back">
+        </form>
     </div>
 
 </div>
 
-
-
 <script src="js/home.js"></script>
+
 </body>
 </html>

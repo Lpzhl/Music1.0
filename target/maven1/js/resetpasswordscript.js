@@ -67,7 +67,7 @@ function settime() {
 function resetPassword() {
     var xhr = new XMLHttpRequest();
     xhr.overrideMimeType("text/html;charset=UTF-8");
-    xhr.open("POST", "/Music1_0_war/validateCode", true);
+    xhr.open("POST", "/Music1_0_war/user/validateCode", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     var email = document.forms["resetForm"]["email"].value;
     if (email !== savedEmail) {
@@ -95,7 +95,7 @@ function resetPassword() {
                 data.append('password', password);
                 data.append('code', code);
 
-                axios.post('/Music1_0_war/resetPassword', data)
+                axios.post('/Music1_0_war/user/resetPassword', data)
                     .then(function(response) {
                         console.log(response.data)
                         var symbol = response.data.success == "true" ? "<i class='fas fa-check-circle mr-2'></i>" : "<i class='fas fa-times-circle mr-2'></i>";

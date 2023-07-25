@@ -19,9 +19,9 @@
     <link rel="stylesheet" href="css/cdnjs.cloudflare.com_ajax_libs_font-awesome_5.15.3_css_all.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
 
-    <script src="js/token.js"></script>
-    <script src="js/axios.min.js"></script>
 
+    <script src="js/axios.min.js"></script>
+    <script src="js/token.js"></script>
 <!--    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
 
 
@@ -46,7 +46,7 @@
             var remember = document.forms["loginForm"]["remember"].checked ? "1" : "0";
 
             // 发送登录请求
-            axios.post('/Music1_0_war/test', {
+            axios.post('/Music1_0_war/user/login', {
                 username: x,
                 password: y,
                 remember: remember
@@ -54,16 +54,16 @@
                 console.log(response)
                 console.log(response.data)
                 console.log(response.data.message)
-                console.log(response.data.token)
+               /* console.log(response.data.token)*/
                 if (response.data.success) {
                     sessionStorage.setItem('accessToken', response.data.accessToken);
                     sessionStorage.setItem('refreshToken', response.data.refreshToken);
                     sessionStorage.setItem('username', x) // 将用户名保存
                     /*$('#myToast .toast-body').html("<i class='fas fa-check-circle mr-2'></i>" + response.data.message);*/
-                   *$('#myToast .toast-body').html("<i class='fas fa-check-circle mr-2'></i>" +"登录成功 即将跳转主界面.....");
+                    $('#myToast .toast-body').html("<i class='fas fa-check-circle mr-2'></i>" + "登录成功 即将跳转主界面.....");
                     $('#myToast').toast('show'); // 显示浮窗
-                    setTimeout(function() {
-                       window.location.href = 'home.html';
+                    setTimeout(function () {
+                        window.location.href = 'home.html';
                     }, 2000);  // 延迟2秒跳转
                 } else {
                     $('#myToast .toast-body').html("<i class='fas fa-times-circle mr-2'></i>" + response.data.message);
@@ -76,16 +76,7 @@
             event.preventDefault();
             return false;
         }
-        //在请求头中添加access token：
-        axios.interceptors.request.use(function (config) {
-            var accessToken = sessionStorage.getItem('accessToken');
-            if (accessToken) {
-                config.headers.Authorization = 'Bearer ' + accessToken;
-            }
-            return config;
-        }, function (error) {
-            return Promise.reject(error);
-        });
+
 
         var backgrounds = ["image/西湖1.jpg", "image/西湖2.jpg", "image/西湖3.jpg", "image/西湖4.jpg"];
         var current = 0;

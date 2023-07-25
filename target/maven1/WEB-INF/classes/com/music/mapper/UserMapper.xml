@@ -24,9 +24,14 @@
         SELECT * FROM users WHERE username = #{username}
     </select>
 
-    <select id="selectSongs" resultType="com.music.app.Song">
+<!--    <select id="selectSongs" resultType="com.music.app.Song">
         SELECT * FROM songs ORDER BY id DESC LIMIT 4
+    </select>-->
+
+    <select id="selectSongs" resultType="com.music.app.Song">
+        SELECT * FROM songs ORDER BY RAND() LIMIT 4
     </select>
+
 
     <select id="getUserById" resultType="com.music.app.User">
         SELECT * FROM users WHERE id = #{id}

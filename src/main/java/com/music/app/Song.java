@@ -7,6 +7,7 @@ public class Song {
     private String album;
     private String filepath;
     private String lyric;
+    private String avatar;
     private int play_count;
 
 
@@ -76,6 +77,14 @@ public class Song {
         this.play_count = play_count;
     }
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
     @Override
     public String toString() {
         return "Song{" +
@@ -85,6 +94,7 @@ public class Song {
                 ", album='" + album + '\'' +
                 ", filepath='" + filepath + '\'' +
                 ", lyric='" + lyric + '\'' +
+                ", avatar='" + avatar + '\'' +
                 ", play_count=" + play_count +
                 '}';
     }

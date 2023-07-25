@@ -108,7 +108,7 @@
                         data.append('confirmPassword', confirmPassword);
                         data.append('code', code);
 
-                        axios.post('/Music1_0_war/register', data)
+                        axios.post('/Music1_0_war/user/register', data)
                             .then(function(response) {
                                 console.log("这个呢:"+response.data.success)
                                 if (response.data.success=="true") {

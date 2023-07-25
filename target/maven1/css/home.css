@@ -234,6 +234,7 @@ html{
 .main-right-switch{
     text-align: center;
     padding-top: 20px;
+    margin-top: 15px;
 }
 
 .main-right-switch a{
@@ -330,7 +331,7 @@ footer {
 }
 .footer-btn{
     display: flex;
-    margin-left: 650px;
+    margin-left:300px;
 }
 
 
@@ -388,7 +389,7 @@ align-items: center;
 .progress-bar {
    display: flex;
    /* align-items: center;*/
-    margin-left: 400px;
+    margin-left: 200px;
     margin-top: 20px;
 }
 
@@ -406,10 +407,14 @@ align-items: center;
 .footer-right {
     font-size: 20px;
     color: #6c757d;
-    margin-left: 400px;
+    margin-left: 250px;
+
+
+
 }
 .footer-right a{
     text-decoration: none;
+    margin: 0px 10px;
 }
 
 
@@ -479,22 +484,96 @@ align-items: center;
 
 
 /*歌词****/
-#lyrics-popup {
+
+#music1.active {
+    background-color: #31C27C;
+    color: #FFFFFF;
+}
+/******  个人信息****/
+
+
+
+
+
+
+
+
+
+
+
+.lyrics-panel {
     position: fixed;
-    bottom: 10px;
-    right: 10px;
-    width: 300px;
-    height: 200px;
-    padding: 10px;
-    background-color: white;
-    border: 1px solid #ccc;
-    overflow: auto;
-    z-index: 9999;
+    width: 100%;
+    bottom: 100%;
+    height: 50%;
+ /*  background: rgb(56,69,89);*/
+   /* background: rgb(242,242,242);*/
+    background: #86cfda;
+    z-index: 1000;
+    transition: bottom 0.5s;
+    overflow: hidden;  /* 隐藏滚动条 */
 }
 
-#close-lyrics-popup {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    cursor: pointer;
+.song-details-panel {
+    display: flex;
+    height: 100%;
 }
+
+.image-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-container, .lyrics {
+    width: 50%;
+    height: 100%;
+    overflow: hidden; /* 隐藏滚动条 */
+}
+
+.song-image {
+    width: 50%;
+    height: 50%;  /* 调整图片的高度 */
+    object-fit: cover; /* 图片适应容器大小 */
+    border-radius: 10px; /* 设置为圆形 */
+    margin-bottom: 10px; /* 添加一些边距 */
+}
+
+.song-name-panel, .artist-name-panel {
+    text-align: center; /* 文本居中 */
+}
+
+
+/*.divider {
+    border-left: 1px dashed #000;  !*设置为虚线*!
+    height: 100%;
+}*/
+
+.lyrics {
+/*    align-items: center;
+    text-align: center;*/
+    width: 50%;
+    height: 80%;
+    padding: 1em;
+    overflow: hidden;  /* 默认情况下隐藏滚动条 */
+    line-height: 3;  /* 设置行间距为 1.5 倍的字体大小 */
+    font-size: 25px;
+}
+
+.lyrics:hover {
+    overflow: auto;  /* 当鼠标悬停时显示滚动条 */
+}
+
+
+.hide-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+}
+
+
+
