@@ -20,4 +20,8 @@ public interface UserMapper {
     void updateUser(@Param("id") int id, @Param("nickname") String nickname, @Param("avatar") String avatar);
 
     User getUserById(@Param("id") int id);
+    // 添加新的方法
+    int getFollowerCount(@Param("userId") int userId);
+
+    int getFollowingCount(@Param("userId") int userId);
 }

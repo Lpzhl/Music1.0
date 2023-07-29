@@ -1,4 +1,3 @@
-/*
 package com.music.servlet;
 
 import com.google.gson.Gson;
@@ -42,4 +41,3 @@ public class SendCodeServlet extends HttpServlet {
         System.out.println("Saved expirationTime: to session: " + session.getId());
     }
 }
-*/

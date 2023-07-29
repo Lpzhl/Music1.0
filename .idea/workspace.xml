@@ -9,78 +9,37 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7931dbe6-6848-469e-8f6c-e0b3e7829d33" name="变更" comment="初代">
+    <list default="true" id="7931dbe6-6848-469e-8f6c-e0b3e7829d33" name="变更" comment="歌词">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2d5e496e-00d9-4b29-b319-0a0cd9b762c2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/2d5e496e-00d9-4b29-b319-0a0cd9b762c2.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/music/app/Song.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/music/app/Song.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/music/servlet/EditInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/music/dao/EditInformation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/music/servlet/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/music/dao/LoginServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/music/servlet/RegisterServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/music/dao/RegisterServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/music/servlet/ResetPasswordServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/music/dao/ResetPasswordServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/music/servlet/SendCodeServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/music/dao/SendCodeServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/music/servlet/SongServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/music/dao/SongServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/music/servlet/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/music/dao/Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/music/servlet/ValidateCodeServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/music/dao/ValidateCodeServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/music/uitl/JwtUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/music/uitl/JwtUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/music/dao/SendCodeServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/music/servlet/SendCodeServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/music/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/music/mapper/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/music/servlet/HomeServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/music/servlet/HomeServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/music/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/music/mapper/UserMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/css/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/css/home.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/css/infor.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/css/infor.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/home.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/js/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/infor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/infor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/resetpasswordscript.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/resetpasswordscript.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/token.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/token.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/songs/gone.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/songs/偏爱.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/songs/吴凌希 - 恐龙扛狼DJ版.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/songs/苏星捷 - 听悲伤的情歌.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/songs/英文.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/music/app/Song.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/music/app/Song.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/test.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/test.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/music/mapper/UserMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/music/mapper/UserMapper.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/music/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/music/mapper/UserMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/music/servlet/EditInformation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/music/servlet/LoginServlet.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/music/servlet/RegisterServlet.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/music/servlet/ResetPasswordServlet.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/music/servlet/SendCodeServlet.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/music/servlet/SongServlet.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/music/servlet/Test.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/music/servlet/ValidateCodeServlet.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/music/uitl/JwtUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/music/uitl/JwtUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/music/servlet/HomeServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/music/servlet/HomeServlet.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven1.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1.war" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/app/Song.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/app/Song.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/mapper/UserMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/mapper/UserMapper.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/mapper/UserMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/servlet/EditInformation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/servlet/LoginServlet.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/servlet/RegisterServlet.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/servlet/ResetPasswordServlet.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/servlet/SendCodeServlet.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/servlet/SongServlet.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/servlet/Test.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/servlet/ValidateCodeServlet.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/uitl/JwtUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/uitl/JwtUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/servlet/HomeServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/servlet/HomeServlet.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven1/css/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/css/home.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven1/css/infor.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/css/infor.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven1/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/home.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven1/js/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/js/home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven1/js/infor.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/js/infor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven1/js/resetpasswordscript.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/js/resetpasswordscript.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven1/js/token.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/js/token.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven1/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven1/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven1/songs/gone.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven1/songs/偏爱.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven1/songs/吴凌希 - 恐龙扛狼DJ版.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven1/songs/苏星捷 - 听悲伤的情歌.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven1/songs/英文.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/tomcat/conf/logging.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/tomcat/conf/tomcat-users.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/tomcat/conf/web.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/tomcat/logs/access_log.2023-07-23" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/tomcat/work/Tomcat/localhost/Music1_0_war/SESSIONS.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven1/test.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/test.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,44 +90,44 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "jdk.selected.JAVA_MODULE": "corretto-1.8",
-    "last_opened_file_path": "E:/java/Java练习/Tes",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "库",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;corretto-1.8&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/java/Java练习/Music1.0/src/main/webapp/css&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;库&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\java\Java练习\Music1.0\src\main\webapp\css" />
       <recent name="E:\java\Java练习\Music1.0\src\main\webapp\WEB-INF" />
       <recent name="E:\java\Java练习\Music1.0\src\main\webapp\songs" />
       <recent name="E:\java\Java练习\Music1.0\src\main\webapp\image" />
       <recent name="E:\java\Java练习\Music1.0\src\main\webapp\music" />
-      <recent name="E:\java\Java练习\Music1.0\src\main\java\file" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\java\Java练习\Music1.0\src\main\webapp" />
       <recent name="E:\java\Java练习\Music1.0\src\main\java\com\music\dao" />
+      <recent name="E:\java\Java练习\Music1.0\src\main\resources\com\music\mapper" />
       <recent name="E:\java\Java练习\Music1.0\src\main\webapp\songs" />
       <recent name="E:\java\Java练习\Music1.0\src\main\resources" />
-      <recent name="E:\java\Java练习\Music1.0\src\main\java\com\music" />
-      <recent name="E:\java\Java练习\Music1.0\src\main\resources\com\music\mapper" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
@@ -180,7 +139,7 @@
   </component>
   <component name="RunManager">
     <configuration name="Tomcat 9.0.76" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.76" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
-      <option name="BROWSER_ID" value="37cae5b9-e8b2-4949-9172-aafa37fbc09c" />
+      <option name="BROWSER_ID" value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
       <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
       <option name="UPDATE_CLASSES_ON_FRAME_DEACTIVATION" value="true" />
       <option name="UPDATING_POLICY" value="restart-server" />
@@ -323,7 +282,15 @@
       <workItem from="1690090398242" duration="12735000" />
       <workItem from="1690122194625" duration="12567000" />
       <workItem from="1690160213259" duration="15507000" />
-      <workItem from="1690247302180" duration="29090000" />
+      <workItem from="1690247302180" duration="35201000" />
+      <workItem from="1690333537034" duration="11687000" />
+      <workItem from="1690358206537" duration="32596000" />
+      <workItem from="1690398775176" duration="2038000" />
+      <workItem from="1690420641399" duration="122000" />
+      <workItem from="1690420772193" duration="27000" />
+      <workItem from="1690420904144" duration="43874000" />
+      <workItem from="1690506322153" duration="35536000" />
+      <workItem from="1690594804760" duration="27765000" />
     </task>
     <task id="LOCAL-00001" summary="初代">
       <created>1690104329910</created>
@@ -332,7 +299,14 @@
       <option name="project" value="LOCAL" />
       <updated>1690104329910</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="歌词">
+      <created>1690298973894</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1690298973894</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -351,9 +325,19 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="初代" />
-    <option name="LAST_COMMIT_MESSAGE" value="初代" />
+    <MESSAGE value="歌词" />
+    <option name="LAST_COMMIT_MESSAGE" value="歌词" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/music/servlet/UserServlet.java</url>
+          <line>80</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory">
         <watch expression="expirationTime" language="JAVA" />

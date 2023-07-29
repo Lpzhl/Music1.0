@@ -1,6 +1,6 @@
 body {
     background: #f5f5f5;
-    font-family: Arial, sans-serif;
+/*    font-family: Arial, sans-serif;*/
 }
 
 .settings {
@@ -47,8 +47,8 @@ label {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
-input[type="text"], input[type="file"] {
-    width: 95%;
+.nickname1,.avatar1 {
+    width: 90%;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;

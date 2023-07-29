@@ -5,9 +5,14 @@
 
 <!--namespace:名称空间-->
 <mapper namespace="com.music.mapper.UserMapper">
-    <update id="updateUser" >
-        UPDATE users SET nickname=#{nickname}, avatar=#{avatar} WHERE id=#{id}
-    </update>
+
+    <select id="getFollowerCount" resultType="int">
+        SELECT COUNT(*) FROM follows WHERE followed_id = #{userId}
+    </select>
+
+    <select id="getFollowingCount" resultType="int">
+        SELECT COUNT(*) FROM follows WHERE follower_id = #{userId}
+    </select>
 
     <!--        <typeAliases>
             <package name="com.music.app"/> 使用别名扫描com.music.mapper包里面的内容
@@ -37,6 +42,10 @@
         SELECT * FROM users WHERE id = #{id}
     </select>
 
+
+    <update id="updateUser" >
+        UPDATE users SET nickname=#{nickname}, avatar=#{avatar} WHERE id=#{id}
+    </update>
 
 
     <!--    &lt;!&ndash;

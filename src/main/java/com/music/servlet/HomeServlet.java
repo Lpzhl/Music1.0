@@ -69,7 +69,7 @@ public class HomeServlet extends HttpServlet {
             PrintWriter out = resp.getWriter();
             System.out.println("nickname:"+user.getNickname());
             System.out.println("avatar:"+ user.getAvatar());
-            out.print("{ \"nickname\": \"" + user.getNickname() + "\", \"avatar\": \"" + user.getAvatar() + "\" }");
+            out.print("{ \"id\": \"" + user.getId() + "\", \"nickname\": \"" + user.getNickname() + "\", \"avatar\": \"" + user.getAvatar() + "\" }");
             out.flush();
         }
     }

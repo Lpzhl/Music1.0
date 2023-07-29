@@ -78,7 +78,7 @@
 
             var xhr = new XMLHttpRequest();
             xhr.overrideMimeType("text/html;charset=UTF-8");
-            xhr.open("POST", "/Music1_0_war/validateCode", true);
+            xhr.open("POST", "/Music1_0_war/user/validateCode", true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 var email = document.forms["registerForm"]["email"].value;
                 console.log("之前的："+savedEmail+"现在的："+email)

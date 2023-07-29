@@ -1,8 +1,9 @@
 body {
     min-width: 992px;
     height: 100vh; /* 使用视口高度作为整个界面的高度 */
-    font-size: 14px;
-    background: #f5c6cb;
+    font-size: 18px;
+/*    background: #f5c6cb;*/
+    background: #FFFFFF;
 }
 
 .container {
@@ -19,6 +20,9 @@ body {
 .content {
     flex: 1; /* 使用flex-grow属性使内容区域填充剩余空间 */
 }
+
+
+
 
 .footer {
 
@@ -47,8 +51,10 @@ html{
 .main-right{
     flex: 1;
     padding: 10px 30px;
-    width: 70%; /* 70% of the parent element's width */
-    height: 100%; /* 100% of the parent element's height */
+/*    width: 70%; !* 70% of the parent element's width *!*/
+    height: 100%;
+    width: 100%;
+    overflow: auto;
 }
 
 
@@ -75,7 +81,7 @@ html{
 }
 
 .container-head a {
-    display: inline-flex;
+   /* display: inline-flex;*/
     align-items: center;
     text-decoration: none;
 }
@@ -251,11 +257,13 @@ html{
 
 
 /* Navigation buttons */
+/*
 button {
-    position: absolute;
+    !*position: absolute;*!
     top: 50%;
     transform: translateY(-50%);
 }
+*/
 
 #prev {
     left: 10px;
@@ -269,7 +277,7 @@ button {
 
 .main-right-hot h4{
     font-size: 20px;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
 }
 
 .main-right-hot ul{
@@ -331,7 +339,7 @@ footer {
 }
 .footer-btn{
     display: flex;
-    margin-left:300px;
+    margin-left:380px;
 }
 
 
@@ -356,6 +364,9 @@ align-items: center;
     margin-right: 10px;
 }
 
+.footer-left, .footer-middle, .footer-right {
+    flex: 1;  /* 分配空间的比例为1：1：1 */
+}
 
 .image{
     display: flex;
@@ -389,7 +400,7 @@ align-items: center;
 .progress-bar {
    display: flex;
    /* align-items: center;*/
-    margin-left: 200px;
+    margin-left: 260px;
     margin-top: 20px;
 }
 
@@ -407,7 +418,7 @@ align-items: center;
 .footer-right {
     font-size: 20px;
     color: #6c757d;
-    margin-left: 250px;
+    margin-left: 280px;
 
 
 
@@ -483,9 +494,13 @@ align-items: center;
 }
 
 
-/*歌词****/
+/*****左边导航栏****/
 
 #music1.active {
+    background-color: #31C27C;
+    color: #FFFFFF;
+}
+#music2.active {
     background-color: #31C27C;
     color: #FFFFFF;
 }
@@ -495,12 +510,7 @@ align-items: center;
 
 
 
-
-
-
-
-
-
+/******歌词******/
 .lyrics-panel {
     position: fixed;
     width: 100%;
@@ -511,7 +521,7 @@ align-items: center;
     background: #86cfda;
     z-index: 1000;
     transition: bottom 0.5s;
-    overflow: hidden;  /* 隐藏滚动条 */
+    overflow-y: auto; /* 垂直方向滚动条 */
 }
 
 .song-details-panel {
@@ -545,11 +555,16 @@ align-items: center;
     text-align: center; /* 文本居中 */
 }
 
+.lyrics p.current {
+    animation: scale 1s linear;
+}
 
-/*.divider {
-    border-left: 1px dashed #000;  !*设置为虚线*!
-    height: 100%;
-}*/
+
+@keyframes scale {
+    0% { font-size: 100%; }
+    50% { font-size: 150%; }
+    100% { font-size: 100%; }
+}
 
 .lyrics {
 /*    align-items: center;
@@ -565,6 +580,10 @@ align-items: center;
 .lyrics:hover {
     overflow: auto;  /* 当鼠标悬停时显示滚动条 */
 }
+/*.divider {
+    border-left: 1px dashed #000;  !*设置为虚线*!
+    height: 100%;
+}*/
 
 
 .hide-btn {
@@ -576,4 +595,395 @@ align-items: center;
 }
 
 
+/* 修改滚动条的宽度 */
+.lyrics::-webkit-scrollbar {
+    width: 5px;
+    background-color:rgb(137,207,218); /* 滚动条背景色 */
+}
 
+/* 修改滚动条背景色 */
+.lyrics::-webkit-scrollbar-track {
+    background-color: rgb(137,207,218); /* 轨道背景色 */
+    border-radius: 2px; /* 轨道边界半径 */
+}
+
+/* 修改滚动条滑块颜色 */
+.lyrics::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 2px; /* 滑块边界半径 */
+}
+
+/* 修改滚动条滑块在鼠标悬停时的颜色 */
+.lyrics::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.lyric-line {
+    transition: all 0.5s ease;  /* 这使得效果平滑地过渡 */
+}
+
+.lyric-line:hover {
+    transform: scale(0.9);  /* 这使得选中的行变大 */
+    border: 2px solid #FF6347;  /* 这使得选中的行被一个框包围 */
+    border-radius: 10px; /* 这使得框有圆角 */
+}
+/****歌词浮窗****/
+.current-lyric {
+    position: fixed;  /* 固定位置 */
+    z-index: 9999;  /* z-index 设置为 9999，保证在最顶层 */
+    top: 10%;  /* 设置从顶部 50% 的位置开始 */
+    left: 55%;  /* 设置从左边 50% 的位置开始 */
+    transform: translate(-50%, -50%);  /* 用 transform 平移，保证歌词在屏幕中心 */
+    background-color: rgba(0, 0, 0, 0.7);  /* 背景色设置为半透明的黑色 */
+    color: white;  /* 字体颜色设置为白色 */
+    padding: 20px;  /* 内部填充 20px */
+    border-radius: 10px;  /* 边缘半径 10px，用来生成圆角 */
+    font-size: 24px;  /* 字体大小 24px */
+    text-align: center;  /* 文字居中显示 */
+}
+
+
+
+.paginator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.paginator span {
+    display: inline-block;
+    margin: 0 10px;
+    padding: 10px 20px;
+    border: 1px solid #333;
+    color: #333;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+.paginator span:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+.paginator span.active {
+    background-color: #333;
+    color: #fff;
+}
+
+
+
+
+
+/*******播放列表******/
+#playlist1 {
+    position: fixed; /* 固定位置 */
+    top: 0; /* 距离顶部0 */
+    right: 0; /* 距离右侧0 */
+    bottom: 0; /* 距离底部0 */
+    width: 500px; /* 加大宽度 */
+    height: calc(100vh - 100px); /* 修改了这里 */
+    overflow-y: scroll; /* 长度很长时，使用滚动条 */
+    padding: 20px; /* 加大内边距 */
+    box-sizing: border-box; /* 让padding包含在宽度和高度内 */
+    transform: translateX(100%); /* 将其移出屏幕 */
+    transition: transform 0.5s ease; /* 这将使其平滑地移动 */
+    display: none; /* 使其初始状态为隐藏 */
+    border: 1px solid black; /* 添加黑色边框 */
+    background-color: #d6d8d9; /* 添加了这里，可以改为你想要的颜色 */
+    z-index: 9999;
+}
+
+.header1 {
+    display: flex;
+    flex-direction: column; /* 现在标题和总歌曲数在一个列 */
+    align-items: flex-start; /* 使标题和总歌曲数靠左 */
+    margin-bottom: 20px; /* 使标题和总歌曲数与表单有一些距离 */
+}
+
+.title1 {
+    margin-bottom: 10px; /* 把总歌曲数放在标题下面 */
+}
+
+.clear {
+    align-self: flex-end; /* 清空列表链接靠右 */
+    margin-bottom: 20px; /* 使清空列表链接与表单有一些距离 */
+/*    text-decoration: none; */
+}
+
+/****滚动条*****/
+
+/* 修改滚动条的宽度 */
+#playlist1::-webkit-scrollbar {
+    width: 5px;
+    background-color:rgb(137,207,218); /* 滚动条背景色 */
+}
+
+/* 修改滚动条背景色 */
+#playlist1::-webkit-scrollbar-track {
+    background-color: rgb(137,207,218); /* 轨道背景色 */
+    border-radius: 2px; /* 轨道边界半径 */
+}
+
+/* 修改滚动条滑块颜色 */
+#playlist1::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 2px; /* 滑块边界半径 */
+}
+
+/* 修改滚动条滑块在鼠标悬停时的颜色 */
+#playlist1::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+
+#playlist1 table {
+    width: 100%;
+    border-collapse: collapse; /*是表格边框合并为一个单元 */
+}
+
+
+thead {
+    background-color: #f2f2f2;
+}
+
+
+thead th {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 2px solid #ddd;
+    font-weight: bold;
+}
+
+
+tbody td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+
+tbody tr:not(:first-child):hover {
+    background-color: #f5f5f5;
+}
+
+/*tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #e9e9e9;
+}*/
+
+
+/*****我的主页*****/
+.playlist1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: auto;
+    padding: 0 20px;
+}
+
+#playlist-image1 {
+    height: 300px;
+    width: 300px;
+    object-fit: cover;
+}
+
+.playlist-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+}
+
+.underline {
+    border-top: 2px solid #1d2124;
+    width: 100%;
+    margin: 10px 0;
+}
+
+/* New styles to remove underlines from link items and add vertical lines */
+.link-item {
+    text-align: center;
+    margin: 0 15px;
+    text-decoration: none; /* 去下划线 */
+    position: relative;
+}
+
+.link-item:before,
+.link-item:after {
+    content: "";
+    position: absolute;
+    border: 1px solid #1d2124;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 50px;
+    width: 0;
+}
+
+.link-item:before {
+    left: -15px; /* Position the left vertical line */
+}
+
+.link-item:after {
+    right: -15px; /* Position the right vertical line */
+}
+
+#edit-info {
+    padding: 10px; /* 调整内边距来更好地适应边框 */
+    margin-bottom: 5px;
+    margin-left: 800px;
+    transform: scale(0.9);  /* 这使得选中的行变大 */
+    border: 2px solid #4CAF50;  /* 这使得选中的行被一个框包围 */
+    border-radius: 10px; /* 这使得框有圆角 */
+    color: #000;; /* 将文字颜色设置为白色，以增加对比度 */
+    /*background-color: #FF6347; !* 设置背景颜色为红色 *!*/
+}
+
+.playlist-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+}
+
+.link-container {
+    display: flex;
+    /*justify-content: space-between;*/
+    width: 150px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.tabs1 {
+    justify-content: space-around;
+    background-color: #f5f5f5;
+    padding: 10px 0;
+}
+
+
+
+/****我创建的歌单*****/
+.playlist2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+width: 100%;
+border: 1px solid #ccc;
+box-sizing: border-box;
+}
+
+.playlist-image {
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+    object-fit: cover; /* yyds奶奶的 */
+    transition: transform 0.3s ease-in-out;
+}
+
+
+.playlist2:hover .playlist-image {
+    transform: scale(1.1);
+}
+
+.play-icon {
+    position: absolute;
+    color: #ff052b;
+    visibility: hidden;
+}
+.active-tab {
+    font-weight: bold; /* 字体加粗 */
+    color: black;
+    border-bottom: 4px solid red; /* 红色下划线 */
+}
+
+.playlist2:hover .play-icon {
+    visibility: visible;
+}
+
+.playlist-name, .playlist-count {
+    margin: 0;
+padding: 0;
+}
+
+
+/*****创建歌单****//* 隐藏模态框 */
+.modal1 {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal1-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 10px; /* 添加圆角边框 */
+    width: 30%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal1-title {
+    text-align: center; /* 让标题居中 */
+}
+
+#create-button {
+    background-color: red;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+#create-button:disabled {
+    background-color:rgb(169,53,110);
+    cursor: not-allowed;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center; /* 将按钮居中 */
+}
+
+.avatar-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 将头像居中 */
+    margin-bottom: 15px; /* 添加一些底部边距 */
+}
+
+#avatarImage2 {
+    width: 100px;
+    height: 100px;
+    object-fit: cover; /* 图片保持其原始宽高比，但是会被剪裁以适应 */
+    border-radius: 50%; /* 圆形头像 */
+}
+#avatar2 {
+    display: none; /* 隐藏文件输入元素 */
+}
