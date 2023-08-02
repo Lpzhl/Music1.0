@@ -9,37 +9,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7931dbe6-6848-469e-8f6c-e0b3e7829d33" name="变更" comment="歌词">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2d5e496e-00d9-4b29-b319-0a0cd9b762c2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/2d5e496e-00d9-4b29-b319-0a0cd9b762c2.xml" afterDir="false" />
+    <list default="true" id="7931dbe6-6848-469e-8f6c-e0b3e7829d33" name="变更" comment="我的喜欢，播放列表，创建歌单，我的主页">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/music/dao/SendCodeServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/music/servlet/SendCodeServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/music/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/music/mapper/UserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/music/servlet/HomeServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/music/servlet/HomeServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/music/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/music/mapper/UserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/music/app/Song.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/music/app/Song.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/css/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/css/home.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/css/infor.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/css/infor.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/home.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/js/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/test.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/test.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/music/mapper/UserMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/music/mapper/UserMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/music/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/music/mapper/UserMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/music/servlet/HomeServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/music/servlet/HomeServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/music/app/Song.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/music/app/Song.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven1.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1.war" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/mapper/UserMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/mapper/UserMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/mapper/UserMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/servlet/HomeServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/servlet/HomeServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/app/Song.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/app/Song.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven1/css/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/css/home.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven1/css/infor.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/css/infor.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven1/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/home.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven1/js/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/js/home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven1/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven1/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven1/test.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/test.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,8 +35,8 @@
       <list>
         <option value="Jsp File" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="HTML File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -105,6 +89,7 @@
     &quot;project.structure.last.edited&quot;: &quot;库&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;service.view.auto.scroll.to.source&quot;: &quot;true&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
@@ -290,7 +275,10 @@
       <workItem from="1690420772193" duration="27000" />
       <workItem from="1690420904144" duration="43874000" />
       <workItem from="1690506322153" duration="35536000" />
-      <workItem from="1690594804760" duration="27765000" />
+      <workItem from="1690594804760" duration="67226000" />
+      <workItem from="1690766715683" duration="35611000" />
+      <workItem from="1690873303897" duration="35096000" />
+      <workItem from="1690940477415" duration="9019000" />
     </task>
     <task id="LOCAL-00001" summary="初代">
       <created>1690104329910</created>
@@ -306,11 +294,29 @@
       <option name="project" value="LOCAL" />
       <updated>1690298973894</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="我的喜欢，播放列表，创建歌单，我的主页">
+      <created>1690641116530</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1690641116530</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -326,7 +332,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="初代" />
     <MESSAGE value="歌词" />
-    <option name="LAST_COMMIT_MESSAGE" value="歌词" />
+    <MESSAGE value="我的喜欢，播放列表，创建歌单，我的主页" />
+    <option name="LAST_COMMIT_MESSAGE" value="我的喜欢，播放列表，创建歌单，我的主页" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

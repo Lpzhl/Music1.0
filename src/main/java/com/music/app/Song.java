@@ -9,17 +9,8 @@ public class Song {
     private String lyric;
     private String avatar;
     private int play_count;
+    private int version;// 版本号用于更新
 
-
-    public Song(int id, String name, String artist, String album, String filepath, String lyric, int play_count) {
-        this.id = id;
-        this.name = name;
-        this.artist = artist;
-        this.album = album;
-        this.filepath = filepath;
-        this.lyric = lyric;
-        this.play_count = play_count;
-    }
 
     public int getId() {
         return id;
@@ -85,6 +76,14 @@ public class Song {
         this.avatar = avatar;
     }
 
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
     @Override
     public String toString() {
         return "Song{" +
@@ -96,6 +95,7 @@ public class Song {
                 ", lyric='" + lyric + '\'' +
                 ", avatar='" + avatar + '\'' +
                 ", play_count=" + play_count +
+                ", version=" + version +
                 '}';
     }
 }

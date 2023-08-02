@@ -1,4 +1,5 @@
 com\music\servlet\MusicServlet$1.class
+com\music\servlet\MusicServlet$6.class
 com\music\uitl\EmailVca$1.class
 com\music\app\User.class
 com\music\uitl\EmailVca.class
@@ -9,6 +10,7 @@ com\music\mapper\PlaylistMapper.class
 MyBatisDemo.class
 com\music\servlet\SendVerificationCodeServlet.class
 com\music\servlet\UserServlet.class
+com\music\servlet\MusicServlet$5.class
 com\music\mapper\UserMapper.class
 com\music\servlet\MusicServlet$2.class
 com\music\app\Song.class
@@ -21,3 +23,4 @@ com\music\servlet\HomeServlet.class
 com\music\uitl\JwtUtil.class
 com\music\servlet\BaseServlet.class
 com\music\servlet\SendVerificationCodeServlet$1.class
+com\music\app\PlayLog.class
