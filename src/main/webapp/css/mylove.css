@@ -1,0 +1,63 @@
+
+
+.playlist {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start; /* Change from space-around to flex-start */
+/*    align-items: center;*/
+    height: 33vh;
+    border-bottom: 1px solid #ddd;
+    padding: 0 20px; /* Add some padding to align the items inside */
+}
+
+.playlist img {
+    max-width: 100%;
+    max-height: 100%;
+    margin-right: 20px; /* Add some margin to the right of the image */
+}
+
+.playlist-info {
+    max-width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    background-color: #f5f5f5;
+    padding: 10px 0;
+}
+
+#song-list {
+    padding: 20px;
+}
+
+#search-container {
+    position: absolute;
+    right: 0;  /* 绝对定位至页面右侧 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%; /* 可根据需要调整 */
+}
+
+#search {
+    width: 120%;
+    border-radius: 25px;
+    padding-left: 10px;
+    padding-right: 30px;
+    box-sizing: border-box;
+    margin-left: 300px;
+    margin-right: 50px;
+    border: 2px solid gray;
+}
+
+
+.fa-magnifying-glass {
+    position: absolute;
+    right: 10px; /* 将图标放置在输入框内 */
+    margin-right: 50px;
+}
+

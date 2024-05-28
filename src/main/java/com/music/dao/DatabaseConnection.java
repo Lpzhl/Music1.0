@@ -5,11 +5,7 @@ import com.music.app.User;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class DatabaseConnection {
 
@@ -54,7 +50,10 @@ public class DatabaseConnection {
         Connection con = getConnection();
 
         if (con != null) {
-            String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
+            // 修改SQL语句来联接用户和会员表
+            String sql = "SELECT u.*, m.start_date, m.end_date FROM users u "
+                    + "LEFT JOIN user_membership m ON u.id = m.user_id "
+                    + "WHERE u.username = ? AND u.password = ?";
             PreparedStatement ps = null;
             ResultSet rs = null;
 
@@ -72,6 +71,15 @@ public class DatabaseConnection {
                     result.setEmail(rs.getString("email"));
                     result.setNickname(rs.getString("nickname"));
                     result.setAvatar(rs.getString("avatar"));
+                    result.setAccount_status(rs.getString("account_status"));
+
+                    // 为会员的用户获取开始和结束日期
+                    Date startDate = rs.getDate("start_date");
+                    Date endDate = rs.getDate("end_date");
+
+                    // 可以根据需要将这些日期设置为用户对象的属性或其他结构
+                    result.setMembershipStartDate(startDate);
+                    result.setMembershipEndDate(endDate);
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

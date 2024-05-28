@@ -9,6 +9,7 @@
     <script src="https://kit.fontawesome.com/ca18b065e2.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+
     <style>
         #song-list1 table {
             border-collapse: collapse; /* 使表格边框合并为一个单一的边框 */
@@ -59,7 +60,7 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.7); /* 透明度 */
-             z-index: 9999; /* 确保遮罩层在其他元素之上 */
+            z-index: 9999; /* 确保遮罩层在其他元素之上 */
         }
 
         /* 模态框内容样式 */
@@ -78,6 +79,21 @@
         }
 
     </style>
+
+    <style>
+        #wordTable tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        #wordTable tbody tr:hover {
+            background-color: #eef5ff;
+        }
+
+        #wordTable th, #wordTable td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
     <link rel="stylesheet" type="text/css" href="css/mylove.css">
 </head>
 <body>
@@ -85,9 +101,9 @@
     <div class="container-head">
         <!-- 左侧导航栏 -->
         <div class="main-left">
+
             <div class="main-item">
                 <div class="image">
-
                     <img src="{{avatar}}" width="50%">
                     <h3 class="user-name">{{nickname}}</h3>
                     <div class="hover-menu">
@@ -99,6 +115,14 @@
                     </div>
 
                 </div>
+                <li>
+                    <!--<div class="main-right" style="display: none">-->
+                    <div class="main-right-search">
+                        <input id="initial-search-input" type="text" placeholder="搜索">
+                        <!--<img src="image/搜索.png" width="3%">-->
+                        <!-- <i class="fa fa-magnifying-glass"></i>-->
+                    </div>
+                </li>
                 <ul>
                     <li>
                         <div class="music_title">在线音乐</div>
@@ -118,7 +142,7 @@
                                     <span>视频</span>
                                 </a>
                             </li>
-                            <li>
+                            <li id="music3">
                                 <a href="#">
                                     <!--<img src="image/电台.png" width="10%">-->
                                     <i class="fa fa-tower-broadcast"></i>
@@ -138,40 +162,40 @@
                                     <span>我的喜欢</span>
                                 </a>
                             </li>
-                            <li>
+             <!--               <li>
                                 <a href="#">
-                                    <!--<img src="image/短视频话题.png" width="10%">-->
+                                    &lt;!&ndash;<img src="image/短视频话题.png" width="10%">&ndash;&gt;
                                     <i class="fa fa-location-dot"></i>
                                     <span>本地与下载</span>
                                 </a>
-                            </li>
+                            </li>-->
                             <li id="music4">
                                 <a href="#">
                                     <i class="fa fa-rotate-right"></i>
                                     <span>最近播放</span>
                                 </a>
                             </li>
-                            <li>
+                            <li id="music6">
                                 <a href="#">
                                     <img src="image/音乐.png" width="10%">
                                     <span>我的收藏</span>
                                 </a>
                             </li>
-                            <li id="music5">
+                            <li id="music7">
                                 <a href="#" >
                                     <img src="image/短视频话题.png" width="10%">
-                                    <span>试听列表</span>
+                                    <span>上传的音乐</span>
                                 </a>
                             </li>
                         </ul>
                     <li>
-                        <div class="music_title">创建的歌单</div>
+                        <div class="music_title">创建与管理</div>
                         <ul class="main_left_subnav">
-                            <li>
+                            <li id="music9" style="display: none">
                                 <a href="#">
-                                   <!-- <img src="image/音乐.png" width="10%">-->
+                                    <!-- <img src="image/音乐.png" width="10%">-->
                                     <i class="fa fa-list"></i>
-                                    <span>默认列表</span>
+                                    <span>审核</span>
                                 </a>
                             </li>
                             <li>
@@ -180,56 +204,210 @@
                                     <span>新建歌单</span>
                                 </a>
                             </li>
+                            <li id="music13" onclick="showPayment()">
+                                <a href="#" >
+                                    <i class="fa fa-cart-shopping"></i>
+                                    <span>购买会员</span>
+                                </a>
+                            </li>
+                            <li id="music12">
+                                <a href="#">
+                                    <i class="fa fa-plus"></i>
+                                    <span>成为创作者</span>
+                                </a>
+                            </li>
+                            <li id="music10" style="display: none" onclick="showSensitiveWords()">
+                                <a href="#">
+                                    <i class="fa fa-bars-progress"></i>
+                                    <span>管理敏感词汇</span>
+                                </a>
+                            </li>
+                            <li id="music15" style="display: none">
+                                <a href="#">
+                                    <i class="fa-solid fa-tag"></i>
+                                    <span>管理标签</span>
+                                </a>
+                            </li>
+                            <li id="music16" style="display: none">
+                                <a href="#">
+                                    <i class="fa-solid fa-user"></i>
+                                    <span>管理用户</span>
+                                </a>
+                            </li>
+                            <br><br>
                         </ul>
                     </li>
                 </ul>
             </div>
         </div>
         <!-- 右侧导航栏 -->
-        <!--<div class="main-right" style="display: none">-->
+
         <div class="main-right">
-            <div id="2" style="display: none;">
-            <div class="playlist">
-                <img id="playlist-image"  src="{{avatar}}" alt="Playlist Image">
-                <div class="playlist-info"style="margin-right: 10px;">
-                    <div style="display: flex">
-                        <i style="margin-top: 8px;margin-right: 10px;border: 2px solid red;padding: 5px;font-family:'Microsoft YaHei', sans-serif;color: red; border-radius: 10px;">歌单</i>
-                        <h1 id="playlist-title"></h1>
+
+
+
+
+            <div id="9" style="display: none">
+                <h1 id="user-name" ></h1>
+                <div id="follows-list"></div>
+                <div id="followller-list"></div>
+            </div>
+
+
+            <div id="14" class="payment-container" style="display: none">
+                <div class="payment-header">
+                    <h2>模拟支付</h2>
+                </div>
+
+                <h4>选择支付结果:</h4>
+                <button class="payment-btn success" onclick="simulatePayment('SUCCESS')">模拟成功</button>
+                <button class="payment-btn failed" onclick="simulatePayment('FAILED')">模拟失败</button>
+            </div>
+            <div id="modalBackdrop66"></div>
+
+            <div id="13" style="font-family: Arial, sans-serif; padding: 40px; display: none; width: 80%; margin: 0 auto; box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); border-radius: 8px;">
+                <h2 style="text-align: center; border-bottom: 2px solid #e0e0e0; padding-bottom: 20px; margin-bottom: 30px;">敏感词汇管理</h2>
+
+                <div style="display: flex; justify-content: space-between; margin-bottom: 30px;">
+                    <div style="flex: 1; margin-right: 20px;">
+                        <label for="newWord">添加新的敏感词：</label>
+                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                            <input type="text" id="newWord" style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);">
+                            <button onclick="addWordToDb()" style="padding: 10px 15px; background-color: #007BFF; color: #fff; border: none; border-radius: 4px; cursor: pointer;">添加</button>
+                        </div>
                     </div>
 
-                    <div id="creator-date" style="display: flex; align-items: center;">
-                        <img id="creator-image"  src="{{avatar}}" width="5%" style="border-radius: 50%; margin-right: 15px;color: #005cbf">
-                        <a  href="#" id="playlist-creator" style="margin-right: 10px;" ></a>
-                        <p  style="margin-left: 10px;" id="playlist-date"></p><i style="margin-top: -2px">创建</i>
-                    </div>
-                    <div style=" display: inline-block;">
-                        <a href="#" style="margin-right:20px;" id="edit-button" >编辑</a>
-                        <a href="#" id="delete-button">删除</a>
-                    </div>
-
-<!--                    <a class="fa-sharp fa-regular fa-circle-play" href="#" id="play-all" style="margin-right: 685px;margin-left: 20px; padding: 10px 20px; background-color: red; color: white; border-radius: 5px; text-decoration: none;">播放全部</a>-->
-                    <a class="fa-sharp fa-regular fa-circle-play" href="#" id="play-all" style="margin-right: 700px;padding: 10px 30px; background-color: red; color: white; border-radius: 50px; text-decoration: none;">播放全部</a>
-                    <div style="display: flex;" >
-                        <p style="margin-top: -2px">标签：</p>
-                        <a href="#" id="tags" style="margin-right: 10px; color: blue" ></a>
-                    </div>
-                    <div id="count-info" style="display: flex; ">
-                        <p style="margin-top: -2px">歌曲数量：</p>
-                        <p id="song-count" style="margin-right: 10px; color: red" ></p>
-                        <p style="margin-top: -2px; margin-left: 30px;">播放次数：</p>
-                        <p id="play-count" style="color: red"></p>
-                        <div id="search-container">
-                            <input id="search" type="text" placeholder="搜索歌单音乐" />
-                            <i class="fa fa-magnifying-glass"></i>
+                    <div style="flex: 1;">
+                        <label for="searchWord">查询敏感词：</label>
+                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                            <input type="text" id="searchWord" style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);">
+                            <button onclick="searchWordInDb()" style="padding: 10px 15px; background-color: #007BFF; color: #fff; border: none; border-radius: 4px; cursor: pointer;">查询</button>
                         </div>
                     </div>
                 </div>
+
+                <div>
+                    <label style="display: block; margin-bottom: 10px;">现有敏感词汇：</label>
+                    <table id="wordTable" border="1" style="width: 100%; border-collapse: collapse; box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);">
+                        <thead>
+                        <tr style="background-color: #f5f5f5;">
+                            <th style="padding: 10px;">敏感词汇</th>
+                            <th style="padding: 10px;">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="wordList"></tbody>
+                    </table>
+                </div>
             </div>
-            <div class="tabs" >
-                <a href="#" id="song-list-tab">歌曲列表</a>
-                <a href="#" id="comments-tab">评论</a>
-                <a href="#" id="collectors-tab">收藏者</a>
+
+
+
+            <div class="container666" id="10" style="display: none;margin-top: 40px">
+
+                <div class="left666">
+                    <div class="title-section">
+                        <h1 id="dynamicTitle">动态</h1>
+                        <a href="#" class="link">写动态</a>
+                    </div>
+                    <ul id="dynamicList">
+                        <!-- 这里将通过JavaScript动态渲染列表内容 -->
+                    </ul>
+                </div>
+                <div class="int" ><!--style="width: 600px; margin: 0 auto; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);z-index: 1000;display: none;"-->
+                   <!-- <textarea id="content666" placeholder="在这里输入你的动态..." style="width: 100%; height: 200px; padding: 10px;"></textarea>-->
+                    <div id="content666" contenteditable="true" placeholder="在这里输入你的动态..." style="width: 100%; height: 200px; padding: 10px; border: 1px solid #ccc; overflow-y: auto;"></div>
+
+                    <div class="controls" style="margin-top: 10px; display: flex; justify-content: flex-start; align-items: center;">
+                        <button id="emoji-picker666" style="margin-right: 10px; padding: 5px 10px;">😀</button>
+                        <button id="img-picker" style="margin-right: 10px; padding: 5px 10px;">📷</button>
+                    </div>
+                    <div class="music-selection" style="margin-top: 10px; display: flex; flex-direction: column; align-items: flex-start;">
+                        <button id="music-choice" class="music-button">给动态配上音乐吧</button>
+                        <div id="show-music"></div>  <!--用来显示你选择的内容-->
+                    </div>
+                    <div id="image-search-list"></div> <!--用来显示选择的图片-->
+                    <button id="share" style="margin-right: 10px; padding: 5px 10px;">分享</button>
+                    <button id="cancell" style="margin-right: 10px; padding: 5px 10px;">取消</button>
+                    <!-- Music Modal -->
+                    <div id="musicModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:#fff; border-radius:5px; box-shadow: 0 0 10px rgba(0,0,0,0.1); z-index:1000; max-height:200px; overflow-y:auto;">
+                        <ul id="songList"></ul>
+                    </div>
+                </div>
             </div>
+
+
+            <div id="8" style="text-align: center;display: none">
+                <div id="search-bar" style="margin-bottom: 20px;">
+                    <input type="text" id="search-input" placeholder="搜索..." style="border-radius: 20px; border: 1px solid #ddd; padding: 10px;width: 50%"/>
+                    <button id="search-button" style="margin-left: 10px;">搜索</button>
+                </div>
+
+
+                <!-- 左对齐显示搜索结果 -->
+                <div id="search-results" style="text-align: left;margin-top: 60px;margin-bottom: 30px">
+                    <p id="search-message">搜索"<span id="search-term">xxxx</span>", 找到<span id="result-count">xxx</span><span id="result-type">xxx</span></p>
+                </div>
+
+                <!-- 选项按钮在同一行，没有间距 -->
+                <div id="options-bar" style="display: flex; justify-content: flex-start;">
+                    <button id="single-track-option" class="option" style="padding: 10px;width: 10%">单曲</button>
+                    <button class="option" style="padding: 10px;width: 10%">歌手</button>
+                    <button class="option" style="padding: 10px;width: 10%">歌单</button>
+                    <button class="option" style="padding: 10px;width: 10%">视频</button>
+                    <button class="option" style="padding: 10px;width: 10%">用户</button>
+                </div>
+
+                <div id="results-div">
+                    <div id="单曲" class="result-list" style="display: none;">单曲列表...</div>
+                    <div id="歌手" class="result-list" style="display: none;">歌手列表...</div>
+                    <div id="歌单" class="result-list" style="display: none;">歌单列表...</div>
+                    <div id="视频" class="result-list" style="display: none;">视频列表...</div>
+                    <div id="用户" class="result-list" style="display: none;">用户列表...</div>
+                </div>
+            </div>
+
+            <div id="2" style="display: none;">
+                <div class="playlist">
+                    <img id="playlist-image"  src="{{avatar}}" alt="Playlist Image">
+                    <div class="playlist-info"style="margin-right: 10px;">
+                        <div style="display: flex">
+                            <i style="margin-top: 8px;margin-right: 10px;border: 2px solid red;padding: 5px;font-family:'Microsoft YaHei', sans-serif;color: red; border-radius: 10px;">歌单</i>
+                            <h1 id="playlist-title"></h1>
+                        </div>
+
+                        <div id="creator-date" style="display: flex; align-items: center;">
+                            <img id="creator-image"  src="{{avatar}}" width="5%" style="border-radius: 50%; margin-right: 15px;color: #005cbf">
+                            <a  href="#" id="playlist-creator" style="margin-right: 10px;" ></a>
+                            <p  style="margin-left: 10px;" id="playlist-date"></p><i style="margin-top: -2px">创建</i>
+                        </div>
+                        <div style=" display: inline-block;">
+                            <a href="#" style="margin-right:20px;" id="edit-button" >编辑</a>
+                            <a href="#" id="delete-button">删除</a>
+                        </div>
+                        <a href="#" id="collect" >收藏</a>
+                        <!--                    <a class="fa-sharp fa-regular fa-circle-play" href="#" id="play-all" style="margin-right: 685px;margin-left: 20px; padding: 10px 20px; background-color: red; color: white; border-radius: 5px; text-decoration: none;">播放全部</a>-->
+                        <a class="fa-sharp fa-regular fa-circle-play" href="#" id="play-all" style="margin-right: 750px;padding: 10px 30px; background-color: red; color: white; border-radius: 50px; text-decoration: none;">播放全部</a>
+                        <div style="display: flex;" >
+                            <p style="margin-top: -2px">标签：</p>
+                            <a href="#" id="tags" style="margin-right: 10px; color: blue" ></a>
+                        </div>
+                        <div id="count-info" style="display: flex; ">
+                            <p style="margin-top: -2px">歌曲数量：</p>
+                            <p id="song-count" style="margin-right: 10px; color: red" ></p>
+                            <p style="margin-top: -2px; margin-left: 30px;">播放次数：</p>
+                            <p id="play-count" style="color: red"></p>
+                            <div id="search-container">
+                                <input id="search" type="text" placeholder="搜索歌单音乐" />
+                                <i class="fa fa-magnifying-glass"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tabs" >
+                    <a href="#" id="song-list-tab">歌曲列表</a>
+                    <a href="#" id="comments-tab">评论</a>
+                    <a href="#" id="collectors-tab">收藏者</a>
+                </div>
                 <div id="song-list1">
                     <table style="width: 100%;text-align: left;">
                         <colgroup>
@@ -271,90 +449,337 @@
                         </tbody>
                     </table>
                 </div>
+<!--                <div id="comment-section" style="display: none;">
+                    <div id="emoji-picker" style="display: none;"></div>
+                    <form id="comment-form">
+                        <textarea id="comment-input" rows="4" cols="50"></textarea>
+                        <div id="button-container">
+                            <img id="emoji-button" src="/upload/笑脸.png" alt="Emoji Picker Button" />
+                            <button type="submit" id="send-button">评论</button>
+                        </div>
+                    </form>
+                    <ul id="comment-display"></ul>
+                </div>-->
+
+                <div id="comment-section" style="display: none;">
+                    <div id="emoji-picker" style="display: none;"></div>
+                    <form id="comment-form">
+                        <div id="comment-input"  class="emoji-input" contenteditable="true" style="border: 1px solid #ccc; padding: 5px; min-height: 100px;"></div>
+                        <div id="selected-images-container"></div>
+                        <div id="button-container">
+                            <img id="emoji-button" class="emoji-button" src="/upload/笑脸.png" alt="Emoji Picker Button" />
+<!--                            <input type="file" id="image-input" accept="image/*" style="display: none;">
+                            <button type="button" onclick="document.getElementById('image-input').click();">📷</button>-->
+                            <button type="submit" id="send-button">评论</button>
+                        </div>
+                    </form>
+                    <ul id="comment-display"></ul>
+                    <br><br>
+                </div>
+
+
+                <div id="reply-popup" draggable="true" style="display: none; position: fixed; width: 200px;">
+                    <div id="reply-input" contenteditable="true" rows="4" cols="50"></div>
+                    <div style=" margin-left: -550px;">
+                        <img style="width: 40px;height: 40px;" id="emoji-button1" src="/upload/笑脸.png" alt="Emoji Picker Button" />
+                        <button id="reply-send">回复</button>
+                        <button id="cancel">取消</button>
+                    </div>
+                </div>
+
                 <div id="paginator"></div>
             </div>
 
-        <div id="1" style="display: none;">
-            <div class="main-right-search">
-                <input type="text" placeholder="搜索">
-                <!--<img src="image/搜索.png" width="3%">-->
-                <i class="fa fa-magnifying-glass"></i>
-            </div>
-            <div class="main-right-hd">
-                <h1>音乐馆</h1>
-            </div>
-            <div class="main-right-tab">
-                <a href="#">精选</a>
-                <a href="#">有声电台</a>
-                <a href="#">歌手</a>
-                <a href="#">排行</a>
-                <a href="#">分类歌单</a>
-                <a href="#">数字专辑</a>
-            </div>
-            <br><br><br><br><br><br>
-            <!-- 轮播图-->
-            <div class="carousel">
-                <div id="slider">
-                    <div class="slide">
-                        <img src="image/西湖1.jpg" alt="图片">
+            <div id="5" style="display: none;">
+                <div id="content" >
+                    <h1>我的收藏</h1>
+                    <div id="menu">
+                        <span id="artists-tab" class="active" style="top: 20px">歌手</span>
+                        <span id="videos-tab" >视频</span>
                     </div>
-                    <div class="slide">
-                        <img src="image/西湖2.jpg" alt="图片">
-                    </div>；
-                    <div class="slide">
-                        <img src="image/西湖3.jpg" alt="图片">
-                    </div>
-                    <div class="slide">
-                        <img src="image/西湖3.jpg" alt="图片">
-                    </div>
-                </div>
-                <div class="nav-button-container">
-                    <button id="prev" class="nav-button">上一张</button>
-                    <button id="next" class="nav-button">下一张</button>
-                </div>
-                <br> <br> <br>
-                <div class="main-right-switch">
-                    <a href="#" class="selected"></a>
-                    <a href="#"></a>
-                    <a href="#"></a>
-                    <a href="#"></a>
-                </div>
-            </div>
-            <!-- 歌单推荐-->
-            <div class="main-right-hot">
-                <h4>歌单推荐</h4>
-                <ul>
-                    <li>
-                        <img src="image/推荐歌单.png" alt=""/>
-                        <p>今天《恶作剧(0.8x)》爱不释耳私人雷达</p>
-                        <span class="hot_play"></span>
-                    </li>
-                    <li>
-                        <img src="image/推荐歌单1.png" alt=""/>
-                        <p>我想要你的爱，更想被你爱”0.8</p>
-                        <span class="hot_play"></span>
-                    </li>
-                    <li>
-                        <img src="image/推荐歌单2.png" alt=""/>
-                        <p>别在爱情里说反话08X</p>
-                        <span class="hot_play"></span>
-                    </li>
-                    <li>
-                        <img src="image/推荐歌单3.png" alt=""/>
-                        <p>爱你哇</p>
-                        <span class="hot_play"></span>
-                    </li>
-                </ul>
-            </div>
-            <br><br><br>
-            <!--新歌首发-->
-            <div class="main-right-hot">
-                <h4>新歌首发</h4>
-                <ul id="song-list">
+                    <br><br>
+                    <div id="artists6">
 
-                </ul>
+                    </div>
+                    <div id="videos">
+
+                    </div>
+                </div>
+                <div id="artist-list5"></div>
             </div>
-        </div>
+
+            <div id="uploading" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:#fff; padding:20px; border-radius:5px; box-shadow: 0 0 10px rgba(0,0,0,0.1); text-align:center; z-index:1010;">
+                上传中...
+                <div class="spinner" style="margin: 10px auto; width: 40px; height: 40px; border-radius: 50%; border: 4px solid transparent; border-top-color: #333; animation: spin 1s linear infinite;"></div>
+            </div>
+
+
+            <div id="1">
+
+                <div class="main-right-hd">
+                    <h1>音乐馆</h1>
+                </div>
+                <div class="main-right-tab">
+                    <a href="#" >精选</a>
+                    <a href="#" id="singer-link">歌手</a>
+                    <a href="#">排行</a>
+                    <a href="#" class="classfic">分类歌单</a>
+                </div>
+
+                <br><br>
+                <div id="7" style="display: none;">
+                    <div id="menu7" style="display: flex;justify-content: center;">
+                        <h3 id="artists-tab7" class="active" style="top: 20px;margin-right: 200px">歌曲</h3>
+                        <h3 id="videos-tab7" >歌单</h3>
+                    </div>
+                    <br><br>
+                    <div id="song-list7" style="display: none">
+                        <table>
+                            <colgroup>
+                                <col span="1" style="width: 35%;">
+                                <col span="1" style="width: 35%;">
+                                <col span="1" style="width: 35%;">
+                                <col span="1" style="width: 35%;">
+                            </colgroup>
+                            <thead>
+                            <tr style="padding: 0;background-color: #9fcdff;">
+                                <th style="padding: 0px;">歌曲名字</th>
+                                <th style="padding: 0px;">歌手名字</th>
+                                <th style="padding: 0px;">播放时间</th>
+                                <th style="padding: 0px;">播放次数</th>
+                            </tr>
+                            </thead>
+                            <tbody id="song-data7">
+                            <!-- 歌曲数据将会插入到这里 -->
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <div id="videos7"></div>
+                </div>
+
+
+                <div class="parent-container">
+                    <div id="language-filter" style="display: none;" class="flex-container">
+                        <h4>语种：</h4>
+                        <p id="language-filter2"><span>全部</span> <span>华语</span> <span>欧美</span> <span>岛国</span> <span>韩国</span> <span>其他</span></p>
+
+                    </div>
+                    <div id="letter-filter" style="display: none;" class="flex-container">
+                        <h4>筛选：</h4>
+                        <p id="letter-filter2"> <span>全部</span><span>A</span> <span>B</span> <span>C</span> <span>D</span> <span>E</span> <span>F</span> <span>G</span> <span>H</span> <span>I</span> <span>J</span> <span>K</span> <span>L</span> <span>M</span> <span>N</span> <span>O</span><span>P</span><span>Q</span> <span>R</span> <span>S</span> <span>T</span> <span>U</span> <span>V</span> <span>W</span> <span>X</span> <span>Y</span> <span>Z</span></p>
+                    </div>
+                        <div id="artist-list"></div>
+                </div>
+                <div class="parent-container">
+                    <div id="language" style="display: none;" class="flex-container">
+                        <h4>语种：</h4>
+                        <p id="language-filter3"><span>全部</span> <span>华语</span> <span>欧美</span> <span>民谣</span> <span>摇滚</span> <span>流行</span><span>电子</span></p>
+                    </div>
+                    <div id="plist-list"></div>
+                </div>
+                <br><br><br><br>
+                <!-- 轮播图-->
+                <div class="carousel">
+                    <div id="slider">
+                        <div class="slide">
+                            <img src="image/西湖1.jpg" alt="图片">
+                        </div>
+                        <div class="slide">
+                            <img src="image/西湖2.jpg" alt="图片">
+                        </div>；
+                        <div class="slide">
+                            <img src="image/西湖3.jpg" alt="图片">
+                        </div>
+                        <div class="slide">
+                            <img src="image/西湖3.jpg" alt="图片">
+                        </div>
+                    </div>
+                    <div class="nav-button-container">
+                        <button id="prev" class="nav-button">上一张</button>
+                        <button id="next" class="nav-button">下一张</button>
+                    </div>
+                    <br> <br> <br>
+                    <div class="main-right-switch">
+                        <a href="#" class="selected"></a>
+                        <a href="#"></a>
+                        <a href="#"></a>
+                        <a href="#"></a>
+                    </div>
+                </div>
+                <!-- 歌单推荐-->
+                <div class="main-right-hot">
+                    <h4>歌单推荐</h4>
+                    <ul id="play-list">
+                        <li>
+                            <img src="image/推荐歌单.png" alt=""/>
+                            <p>今天《恶作剧(0.8x)》爱不释耳私人雷达</p>
+                            <span class="hot_play"></span>
+                        </li>
+                        <li>
+                            <img src="image/推荐歌单1.png" alt=""/>
+                            <p>我想要你的爱，更想被你爱”0.8</p>
+                            <span class="hot_play"></span>
+                        </li>
+                        <li>
+                            <img src="image/推荐歌单2.png" alt=""/>
+                            <p>别在爱情里说反话08X</p>
+                            <span class="hot_play"></span>
+                        </li>
+                        <li>
+                            <img src="image/推荐歌单3.png" alt=""/>
+                            <p>爱你哇</p>
+                            <span class="hot_play"></span>
+                        </li>
+                    </ul>
+                </div>
+                <!--新歌首发-->
+                <div class="main-right-hot">
+                    <h4>推荐歌曲</h4>
+                    <ul id="song-list">
+                    </ul>
+                </div>
+
+            </div>
+
+
+            <div id="11" style="display: none">
+                <div id="header5">
+                    <h1 class="title5">上传的音乐</h1>
+<!--                    <div class="align-right">
+                        <a href="#" class="clear-Uploadmusic">清空列表</a>
+                    </div>-->
+                </div>
+                <div id="play-all-container11">
+                    <a class="fa-sharp fa-regular fa-circle-play play-all" href="#" id="play-alL11" style="margin-left: 20px;margin-bottom: 20px;margin-top: 30px; padding: 10px 30px;  background-color: red;color: white; border-radius: 50px; text-decoration: none;">播放全部</a>
+                    <a class="fa-solid fa-plus" href="#" id="Uploaded-music" style="margin-left: 20px;margin-bottom: 20px;margin-top: 30px; padding: 10px 30px;  background-color:#b3d7ff;color: white; border-radius: 50px; text-decoration: none;">上传音乐</a>
+                </div>
+                <div id="uploadmusic">
+                    <table>
+                        <colgroup>
+                            <col span="1" style="width: 40%;">
+                            <col span="1" style="width: 40%;">
+                            <col span="1" style="width: 40%;">
+                            <col span="1" style="width: 40%;">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>歌曲名字</th>
+                            <th>歌手名字</th>
+                            <th>时间</th>
+                            <th>状态</th>
+                        </tr>
+                        </thead>
+                        <tbody id="upload-music">
+                        <!-- 上传的歌曲数据将会插入到这里 -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="paginator11"></div>
+            </div>
+
+                <div class="upload-panel" style="text-align: center;">
+                    <div style="width: 300px; margin: 50px auto; text-align: center;">
+                        <!-- 标题 -->
+                        <h2>上传音乐</h2>
+
+                        <!-- 歌曲名和歌手名 -->
+                        <input type="text" placeholder="输入歌曲名" id="songName" style="margin: 10px 0; padding: 5px; width: 200px;">
+                        <input type="text" placeholder="输入歌手名" id="artistName" style="margin: 10px 0; padding: 5px; width: 200px;">
+
+                        <!-- 音频资料、音频歌词和音频头像 -->
+                        <div>
+                            <label for="songFile" style="display: block; margin-top: 10px;">音频资料:</label>
+                            <input type="file" id="songFile" accept="audio/*" style="margin: 10px 0;">
+                        </div>
+                        <div>
+                            <label for="lyricFile" style="display: block; margin-top: 10px;">音频歌词:</label>
+                            <input type="file" id="lyricFile" accept=".lrc" style="margin: 10px 0;">
+                        </div>
+                        <!-- 音频头像及预览 -->
+                        <div>
+                            <label for="avatarFile" style="display: block; margin-top: 10px;">音频头像:</label>
+                            <input type="file" id="avatarFile" accept="image/*" style="margin: 10px 0;">
+                            <!-- 图片预览框 -->
+                            <div style="margin-top: 10px;">
+                                <img id="avatarPreview" style="max-width: 200px; display: none;">
+                            </div>
+                        </div>
+                        <!-- 音频标签下拉选框 -->
+                        <div>
+                            <label for="tagSelect" style="display: block; margin-top: 10px;">音频标签:</label>
+                            <select id="tagSelect" style="margin: 10px 0; padding: 5px; width: 200px;"></select>
+                        </div>
+
+                        <div style="margin-top: 20px;">
+                            <button type="submit" id="submit" style="background-color: red;color: #FFFFFF ;border-radius: 10px; padding: 10px 20px; font-size: larger;">上传</button>
+                            <button type="button" id="cancelUpload" style="background-color: red;color: #FFFFFF; border-radius: 10px; padding: 10px 20px; font-size: larger; margin-left: 10px;">取消</button>
+                        </div>
+
+                    </div>
+                </div>
+
+            <div id="12" style="font-family: 'Arial', sans-serif; text-align: left;display: none">
+                <h1 class="title" style="margin-bottom: 50px; color: #333;">审核</h1>
+                <div class="buttons" style="display: flex; justify-content: center; align-items: center;margin-bottom: 30px;">
+                    <a id="songReviewButton" style="/*background-color: red;*/ color: black; padding: 15px 30px; border: none; cursor: pointer; transition: background-color 0.3s; border-radius: 5px; margin-right: 100px;">审核歌曲</a>
+                    <a id="imageReviewButton" style="/*background-color: red;*/ color: black; padding: 15px 30px; border: none; cursor: pointer; transition: background-color 0.3s; border-radius: 5px; margin-right: 100px;">审核图片</a>
+                    <a id="songsReviewButton" style="/*background-color: red;*/ color:  black; padding: 15px 30px; border: none; cursor: pointer; transition: background-color 0.3s; border-radius: 5px; margin-right: 100px;">歌曲管理</a>
+                    <a id="artistReviewButton" style="/*background-color: #9fcdff;*/ color: black; padding: 15px 30px; border: none; cursor: pointer; transition: background-color 0.3s; border-radius: 5px;">审核歌手认证</a>
+                </div>
+                    <div id="songReviewList" class="hidden" style="display: none">
+                        <table>
+                            <colgroup>
+                                <col span="1" style="width: 40%;">
+                                <col span="1" style="width: 40%;">
+                                <col span="1" style="width: 40%;">
+                                <col span="1" style="width: 40%;">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>歌曲名字</th>
+                                <th>歌手名字</th>
+                                <th>时间</th>
+                                <th>状态</th>
+                            </tr>
+                            </thead>
+                            </thead>
+                            <tbody id="songReview-List">
+                            <!-- 歌曲审核列表项目 -->
+                            </tbody>
+                        </table>
+                        <div id="paginationButtons" class="pagination-container"></div>
+
+                    </div>
+                <div id="songsReviewList" class="hidden" style="display: none">
+                    <table>
+                        <colgroup>
+                            <col span="1" style="width: 40%;">
+                            <col span="1" style="width: 40%;">
+                            <col span="1" style="width: 40%;">
+                            <col span="1" style="width: 40%;">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>歌曲名字</th>
+                            <th>歌手名字</th>
+                            <th>时间</th>
+                            <th>等级</th>
+                        </tr>
+                        </thead>
+                        <tbody id="songsReview-List">
+                        <!-- 歌曲审核列表项目 -->
+                        </tbody>
+                    </table>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+                <div id="artistReviewList" class="hidden">
+                    <!-- 歌手认证审核列表项目 -->
+                </div>
+            </div>
 
             <div id="4" style="display: none">
                 <div id="header4">
@@ -374,6 +799,7 @@
                             <col span="1" style="width: 40%;">
                             <col span="1" style="width: 40%;">
                             <col span="1" style="width: 40%;">
+
                         </colgroup>
                         <thead>
                         <tr>
@@ -390,14 +816,13 @@
                 <div id="paginator4"></div>
             </div>
 
-
             <div id="3" style="display: none">
                 <div class="playlist1">
                     <img id="playlist-image1" src="{{avatar}}" alt="Playlist Image" style="border-radius: 50%;">
                     <div class="playlist-info">
                         <h1 id="playlist-title1">梓梓向阳</h1>
                         <div style="margin-top: 20px;">
-                            <a class="fa-regular fa-plus"href="#" id="edit-info1"style="transform: scale(0.9);color:#0b2e13;border: 2px solid #FF6347;">关注</a>
+                            <a class="fa-regular fa-plus"href="#" id="edit-info1"style="transform: scale(0.9);color:#0b2e13;border: 2px solid #FF6347;margin-right: 250px">关注</a>
                             <a href="#"  id="edit-info" onclick="showSettingsModal()">编辑信息</a>
                         </div>
                         <div class="underline"></div>
@@ -427,18 +852,55 @@
                 <div class="tabs1">
                     <a href="#" id="song-list-tab1" style="margin-left: 20px; text-decoration: none; font-size: 25px;color: black" >创建的歌单</a>
                     <a href="#" id="comments-tab1" style="margin-left: 20px; text-decoration: none; font-size: 25px;color: black">收藏的歌单</a>
-                    <a href="#" id="collectors-tab1" style="margin-left: 20px; text-decoration: none;font-size: 25px;color: black">收藏者</a>
                 </div>
                 <div id="playlists-container" style="display: none"></div>
+                <div id="playlists-container1" style="display: none"></div>
 
             </div>
+
+            <!---->
+
+            <div id="6" style="display: none">
+                <div class="playlist1">
+                    <img id="playlist-image6" src="{{avatar}}" alt="Playlist Image" style="width: 300px;height:300px;">
+                    <div class="playlist-info">
+                        <h1 id="playlist-title6" style=" margin-bottom: 50px;">梓梓向阳</h1>
+                        <button id="collectButton" style="background-color: red; border-radius: 12px; margin-bottom: 40px; border: none; padding: 10px 10px; font-size: 15px;color: #FFFFFF;cursor: pointer;margin-right: 250PX;">收藏</button>
+
+
+
+                        <div style="display: flex">
+                            <p style=" margin-bottom: 50px;">歌曲数量: </p><span id="num">0</span>
+                        </div>
+                        <div style="display:flex">
+                            <p style=" margin-bottom: 30px;">歌单数量: </p><span id="playList-num">0</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <br><br>
+
+                <div class="tabs1">
+                    <a href="#" id="song-list-tab2" style="margin-left: 20px; text-decoration: none; font-size: 30px;color: black" >歌单</a>
+                    <a href="#" id="comments-tab2" style="margin-left: 20px; text-decoration: none; font-size: 30px;color: black">个人简介</a>
+                </div>
+                <div id="artists-playlist"></div> <!--歌单列表--->
+                <div id="bio" style="white-space: pre;margin-left: 25px"></div> <!--个人简介--->
+                <br><br>
+            </div>
+            <br><br>
+           <!-- <iframe id="main-iframe" style="width: 100%; height: 100%; border: none;"></iframe>-->
             <!----->
         </div>
+
+
+
     </div>
     <div class="lyrics-panel" style="display: none;">
         <div class="song-details-panel">
             <div class="image-container">
-                <img src="image/推荐歌单2.png" alt="Song Image" class="song-image">
+                <img src="image/推荐歌单2.png" alt="Song Image" class="song-image" id="song-image666">
                 <h2 class="song-name-panel"></h2>
                 <br>
                 <h3 class="artist-name-panel"></h3>
@@ -448,20 +910,21 @@
                 歌词在这里...
             </div>
         </div>
-        <button class="hide-btn">收回</button>
+<!--        <button class="hide-btn">收回</button>-->
+
     </div>
 
     <div class="current-lyric" style="display: none;"></div>
 
 
-   <!-- 底部框-->
+    <!-- 底部框-->
     <footer>
         <audio id="audio-player" style="display: none;"></audio>
         <div class="footer_list">
             <div class="footer-left">
-                <img src="" alt="Song Image">
+                <img src="/upload/小猪.png" alt="Song Image">
                 <div class="song-details">
-                    <h2 class="song-name">播放列表无音乐</h2>
+                    <h2 class="song-name">列表无音乐</h2>
                     <p class="artist-name">请选择播放音乐</p>
                 </div>
             </div>
@@ -491,9 +954,12 @@
                 <a href="#" class="fa-solid fa-list" id="list666"></a>
                 <a href="#" class="fa-solid fa-heart" id="heart-icon-solid" style="color: #d70f2d; display: none;"></a>
                 <a href="#" class="fa-regular fa-heart" id="heart-icon-regular"></a>
+                <a href="#" class="fa-solid fa-arrow-down" id="download-link"></a>
             </div>
         </div>
     </footer>
+
+
 
     <div id="playlist1">
         <div class="header1">
@@ -523,6 +989,8 @@
             <span id="idcard"></span><br>
             <label>邮箱:</label><br>
             <span id="email"></span><br>
+            <label>会员到期时间:</label><br>
+            <span id="My-member"></span><br>
             <label for="nickname">昵称:</label><br>
             <input type="text" class="nickname1" id="nickname" name="nickname" value=""><br>
             <img id="avatarImage" src="" alt="头像">
@@ -535,6 +1003,21 @@
     <div>
 
 
+        <div id="downloadModal" class="modal6">
+            <div class="modal-content">
+                <h4>下载音乐</h4>
+                <p id="song-info">歌曲名称 - 歌手名字</p>
+                <ul class="download-links">
+                    <li><a href="#">下载音乐</a></li>
+                    <li><a href="#">下载封面</a></li>
+                    <li><a href="#">下载歌词</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="modalBackdrop"></div>
+
+
+
         <div id="create-playlist-modal" class="modal1">
             <div class="modal1-content">
                 <span class="close">&times;</span>
@@ -544,7 +1027,7 @@
                     <input type="file" id="avatar2">
                 </div>
 
-                <input type="text" id="creatplaylist-title" placeholder="请输入新建歌单标题" style="margin-left: 135px; width: 300px; border-radius: 5px; padding: 5px;">
+                <input type="text" id="creatplaylist-title" placeholder="请输入新建歌单标题" style="margin-left: 150px; width: 300px; border-radius: 5px; padding: 5px;">
                 <div class="button-container">
                     <button id="create-button" disabled style="border-radius: 10px;margin-top: 5px">创建</button>
                 </div>
@@ -576,28 +1059,32 @@
             <div id="tagPopup" class="tag-popup" >
                 <div>
                     <a href="#" class="tag-option">华语</a>
-                    <a href="#" class="tag-option">说唱</a><br>
+                    <a href="#" class="tag-option">说唱</a>
                     <a href="#" class="tag-option">欧美</a>
                     <a href="#" class="tag-option">流行</a>
-                    <a href="#" class="tag-option">emo</a>
-                    <a href="#" class="tag-option">刘洋</a><br>
-                    <a href="#" class="tag-option">刘洋</a>
-                    <a href="#" class="tag-option">刘洋</a>
+                    <a href="#" class="tag-option">民谣</a>
+                    <a href="#" class="tag-option">电子</a>
                 </div>
             </div>
         </div>
 
         <div class="success-message" id="successMessage">操作成功</div>
         <div class="fail-message" id="failMessage">操作失败</div>
-
-
+        <div class="collect-message" id="collectMessage">收藏成功</div>
+        <div class="failcollect-message" id="failcollectMessage">收藏失败</div>
+        <div class="fail-send" id="failsend">请至少填写内容、选择图片或选择歌曲/歌单中的一个</div>
 
     </div>
+
+
 </div>
 
-
+<div id="lightbox" style="display: none;position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); z-index: 1000; overflow-y: auto; align-items: center; justify-content: center; ">
+    <img id="lightbox-image" src="" style="max-width: 90%; max-height: 90%;">
+</div>
 
 <script src="js/home.js"></script>
 
+</script>
 </body>
 </html>

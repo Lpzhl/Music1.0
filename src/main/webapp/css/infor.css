@@ -22,7 +22,7 @@ label {
     font-weight: bold;
 }
 
-#idcard, #email {
+#idcard, #email, #My-member{
     display: block;
     padding: 5px;
     margin-bottom: 15px;

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.music.mapper.LikesMapper">
+
+    <!-- 获取指定动态的所有评论信息以及对应的发送者信息 -->
+    <select id="getPostCommentsWithUserDetails" resultType="com.music.app.CommentDetail">
+        SELECT
+        c.id AS id,
+        c.content AS content,
+        c.comment_time AS commentTime,
+        c.parent_id AS parentId,
+        c.top_level_comment_id AS topLevelCommentId,
+        u.id AS userId,
+        u.username AS username,
+        u.nickname AS nickname,
+        u.avatar AS avatar
+        FROM comments c
+        JOIN users u ON c.user_id = u.id
+        WHERE c.user_posts_id = #{postId}
+        ORDER BY c.comment_time DESC
+
+    </select>
+
+
+    <insert id="insertLikeForPost" parameterType="map">
+        INSERT INTO likes(user_id, user_posts_id) VALUES (#{userId}, #{postId})
+    </insert>
+
+
+    <delete id="deleteLikeForPost" parameterType="map">
+        DELETE FROM likes
+        WHERE user_id = #{userId} AND user_posts_id = #{postId}
+    </delete>
+
+    <!-- 获取指定postId的总点赞数 -->
+    <select id="getTotalLikesForPost" resultType="int" parameterType="map">
+        SELECT COUNT(*) FROM likes WHERE user_posts_id = #{postId}
+    </select>
+
+    <!-- 检查特定用户是否已经点赞了指定的postId -->
+    <select id="hasUserLikedPost" resultType="int" parameterType="map">
+        SELECT COUNT(*)
+        FROM likes
+        WHERE user_id = #{userId}
+        AND user_posts_id = #{postId}
+    </select>
+
+    <insert id="insertComment" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO comments (user_id, parent_id, top_level_comment_id, playlist_id, song_id, user_posts_id, content, comment_time)
+        VALUES (#{userId}, #{parentId}, #{topLevelCommentId}, #{playlistId}, #{songId}, #{userPostsId}, #{content}, #{commentTime})
+    </insert>
+
+
+
+    <select id="getCommentCountByPostId" resultType="int">
+        SELECT COUNT(*) FROM comments WHERE user_posts_id = #{postId}
+    </select>
+
+</mapper>

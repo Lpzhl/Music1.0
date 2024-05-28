@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="js/axios.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>标签管理</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      padding: 40px;
+      width: 80%;
+      margin: 0 auto;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+    h2 {
+      text-align: center;
+      border-bottom: 2px solid #e0e0e0;
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+    }
+    .form-group {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+    }
+    .form-group input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+    .form-group button {
+      padding: 10px 15px;
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border: 1px solid #ccc;
+    }
+    th {
+      background-color: #f5f5f5;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>标签管理</h2>
+
+  <div class="form-group">
+    <div>
+      <label for="newTag">添加新标签：</label>
+      <div>
+        <input type="text" id="newTag">
+        <button onclick="addTag()">添加</button>
+      </div>
+    </div>
+
+    <div>
+      <label for="searchTag">查询标签：</label>
+      <div>
+        <input type="text" id="searchTag">
+        <button onclick="searchTag()">查询</button>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <label>现有标签：</label>
+    <table>
+      <thead>
+      <tr>
+        <th>标签</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody id="tagList"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  const tagSet = new Set(); // 使用 Set 存储标签
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // 使用Axios获取所有的标签并更新到HashSet
+    axios.get('/Music1_0_war/manage/gettags')
+            .then(response => {
+              tagSet.clear(); // 清空旧数据
+              response.data.forEach(tag => tagSet.add(tag)); // 将后端返回的标签数据添加到 tagSet 中
+              updateTagList(); // 更新标签列表
+            })
+            .catch(error => {
+              console.error("Error fetching tags:", error);
+            });
+  });
+
+  function addTag() {
+    const newTagInput = document.getElementById('newTag');
+    const newTag = newTagInput.value.trim();
+
+    if (newTag) {
+      axios.get(`/Music1_0_war/manage/addTags?newTag=${encodeURIComponent(newTag)}`)
+              .then(response => {
+                tagSet.add(newTag); // 添加标签到 Set
+                updateTagList();
+                newTagInput.value = ''; // 清空输入框
+              })
+              .catch(error => {
+                console.error("Error adding tag:", error);
+              });
+    }
+  }
+
+
+  function deleteTag(tag) {
+    axios.get(`/Music1_0_war/manage/deleteTags?tagToDelete=${encodeURIComponent(tag)}`)
+            .then(response => {
+              tagSet.delete(tag); // 从 Set 删除标签
+              updateTagList();
+            })
+            .catch(error => {
+              console.error("Error deleting tag:", error);
+            });
+  }
+
+
+  function searchTag() {
+    const searchTagInput = document.getElementById('searchTag');
+    const searchQuery = searchTagInput.value.trim().toLowerCase();
+
+    if (searchQuery) {
+      const filteredTags = Array.from(tagSet).filter(tag => tag.toLowerCase().includes(searchQuery));
+      updateTagList(filteredTags);
+    } else {
+      updateTagList();
+    }
+  }
+
+  function updateTagList(tags = Array.from(tagSet)) {
+    const tagList = document.getElementById('tagList');
+    tagList.innerHTML = '';
+
+    for (const tag of tags) {
+      const row = document.createElement('tr');
+      const tagNameCell = document.createElement('td');
+      tagNameCell.textContent = tag;
+      row.appendChild(tagNameCell);
+
+      const actionCell = document.createElement('td');
+      const deleteButton = document.createElement('button');
+      deleteButton.textContent = '删除';
+      deleteButton.onclick = () => {
+        deleteTag(tag); // 删除标签逻辑
+      };
+      actionCell.appendChild(deleteButton);
+      row.appendChild(actionCell);
+
+      tagList.appendChild(row);
+    }
+  }
+
+  // 初始化标签列表
+  updateTagList();
+</script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+.playlist {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: auto;
+    padding: 0 20px;
+}
+
+#playlist-image1 {
+    height: 300px;
+    width: 300px;
+    object-fit: cover;
+}
+
+.playlist-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+}
+
+#edit-info {
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    margin-left: 800px;
+}
+
+#playlist-title1 {
+    margin-top: 5px; /* Adjust the top margin */
+}
+.link-container {
+    display: flex;
+    justify-content: space-between;
+    width: 150px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.link-item {
+    text-align: center;
+    margin: 0 15px;
+}
+
+.tabs {
+    display: flex;
+    padding: 10px 20px;
+}
+
+.info-row {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+
+.underline {
+    border-top: 2px solid #1d2124;
+    width: 100%;
+    margin: 10px 0;
+}
+
+/* New styles to remove underlines from link items and add vertical lines */
+.link-item {
+    text-align: center;
+    margin: 0 15px;
+    text-decoration: none; /* Remove underline */
+    position: relative;
+}
+
+.link-item:before,
+.link-item:after {
+    content: "";
+    position: absolute;
+    border: 1px solid #1d2124;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 15px;
+    width: 0;
+}
+
+.link-item:before {
+    left: -15px; /* Position the left vertical line */
+}
+
+.link-item:after {
+    right: -15px; /* Position the right vertical line */
+}

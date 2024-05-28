@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>音乐人实名认证</title>
+  <script src="js/axios.min.js"></script>
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .container {
+      text-align: center;
+      width: 360px;
+      padding: 30px;
+      border-radius: 10px;
+      background-color: #ffffff;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      margin-top: 0;
+      color: #333333;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      height: 100px;
+    }
+    label {
+      display: block;
+      text-align: left;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #555555;
+    }
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      cursor: pointer;
+      margin-bottom: 15px;
+    }
+    .submit-button {
+      background-color: #ff4136;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    .view-records-link {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: red; /* 添加红色背景 */
+      color: white; /* 设置文本颜色为白色 */
+      text-decoration: none; /* 去掉下划线 */
+      padding: 5px 10px; /* 添加内边距 */
+      border-radius: 4px; /* 添加圆角边框 */
+    }
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>音乐人实名认证</h1>
+  <label for="artistName">艺人名：</label>
+  <input type="text" id="artistName">
+
+  <label for="avatar">艺人头像：</label>
+  <label for="avatar" class="avatar-label">
+    <img src="" alt="头像" class="avatar" id="avatarPreview">
+    <input type="file" id="avatar" style="display: none;">
+  </label>
+
+  <label for="genre">风格流派：</label>
+  <select id="genre">
+    <option value="华语">华语</option>
+    <option value="欧美">欧美</option>
+    <option value="岛国">岛国</option>
+    <option value="韩国">韩国</option>
+    <option value="其他">其他</option>
+  </select>
+
+  <label for="introduction">介绍：</label>
+  <textarea id="introduction" placeholder="请控制在10-1000个字，可以填写个人信息、代表作品、创作经历、有自己特色的信息等等，好的介绍可以更吸引更多粉丝关注哦)"></textarea>
+
+  <button class="submit-button" id="submitButton">提交</button>
+</div>
+<div id="uploading" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:#fff; padding:20px; border-radius:5px; box-shadow: 0 0 10px rgba(0,0,0,0.1); text-align:center; z-index:1010;">
+  提交中...
+  <div class="spinner" style="margin: 10px auto; width: 40px; height: 40px; border-radius: 50%; border: 4px solid transparent; border-top-color: #333; animation: spin 1s linear infinite;"></div>
+</div>
+
+
+<a href="#" id="viewRecordsLink" class="view-records-link">查看提交记录</a>
+
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+
+    const viewRecordsLink = document.getElementById("viewRecordsLink");
+
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    if (urlParams.has("user")) {
+      const userInfoString = urlParams.get("user");
+      const userss = JSON.parse(decodeURIComponent(userInfoString));
+
+      viewRecordsLink.addEventListener("click", function() {
+        const userInfoString = encodeURIComponent(JSON.stringify(userss.id));
+        window.location.href = "/Music1_0_war/authentication_records.html?user_id=" + userInfoString;
+      });
+
+    }
+
+    const avatarInput = document.getElementById("avatar");
+    const avatarPreview = document.getElementById("avatarPreview");
+
+    avatarInput.addEventListener("change", function(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function() {
+          avatarPreview.src = reader.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+
+    const submitButton = document.getElementById("submitButton");
+    let isSubmitting = false; // 标志是否正在提交
+
+    submitButton.addEventListener("click", function() {
+
+      // 显示"上传中"元素
+      const uploading = document.getElementById('uploading');
+      uploading.style.display = 'block';
+
+      if (isSubmitting) {
+        return; // 如果正在提交，则不响应重复点击
+      }
+
+      const artistName = document.getElementById("artistName").value;
+      const genre = document.getElementById("genre").value;
+      const introduction = document.getElementById("introduction").value;
+      const avatarInput = document.getElementById("avatar");
+      const avatarFile = avatarInput.files[0];
+
+      // 验证是否填写了必要信息
+      if (!artistName || !genre || !introduction || !avatarFile) {
+        alert("请填写所有信息");
+        return;
+      }
+
+      // 获取申请者的 user_id
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      if (urlParams.has("user")) {
+        const userInfoString = urlParams.get("user");
+        const userss = JSON.parse(decodeURIComponent(userInfoString));
+        const user_id = userss.id;
+        // 使用 setTimeout 延迟2秒
+        setTimeout(function() {
+          // 隐藏"上传中"元素
+          uploading.style.display = 'none';
+        // 创建 FormData 对象并添加数据
+        const formData = new FormData();
+        formData.append("user_id", user_id);
+        formData.append("artistName", artistName);
+        formData.append("genre", genre);
+        formData.append("introduction", introduction);
+        formData.append("avatar", avatarFile);
+
+        // 发送数据到后端
+        isSubmitting = true; // 设置正在提交标志
+
+        axios .post("/Music1_0_war/user/authentication", formData, {
+              headers: {
+                "Content-Type": "multipart/form-data,charset=UTF-8"
+              },
+            })
+            .then(function(response) {
+              // 处理后端返回的响应
+              console.log("提交成功", response);
+              alert(response.data)
+              isSubmitting = false; // 重置提交标志
+            }).catch(function(error) {
+              console.error("提交失败", error);
+               alert(response.data)
+              isSubmitting = false; // 重置提交标志
+            });
+        }, 2000);
+      }
+    });
+  });
+</script>
+</body>
+</html>

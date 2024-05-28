@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.music.mapper.MembershipMapper">
+
+    <!-- 插入支付记录 -->
+    <insert id="insertPaymentRecord" parameterType="com.music.app.PaymentRecord">
+        INSERT INTO payment_records (user_id, payment_date, status)
+        VALUES (#{userId}, #{paymentDate}, #{status})
+    </insert>
+
+    <!-- 根据用户ID获取会员信息 -->
+    <select id="getMembershipByUserId" resultType="com.music.app.UserMembership">
+        SELECT * FROM user_membership WHERE user_id = #{userId}
+    </select>
+
+    <!-- 插入新的会员记录 -->
+    <insert id="insertMembership" parameterType="com.music.app.UserMembership">
+        INSERT INTO user_membership (user_id, start_date, end_date)
+        VALUES (#{user_Id}, #{start_date}, #{end_date})
+    </insert>
+
+    <!-- 更新会员信息 -->
+    <update id="updateMembership" parameterType="com.music.app.UserMembership">
+        UPDATE user_membership
+        SET start_date = #{start_date}, end_date = #{end_date}
+        WHERE user_id = #{user_Id}
+    </update>
+
+
+    <!-- 根据用户ID获取用户信息 -->
+    <select id="getUserById" resultType="com.music.app.User">
+        SELECT * FROM users WHERE id = #{userId}
+    </select>
+
+    <!-- 更新用户信息 -->
+    <update id="updateUser" parameterType="com.music.app.User">
+        UPDATE users
+        SET
+        username = #{username},
+        password = #{password},
+        email = #{email},
+        nickname = #{nickname},
+        avatar = #{avatar},
+        is_member = #{is_member},
+        user_type = #{user_type}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateUserMembershipStatus">
+        UPDATE users
+        SET is_member = #{is_member}
+        WHERE id = #{user_id}
+    </update>
+
+    <!-- 获取当前用户的会员信息 -->
+    <select id="getUserMembership" resultType="com.music.app.UserMembership">
+        SELECT um.user_id, um.start_date, um.end_date
+        FROM user_membership um
+        WHERE um.user_id = #{user_Id}
+    </select>
+
+
+
+    <resultMap id="userMap" type="com.music.app.User">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="email" column="email"/>
+        <result property="nickname" column="nickname"/>
+        <result property="avatar" column="avatar"/>
+        <result property="remember" column="remember"/>
+        <result property="bio" column="bio"/>
+        <result property="genre" column="genre"/>
+        <result property="user_type" column="user_type"/>
+        <result property="is_member" column="is_member"/>
+        <result property="account_status" column="account_status"/>
+
+
+        <association property="userMembership" javaType="com.music.app.UserMembership">
+            <result property="user_Id" column="user_Id"/>
+            <result property="start_date" column="m_start_date"/>
+            <result property="end_date" column="m_end_date"/>
+        </association>
+    </resultMap>
+
+    <select id="getUserWithMembership" resultMap="userMap">
+        SELECT
+        u.id,
+        u.username,
+        u.password,
+        u.email,
+        u.nickname,
+        u.avatar,
+        u.user_type,
+        u.is_member,
+        u.account_status,
+        m.user_id as "user_Id",
+        m.start_date as "m_start_date",
+        m.end_date as "m_end_date"
+        FROM
+        users u
+        LEFT JOIN
+        user_membership m ON u.id = m.user_id
+        WHERE
+        u.id = #{userId}
+    </select>
+
+    <!-- 升级歌曲为会员歌曲 -->
+    <update id="upgradeToMemberSong" parameterType="int">
+        UPDATE songs
+        SET is_member_song = TRUE
+        WHERE id = #{songId}
+    </update>
+
+    <!-- 降级歌曲为普通歌曲 -->
+    <update id="tierDownSong" parameterType="int">
+        UPDATE songs
+        SET is_member_song = FALSE
+        WHERE id = #{songId}
+    </update>
+
+</mapper>

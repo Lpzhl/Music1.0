@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+
+  </style>
+</head>
+<body>
+
+
+<!-- 选择框 -->
+<select id="options" multiple>
+  <option value="前端">前端</option>
+  <option value="思维">思维</option>
+  <option value="题解">题解</option>
+  <option value="算法">算法</option>
+</select>
+
+<!-- 标签显示区域 -->
+<div id="tags"></div>
+
+<script>
+  let selectedOptions = []; // 保存选中的选项
+
+  // 当选择框变化时更新选中的选项并生成标签
+  document.getElementById('options').addEventListener('change', function(e) {
+    selectedOptions = Array.from(e.target.selectedOptions).map(option => option.value);
+    updateTags();
+  });
+
+  // 更新标签显示区域
+  function updateTags() {
+    const tagsDiv = document.getElementById('tags');
+    tagsDiv.innerHTML = ''; // 清空原有的标签
+    selectedOptions.forEach(optionValue => {
+      const tag = document.createElement('button');
+      tag.innerText = optionValue;
+      tag.addEventListener('click', function() {
+        // 移除被点击的标签
+        selectedOptions = selectedOptions.filter(value => value !== optionValue);
+        updateTags();
+        updateSelectBox();
+      });
+      tagsDiv.appendChild(tag);
+    });
+  }
+
+  // 更新选择框的选项状态
+  function updateSelectBox() {
+    const selectBox = document.getElementById('options');
+    for (const option of selectBox.options) {
+      if (selectedOptions.includes(option.value)) {
+        option.selected = true;
+      } else {
+        option.selected = false;
+      }
+    }
+  }
+
+</script>
+</body>
+</html>

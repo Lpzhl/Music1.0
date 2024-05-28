@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace:名称空间-->
+<mapper namespace="com.music.mapper.UploadedmusicMapper">
+
+<!--    <insert id="insertUploadedMusic">
+        INSERT INTO uploaded_music (
+        song_name, artist_name, song_file, lyric_file, avatar_file, status, user_id
+        ) VALUES (
+        #{songName}, #{artistName}, #{songFile}, #{lyricFile}, #{avatarFile}, #{status}, #{userId}
+        )
+    </insert>-->
+    <insert id="insertSong" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO songs (
+        name, artist, filepath, lyric, avatar, status, artist_id, tag_id
+        ) VALUES (
+        #{name}, #{artist}, #{filepath}, #{lyric}, #{avatar}, #{status}, #{artist_id}, #{tag_id}
+        )
+    </insert>
+
+    <select id="getSongsWithStatusReviewing" resultType="com.music.app.Song">
+        SELECT * FROM songs WHERE status = '审核中'
+    </select>
+
+    <select id="findSongByUserAndFilename" resultType="integer">
+        SELECT COUNT(*)
+        FROM songs
+        WHERE filepath = #{songFileName} AND artist_id = #{userId}
+    </select>
+
+    <select id="getSongById" resultType="com.music.app.Song">
+        SELECT id, name, artist, album, avatar, filepath, lyric, version, play_count, artist_id, status
+        FROM songs
+        WHERE id = #{id}
+    </select>
+    <select id="getSongsByUserId" resultType="com.music.app.Song">
+        SELECT * FROM songs WHERE artist_id = #{userId}
+    </select>
+
+    <update id="updateSongStatusToAccepted">
+        UPDATE songs SET status = '已通过' WHERE id = #{songId}
+    </update>
+
+    <!-- 添加获取标签ID的映射方法 -->
+    <select id="getTagIdByName" resultType="int">
+        SELECT id FROM tags WHERE name = #{tagName}
+    </select>
+</mapper>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.music.mapper.ManageMapper">
+
+
+    <select id="getAllWords" resultType="string">
+        SELECT word FROM sensitive_words
+    </select>
+
+    <update id="updateUserAccountStatus" parameterType="com.music.app.User">
+        UPDATE users SET account_status = #{user.account_status} WHERE id = #{user.id}
+    </update>
+
+    <insert id="addWord">
+        INSERT INTO sensitive_words (word) VALUES (#{word})
+    </insert>
+
+
+    <delete id="removeWord">
+        DELETE FROM sensitive_words WHERE word = #{word}
+    </delete>
+
+
+    <select id="getAlltags" resultType="string">
+        SELECT name FROM tags
+    </select>
+
+    <insert id="addTag">
+        INSERT INTO tags (name) VALUES (#{tag})
+    </insert>
+
+    <delete id="deleteTag">
+        DELETE FROM tags WHERE name = #{tag}
+    </delete>
+
+    <select id="getAllUsers" resultType="com.music.app.User">
+        SELECT * FROM users;
+    </select>
+
+    <update id="promoteUserToAdmin" parameterType="int">
+        UPDATE users
+        SET user_type = 'ADMIN'
+        WHERE id = #{userId}
+    </update>
+
+    <!-- 降级管理员为用户 -->
+    <update id="demoteAdminToUser" parameterType="int">
+        UPDATE users
+        SET user_type = 'USER'
+        WHERE id = #{userId}
+    </update>
+</mapper>

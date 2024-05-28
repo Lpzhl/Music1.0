@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <script src="js/axios.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>用户管理</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    #header {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    #container {
+      width: 80%;
+      margin: auto;
+      padding: 2rem;
+      background-color: #fff;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    th, td {
+      padding: 0.5rem;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f4f4f4;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #555;
+    }
+    .permission-button {
+      background-color: #007bff;
+    }
+
+    .profile-button {
+      background-color: #28a745;
+    }
+
+    .user-avatar {
+      width: 50px; /* 控制图片的宽度 */
+      height: 50px; /* 控制图片的高度 */
+      border-radius: 50%; /* 将图片变为圆形 */
+      object-fit: cover; /* 保持图片比例并填充整个圆形区域 */
+    }
+
+    .user-details {
+      display: flex;
+      align-items: center;
+    }
+
+    .user-name {
+      margin-left: 10px; /* 添加一些间距以分隔图片和名字 */
+    }
+    /* Add this to your existing CSS */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      max-width: 80%; /* 控制模态框最大宽度 */
+      width: 250px;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+<body>
+<div id="header">
+  <h1>用户管理</h1>
+  <button id="normalUserButton">普通用户</button>
+  <button id="adminButton">管理员</button>
+</div>
+
+<div id="container">
+  <h2 id="userListTitle">普通用户列表</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>编号</th>
+      <th>账号</th>
+      <th>邮箱</th>
+      <th>昵称</th>
+      <th>状态</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody id="userList">
+
+    </tbody>
+  </table>
+</div>
+<div id="userModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2 style="text-align: center">用户资料</h2>
+    <img id="modal-avatar" class="user-avatar" src="" alt="" style="text-align: center">
+    <p><strong>姓名：</strong> <span id="modal-username"></span></p>
+    <p><strong>昵称：</strong> <span id="modal-nickname"></span></p>
+    <p><strong>邮箱：</strong> <span id="modal-email"></span></p>
+    <p><strong>会员状态：</strong> <span id="modal-member-status"></span></p>
+    <p><strong>用户类型：</strong> <span id="modal-user-type"></span></p>
+    <p><strong>账号状态：</strong> <span id="modal-account-status"></span></p>
+  </div>
+</div>
+
+
+
+
+<script>
+  const users = [];
+  var userss = null;
+  // 在页面加载完成后发送请求获取所有用户信息
+  document.addEventListener('DOMContentLoaded', async () => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    if (urlParams.has("user")) {
+      const userInfoString = urlParams.get("user");
+
+      userss = JSON.parse(decodeURIComponent(userInfoString));
+
+    }
+    try {
+      const response = await axios.get('/Music1_0_war/manage/getAllUsers');
+      const usersData = response.data;
+
+      console.log(usersData)
+      // 将从后端获取的用户信息添加到users数组
+      usersData.forEach(userData => {
+        console.log(userData.account_status)
+        users.push({
+          id: userData.id,
+          name: userData.username,
+          nickname:userData.nickname,
+          email: userData.email,
+          avatar: userData.avatar,
+          is_member: userData.is_member,
+          type:userData.user_type,
+          account_ststus:userData.account_status,
+        });
+      });
+
+
+      // 更新用户列表显示
+      updateUserList('USER'); // 初始显示普通用户列表
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  });
+
+    const userList = document.getElementById('userList');
+    const normalUserButton = document.getElementById('normalUserButton');
+    const adminButton = document.getElementById('adminButton');
+
+
+
+  function updateUserList(userType) {
+    userList.innerHTML = '';
+    let count = 1;
+
+    users.filter(user => user.type === userType&&user.id!==userss.id).forEach((user, index) => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+      <td>${count++}</td>
+      <td>
+        <div class="user-details">
+          <img class="user-avatar" src="/upload/${user.avatar}" alt="${user.name}的头像">
+          <span class="user-name">${user.name}</span>
+        </div>
+      </td>
+      <td>${user.email}</td>
+      <td>${user.nickname}</td>
+      <td>${user.account_ststus === 'NORMAL' ? '正常' : '已冻结'}</td>
+      <td>
+        <button class="freeze-button">冻结</button>
+        <button class="unfreeze-button">解冻</button>
+       ${userss && userss.user_type === 'SUPER_ADMIN' ? '<button class="permission-button">权限</button>' : ''}
+        <button class="profile-button">资料</button>
+      </td>
+    `;
+      const freezeButton = row.querySelector('.freeze-button');
+      const unfreezeButton = row.querySelector('.unfreeze-button');
+      const permissionButton = row.querySelector('.permission-button');
+      const profileButton = row.querySelector('.profile-button');
+
+
+      if (user.account_ststus === 'NORMAL') {
+        freezeButton.style.display = 'inline-block';
+        unfreezeButton.style.display = 'none';
+      } else {
+        freezeButton.style.display = 'none';
+        unfreezeButton.style.display = 'inline-block';
+      }
+      userList.appendChild(row);
+
+      if (freezeButton) {
+        freezeButton.addEventListener('click', async () => {
+          try {
+            console.log(`冻结用户 ${user.name}`);
+            console.log(user.id)
+            // 在这里执行冻结操作
+            const response = await axios.post('/Music1_0_war/manage/freezeUser', {
+              userId: user.id
+            });
+            alert(response.data.success)
+            if (response.data.success) {
+              user.account_ststus = 'EXCEPTION'; // 更新用户状态
+              updateStatusAndButtons(row, user); // 更新状态和按钮
+              // 更新用户列表或其他必要的操作
+            } else {
+              console.error('冻结操作失败:', response.data.message);
+            }
+          } catch (error) {
+            console.error('冻结操作出现错误:', error);
+          }
+        });
+      }
+
+
+      if (unfreezeButton) {
+        unfreezeButton.addEventListener('click', async () => {
+          try {
+            console.log(`解冻用户 ${user.name}`);
+            console.log(user.id)
+            // 在这里执行解冻操作
+            const response = await axios.post('/Music1_0_war/manage/unfreezeUser', {
+              userId: user.id
+            });
+
+            alert(response.data.success)
+            if (response.data.success) {
+              user.account_ststus = 'NORMAL'; // 更新用户状态
+              updateStatusAndButtons(row, user); // 更新状态和按钮
+              // 更新用户列表或其他必要的操作
+            } else {
+              console.error('解冻操作失败:', response.data.message);
+            }
+          } catch (error) {
+            console.error('解冻操作出现错误:', error);
+          }
+        });
+      }
+
+      if (permissionButton) {
+        permissionButton.addEventListener('click', () => {
+          if (user.type === 'USER') {
+            const confirmResult = confirm(`确定将用户 ${user.name} 设置为管理员吗？`);
+            if (confirmResult) {
+              // 用户点击了确认按钮，执行权限操作
+              console.log(`设置权限给用户 ${user.name}`);
+
+              // 使用 axios 发送请求给后端
+              axios.post('/Music1_0_war/manage/handle', { userId: user.id, action: 'promote' })
+                      .then(response => {
+                        console.log('请求已发送到后端');
+                        alert(response.data);
+
+                        // 更新用户类型字段为管理员
+                        user.type = 'ADMIN';
+
+                        // 从用户列表中删除用户行
+                        const userRow = findUserRowByName(user.name);
+                        if (userRow) {
+                          userRow.parentNode.removeChild(userRow);
+                        }
+                      })
+                      .catch(error => {
+                        console.error('请求发送失败', error);
+                        // 在这里处理请求发送失败的情况
+                      });
+            }
+          } else if (user.type === 'ADMIN') {
+            const confirmResult = confirm(`确定要将管理员 ${user.name} 降级为用户吗？`);
+            if (confirmResult) {
+              // 用户点击了确认按钮，执行权限操作
+              console.log(`降级管理员 ${user.name} 为用户`);
+
+              // 使用 axios 发送请求给后端
+              axios.post('/Music1_0_war/manage/handle', { userId: user.id, action: 'demote' })
+                      .then(response => {
+                        console.log('请求已发送到后端');
+                        alert(response.data);
+
+                        // 更新用户类型字段为普通用户
+                        user.type = 'USER';
+
+                        // 从用户列表中删除用户行
+                        const userRow = findUserRowByName(user.name);
+                        if (userRow) {
+                          userRow.parentNode.removeChild(userRow);
+                        }
+                      })
+                      .catch(error => {
+                        console.error('请求发送失败', error);
+                        // 在这里处理请求发送失败的情况
+                      });
+            }
+          } else {
+            // 其他用户类型，可以执行其他操作或者显示其他提示
+            console.log('用户类型不需要进行权限操作');
+          }
+        });
+      }
+
+      function findUserRowByName(userName) {
+        const rows = document.querySelectorAll('tr');
+        for (const row of rows) {
+          const userSpan = row.querySelector('.user-name');
+          if (userSpan && userSpan.textContent === userName) {
+            return row;
+          }
+        }
+        return null;
+      }
+
+
+
+
+
+      const userModal = document.getElementById('userModal');
+      const modalUsername = document.getElementById('modal-username');
+      const modalNickname = document.getElementById('modal-nickname');
+      const modalEmail = document.getElementById('modal-email');
+      const modalAvatar = document.getElementById('modal-avatar');
+      const modalMemberStatus = document.getElementById('modal-member-status');
+      const modalUserType = document.getElementById('modal-user-type');
+      const modalAccountStatus = document.getElementById('modal-account-status');
+      const closeModal = document.querySelector('.close');
+
+
+      profileButton.addEventListener('click', () => {
+        modalUsername.textContent = user.name;
+        modalNickname.textContent = user.nickname;
+        modalEmail.textContent = user.email;
+        modalAvatar.src = '/upload/' + user.avatar;
+        modalMemberStatus.textContent = user.is_member ? '会员' : '非会员';
+        modalUserType.textContent = user.type;
+        modalAccountStatus.textContent = user.account_ststus === 'NORMAL' ? '正常' : '已冻结';
+        userModal.style.display = 'block';
+      });
+
+
+      closeModal.addEventListener('click', () => {
+        userModal.style.display = 'none';
+      });
+
+      window.addEventListener('click', event => {
+        if (event.target === userModal) {
+          userModal.style.display = 'none';
+        }
+      });
+
+
+    });
+  }
+
+  // 更新状态和按钮
+  function updateStatusAndButtons(row, user) {
+    const statusCell = row.querySelector('td:nth-child(5)');
+    const freezeButton = row.querySelector('.freeze-button');
+    const unfreezeButton = row.querySelector('.unfreeze-button');
+
+    statusCell.textContent = user.account_ststus === 'NORMAL' ? '正常' : '已冻结';
+
+    if (user.account_ststus === 'NORMAL') {
+      freezeButton.style.display = 'inline-block';
+      unfreezeButton.style.display = 'none';
+    } else {
+      freezeButton.style.display = 'none';
+      unfreezeButton.style.display = 'inline-block';
+    }
+  }
+
+
+
+  normalUserButton.addEventListener('click', () => {
+    updateUserList('USER');
+    userListTitle.textContent = '普通用户列表'; // 更新用户列表标题
+  });
+
+  adminButton.addEventListener('click', () => {
+    updateUserList('ADMIN');
+    userListTitle.textContent = '管理员列表'; // 更新用户列表标题
+  });
+
+  const deleteButtons = document.querySelectorAll('button.Delete');
+
+  deleteButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const row = button.closest('tr');
+      row.remove();
+    });
+  });
+
+</script>
+</body>
+</html>

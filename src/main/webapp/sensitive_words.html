@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>敏感词汇管理</title>
+</head>
+
+<body>
+<div style="font-family: Arial, sans-serif; padding: 20px;">
+  <h2 style="text-align: center;">敏感词汇管理</h2>
+  <div style="margin-bottom: 20px;">
+    <label for="newWord">添加新的敏感词：</label>
+    <input type="text" id="newWord" style="margin-right: 10px;">
+    <button onclick="addWord()">添加</button>
+  </div>
+  <div>
+    <label>现有敏感词汇：</label>
+    <ul id="wordList"></ul>
+  </div>
+</div>
+
+<script>
+  // JavaScript部分
+
+  // 使用一个Set对象来模拟HashSet
+  let words = new Set();
+
+  // 添加新的敏感词到Set
+  function addWord() {
+    const wordInput = document.getElementById('newWord');
+    const word = wordInput.value.trim();
+
+    if (word && !words.has(word)) {
+      words.add(word);
+      displayWords();
+      wordInput.value = '';
+    } else {
+      alert('请确保输入的词汇不为空且列表中尚不存在该词汇！');
+    }
+  }
+
+  // 显示所有的敏感词汇
+  function displayWords() {
+    const wordList = document.getElementById('wordList');
+    wordList.innerHTML = '';
+
+    Array.from(words).forEach((word) => {
+      const li = document.createElement('li');
+      li.innerHTML = `${word} <button onclick="removeWord('${word}')">删除</button>`;
+      wordList.appendChild(li);
+    });
+  }
+
+  // 从Set中删除一个敏感词
+  function removeWord(word) {
+    words.delete(word);
+    displayWords();
+  }
+</script>
+</body>
+
+</html>

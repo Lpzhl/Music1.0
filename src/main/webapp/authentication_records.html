@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>提交记录</title>
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: calc(100vh - 100px);
+      margin: 0;
+      padding-top: 50px;
+    }
+    .container {
+      text-align: center;
+      width: 100%;
+      max-width: 600px;
+      padding: 30px;
+      border-radius: 10px;
+      background-color: #ffffff;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #333333;
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #cccccc;
+    }
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 1;
+      overflow: auto;
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 600px;
+      border-radius: 10px;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>提交记录</h1>
+  <table>
+    <thead>
+    <tr>
+      <th>编号</th>
+      <th>提交时间</th>
+      <th>结果</th>
+    </tr>
+    </thead>
+    <tbody id="submissionList">
+    <!-- 这里使用 JavaScript 将提交记录添加到表格中 -->
+    </tbody>
+  </table>
+</div>
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeBtn">&times;</span>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+
+<script src="js/axios.min.js"></script>
+<script>
+  let records = [];
+  const submissionList = document.getElementById("submissionList");
+  document.addEventListener("DOMContentLoaded", function() {
+
+
+    // 获取查询参数中的 user_id
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const user_id = urlParams.get("user_id");
+    let submissionCounter = 1;
+    // 使用 axios 向后端发送请求获取提交记录
+    axios.get(`/Music1_0_war/user/authentication_records?user_id=${user_id}`)
+            .then(function(response) {
+               records = response.data;
+              console.log(records)
+              // 将提交记录添加到表格中
+              records.forEach(function(record) {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+             <td>${submissionCounter++}</td>
+            <td>${formatDate(record.submission_time)}</td>
+           <td>${getAuthStatusText(record.auth_status)}</td>
+          `;
+                submissionList.appendChild(row);
+              });
+            })
+            .catch(function(error) {
+              console.error("获取提交记录失败", error);
+            });
+  });
+  function formatDate(timestamp) {
+    const date = new Date(timestamp);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const seconds = String(date.getSeconds()).padStart(2, "0");
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }
+
+  function getAuthStatusText(authStatus) {
+    switch (authStatus) {
+      case 1:
+        return "成功";
+      case 2:
+        return "失败";
+      case 0:
+        return "待处理";
+      default:
+        return "";
+    }
+  }
+
+  submissionList.addEventListener("click", function(event) {
+    const target = event.target;
+    if (target.tagName === "TD") {
+      const row = target.parentNode;
+      const recordIndex = row.rowIndex - 1; // Adjust for table header row
+      const submissionDetails = getSubmissionDetails(recordIndex);
+      displayModal(submissionDetails);
+    }
+  });
+
+  function getSubmissionDetails(recordIndex) {
+    const record = records[recordIndex];
+    const submissionDetails = {
+      id: record.id,
+      submissionTime: formatDate(record.submission_time),
+      authStatus: getAuthStatusText(record.auth_status),
+      artistName: record.artistName,
+      avatarUrl: `/upload/${record.avatarUrl}`,
+      genre: record.genre,
+      introduction: record.introduction,
+    };
+    return submissionDetails;
+  }
+
+  function displayModal(submissionDetails) {
+    const modal = document.getElementById("modal");
+    const modalContent = document.getElementById("modalContent");
+
+
+    modalContent.innerHTML = `
+    <h2>提交详情</h2>
+    <p><strong>编号：</strong> ${submissionDetails.id}</p>
+    <p><strong>提交时间：</strong> ${submissionDetails.submissionTime}</p>
+    <p><strong>认证状态：</strong> ${submissionDetails.authStatus}</p>
+    <hr>
+    <h2>艺术家信息</h2>
+    <p><strong>艺术家名称：</strong> ${submissionDetails.artistName}</p>
+    <p><strong>流派：</strong> ${submissionDetails.genre}</p>
+    <p><strong>介绍：</strong> ${submissionDetails.introduction}</p>
+    <img src="${submissionDetails.avatarUrl}" alt="艺术家头像">
+`;
+
+
+    modal.style.display = "block";
+
+    const closeBtn = document.getElementById("closeBtn");
+    closeBtn.onclick = function() {
+      modal.style.display = "none";
+    };
+
+    window.onclick = function(event) {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    };
+  }
+
+</script>
+</body>
+</html>

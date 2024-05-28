@@ -9,15 +9,45 @@ public class Song {
     private String lyric;
     private String avatar;
     private int play_count;
-    private int version;// 版本号用于更新
+    private int version;
+    private int artist_id;
+    private String status;
+    private boolean is_member_song;
+    private int tag_id;
 
+    public int getTag_id() {
+        return tag_id;
+    }
+
+    public void setTag_id(int tag_id) {
+        this.tag_id = tag_id;
+    }
 
     public int getId() {
         return id;
     }
 
+    public boolean isIs_member_song() {
+        return is_member_song;
+    }
+
+    public void setIs_member_song(boolean is_member_song) {
+        this.is_member_song = is_member_song;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Song() {
     }
 
     public String getName() {
@@ -84,6 +114,14 @@ public class Song {
         this.version = version;
     }
 
+    public int getArtist_id() {
+        return artist_id;
+    }
+
+    public void setArtist_id(int artist_id) {
+        this.artist_id = artist_id;
+    }
+
     @Override
     public String toString() {
         return "Song{" +
@@ -96,6 +134,10 @@ public class Song {
                 ", avatar='" + avatar + '\'' +
                 ", play_count=" + play_count +
                 ", version=" + version +
+                ", artist_id=" + artist_id +
+                ", status='" + status + '\'' +
+                ", is_member_song=" + is_member_song +
+                ", tag_id=" + tag_id +
                 '}';
     }
 }

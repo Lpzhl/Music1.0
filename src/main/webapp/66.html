@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>界面示例</title>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+  <script src="https://kit.fontawesome.com/ca18b065e2.js" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <STYLE>
+   .container666 {
+     display: flex;
+     justify-content: space-between;
+   }
+   .left {
+     flex: 0.2;
+     padding-left: 30px;
+     border-right: 1px solid black;
+   }
+   .title-section {
+     display: flex;
+     align-items: center;
+   }
+   .title-section h1 {
+     margin-right: 10px;
+   }
+   .title-section .link {
+     background-color: red;
+     padding: 5px 10px;
+     border-radius: 5px;
+     text-decoration: none;
+     color: white;
+   }
+   .right {
+     flex: 1;
+     display: flex;
+     align-items: center;
+   }
+   .avatar {
+     width: 100px;
+     height: 100px;
+     border-radius: 50%;
+     margin-right: 10px;
+   }
+   .nickname {
+     font-size: 20px;
+   }
+ </STYLE>
+</head>
+<body>
+<div class="container666" id="9">
+  <div class="left">
+    <div class="title-section">
+      <h1 id="dynamicTitle">标题</h1>
+      <a href="#" class="link">写动态</a>
+    </div>
+    <ul id="dynamicList">
+      <!-- 这里将通过JavaScript动态渲染列表内容 -->
+    </ul>
+  </div>
+  <div class="right">
+    <div class="profile">
+      <img src="/upload/哈哈哈.jpg" alt="头像" class="avatar">
+      <span class="nickname">昵称</span>
+    </div>
+  </div>
+</div>
+<script>
+  // 假设这是从后端获取的用户动态数据
+  const userDynamics = [
+    "动态1",
+    "动态2",
+    "动态3"
+  ];
+
+  const dynamicList = document.getElementById('dynamicList');
+
+  userDynamics.forEach(dynamic => {
+    const listItem = document.createElement('li');
+    listItem.textContent = dynamic;
+    dynamicList.appendChild(listItem);
+  });
+
+  // 为标题设置动态内容
+  document.getElementById('dynamicTitle').textContent = "动态";
+
+</script>
+</body>
+</html>

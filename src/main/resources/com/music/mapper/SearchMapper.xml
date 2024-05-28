@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.music.mapper.SearchMapper">
+
+
+
+
+    <!--<select id="searchSongs" resultType="com.music.app.Song">
+        SELECT * FROM songs
+        WHERE name LIKE CONCAT('%', #{keyword}, '%')
+        OR artist LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
+
+
+    <select id="searchArtists" resultType="com.music.app.ArtistInfo">
+        SELECT u.id, u.username, u.email, u.nickname, u.avatar, a.bio, a.genre
+        FROM users AS u INNER JOIN artists AS a ON u.id = a.user_id
+        WHERE u.user_type = 'ARTIST' AND (u.nickname LIKE #{keyword} OR a.genre LIKE #{keyword})
+    </select>
+
+    &lt;!&ndash; 搜索歌单 &ndash;&gt;
+    <select id="searchPlaylists" resultType="com.music.app.Playlist">
+        SELECT * FROM playlists WHERE name LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
+    &lt;!&ndash; 搜索用户 &ndash;&gt;
+    <select id="searchUsers" resultType="com.music.app.User">
+        SELECT * FROM users WHERE nickname LIKE CONCAT('%', #{keyword}, '%')
+    </select>-->
+
+    <!-- 保存动态到user_posts表 -->
+    <insert id="saveUserPost" parameterType="com.music.app.UserPost" useGeneratedKeys="true" keyProperty="post_id">
+        INSERT INTO user_posts (user_id, content, post_time, song_id, playlist_id)
+        VALUES (#{user_id}, #{content}, #{post_time}, #{song_id}, #{playlist_id})
+    </insert>
+
+    <!-- 保存图片到post_images表 -->
+    <insert id="savePostImage" parameterType="com.music.app.PostImage">
+        INSERT INTO post_images (post_id, image_path)
+        VALUES (#{post_id}, #{image_path})
+    </insert>
+
+
+    <select id="searchSongs" resultType="com.music.app.Song">
+        SELECT * FROM songs
+        WHERE (name LIKE CONCAT('%', #{keyword}, '%')
+        OR artist LIKE CONCAT('%', #{keyword}, '%'))
+        AND status = '已通过'
+    </select>
+
+
+    <!-- 搜索艺术家 -->
+    <select id="searchArtists" resultType="com.music.app.ArtistInfo">
+        SELECT u.id, u.username, u.email, u.nickname, u.avatar, a.bio, a.genre
+        FROM users AS u
+        INNER JOIN artists AS a ON u.id = a.user_id
+        WHERE u.user_type = 'ARTIST'
+        AND (u.nickname LIKE CONCAT('%', #{keyword}, '%') OR a.genre LIKE CONCAT('%', #{keyword}, '%'))
+    </select>
+
+    <!-- 搜索歌单 -->
+    <select id="searchPlaylists" resultType="com.music.app.Playlist">
+        SELECT * FROM playlists
+        WHERE name LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
+    <!-- 搜索用户 -->
+    <select id="searchUsers" resultType="com.music.app.User">
+        SELECT *
+        FROM users
+        WHERE nickname LIKE CONCAT('%', #{keyword}, '%')
+        AND user_type = 'USER'
+    </select>
+
+    <select id="getFollowedUsers" resultType="com.music.app.User">
+        SELECT
+        u.id, u.username, u.email, u.nickname, u.avatar, u.user_type,
+        a.bio, a.genre
+        FROM
+        follows f
+        JOIN
+        users u ON f.followed_id = u.id
+        LEFT JOIN
+        artists a ON u.id = a.user_id
+        WHERE
+        f.follower_id = #{userId}
+    </select>
+    <select id="getFollowersUsers" resultType="com.music.app.User">
+        SELECT
+        u.id, u.username, u.email, u.nickname, u.avatar, u.user_type,
+        a.bio, a.genre
+        FROM
+        follows f
+        JOIN
+        users u ON f.follower_id = u.id
+        LEFT JOIN
+        artists a ON u.id = a.user_id
+        WHERE
+        f.followed_id = #{userId}
+    </select>
+    <resultMap id="UserPostMap" type="com.music.app.UserPost">
+
+        <id property="post_id" column="post_id" />
+        <result property="user_id" column="user_id" />
+        <result property="content" column="content" />
+        <result property="post_time" column="post_time" />
+        <result property="song_id" column="song_id" />
+        <result property="playlist_id" column="playlist_id" />
+
+
+        <association property="users" javaType="com.music.app.User">
+            <result property="id" column="user_id" />
+            <result property="nickname" column="user_nickname" />
+            <result property="avatar" column="user_avatar" />
+            <result property="is_member" column="user_is_member" />
+            <result property="account_status" column="user_account_status" />
+        </association>
+
+
+        <association property="songs" javaType="com.music.app.Song">
+            <result property="id" column="song_id" />
+            <result property="name" column="song_name" />
+            <result property="artist" column="song_artist" />
+            <result property="album" column="song_album" />
+            <result property="filepath" column="song_filepath" />
+            <result property="lyric" column="song_lyric" />
+            <result property="avatar" column="song_avatar" />
+            <result property="play_count" column="song_play_count" />
+            <result property="version" column="song_version" />
+            <result property="artist_id" column="song_artist_id" />
+            <result property="is_member_song" column="song_is_member_song" />
+            <result property="tag_id" column="song_tag_id" />
+        </association>
+
+
+        <association property="playlists" javaType="com.music.app.Playlist">
+            <result property="id" column="playlist_id" />
+            <result property="creator" column="playlist_creator" />
+            <result property="name" column="playlist_name" />
+            <result property="avatar" column="playlist_avatar" />
+            <result property="created_time" column="playlist_created_time" />
+            <result property="tags" column="playlist_tags" />
+            <result property="songCount" column="playlist_song_count" />
+            <result property="version" column="playlist_version" />
+        </association>
+
+
+        <collection property="images" ofType="com.music.app.PostImage">
+            <result property="image_id" column="image_image_id" />
+            <result property="post_id" column="image_post_id" />
+            <result property="image_path" column="image_image_path" />
+        </collection>
+    </resultMap>
+
+
+    <!-- 获取某用户关注的所有人发布的动态 -->
+    <select id="getFollowedUsersPosts" resultMap="UserPostMap">
+        SELECT
+        p.*,
+        u.id AS user_id,
+        u.nickname AS user_nickname,
+        u.avatar AS user_avatar,
+        u.is_member AS user_is_member,
+        u.is_member AS user_is_member,
+        u.account_status AS user_account_status,
+        s.id AS song_id,
+        s.name AS song_name,
+        s.artist AS song_artist,
+        s.album AS song_album,
+        s.filepath AS song_filepath,
+        s.lyric AS song_lyric,
+        s.version AS song_version,
+        s.avatar AS song_avatar,
+        s.play_count AS song_play_count,
+        s.artist_id AS song_artist_id,
+        s.is_member_song AS song_is_member_song,
+        s.tag_id AS song_tag_id,
+        pl.id AS playlist_id,
+        pl.name AS playlist_name,
+        pl.avatar AS playlist_avatar,
+        pl.creator AS playlist_creator,
+        pl.version AS playlist_version,
+        pl.play_count AS playlist_play_count
+        FROM user_posts p
+        JOIN users u ON p.user_id = u.id
+        LEFT JOIN follows f ON p.user_id = f.followed_id AND f.follower_id = #{userId}
+        LEFT JOIN songs s ON p.song_id = s.id
+        LEFT JOIN playlists pl ON p.playlist_id = pl.id
+        WHERE f.follower_id = #{userId} OR p.user_id = #{userId}
+        ORDER BY p.post_time DESC
+    </select>
+
+
+
+
+    <!-- 获取与某个动态相关的所有图片 -->
+    <select id="getImagesForPost" resultType="com.music.app.PostImage">
+        SELECT * FROM post_images WHERE post_id = #{postId}
+    </select>
+
+
+    <!-- 删除指定 post_id 的所有图片 -->
+    <delete id="deleteImagesByPostId" parameterType="int">
+        DELETE FROM post_images WHERE post_id = #{postId}
+    </delete>
+
+    <!-- 删除指定 post_id 的动态 -->
+    <delete id="deleteUserPostById" parameterType="int">
+        DELETE FROM user_posts WHERE post_id = #{postId}
+    </delete>
+
+
+</mapper >

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.music.mapper.CommentMapper">
+
+    <insert id="insertComment" parameterType="com.music.app.Comment" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO comments(parent_id, user_id, playlist_id, song_id, content, comment_time)
+        VALUES(#{parent_id}, #{user_id}, #{playlist_id}, #{song_id}, #{content}, #{comment_time})
+    </insert>
+
+
+<!--    <select id="fetchCommentsForPlaylist" parameterType="int" resultType="com.music.app.Comment">
+        SELECT
+        c.*,
+        u.id AS "user.id",
+        u.nickname AS "user.nickname",
+        u.avatar AS "user.avatar"
+        FROM comments c
+        JOIN users u ON c.user_id = u.id
+        WHERE c.playlist_id = #{playlist_id}
+        ORDER BY c.comment_time DESC
+    </select>-->
+
+    <select id="fetchCommentsForPlaylist" parameterType="int" resultType="com.music.app.Comment">
+        SELECT
+        c.*,
+        u.id AS "user.id",
+        u.nickname AS "user.nickname",
+        u.avatar AS "user.avatar",
+        pUser.id AS "parent.id",
+        pUser.nickname AS "parent.nickname",
+        pUser.avatar AS "parent.avatar"
+        FROM comments c
+        JOIN users u ON c.user_id = u.id
+        LEFT JOIN comments parentComment ON c.parent_id = parentComment.id
+        LEFT JOIN users pUser ON parentComment.user_id = pUser.id
+        WHERE c.playlist_id = #{playlist_id}
+        ORDER BY c.comment_time DESC
+    </select>
+
+
+</mapper>

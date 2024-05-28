@@ -9,19 +9,40 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7931dbe6-6848-469e-8f6c-e0b3e7829d33" name="变更" comment="我的喜欢，播放列表，创建歌单，我的主页">
+    <list default="true" id="7931dbe6-6848-469e-8f6c-e0b3e7829d33" name="变更" comment="最近播放界面(有最新播放时间），单曲循环，随机播放，循环播放，歌单，歌曲播放次数（乐观锁），主界面显示优化（关注按钮）播放列表保存，退出登录之后或者会话结束会和id保存到本地，下次登录可以查看">
+      <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/music/app/Song.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/music/app/Song.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/music/app/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/music/app/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/music/dao/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/music/dao/DatabaseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/music/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/music/mapper/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/music/servlet/HomeServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/music/servlet/HomeServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/music/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/music/mapper/UserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis-config.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/css/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/css/home.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/css/infor.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/css/infor.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/home.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/js/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/home.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/music/app/Song.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/music/app/Song.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/music/app/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/music/app/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/music/dao/DatabaseConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/music/dao/DatabaseConnection.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/music/mapper/UserMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/music/mapper/UserMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/music/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/music/mapper/UserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/music/servlet/HomeServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/music/servlet/HomeServlet.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven1.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1.war" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/app/Song.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/app/Song.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/app/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/app/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/dao/DatabaseConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/dao/DatabaseConnection.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/mapper/UserMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/mapper/UserMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/mapper/UserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/servlet/HomeServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/WEB-INF/classes/com/music/servlet/HomeServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven1/WEB-INF/lib/jjwt-jackson-0.11.2.jar" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven1/css/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/css/home.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven1/css/infor.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/css/infor.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven1/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/home.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven1/js/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven1/js/home.js" afterDir="false" />
     </list>
@@ -34,14 +55,18 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Jsp File" />
+        <option value="FxmlFile" />
         <option value="Interface" />
-        <option value="HTML File" />
         <option value="Class" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/music/mapper/LikesMapper.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
@@ -58,6 +83,7 @@
       <MavenGeneralSettings>
         <option name="localRepository" value="E:\Maven\repository" />
         <option name="mavenHome" value="$PROJECT_DIR$/../../../Maven/apache-maven-3.8.8" />
+        <option name="useMavenConfig" value="true" />
         <option name="userSettingsFile" value="E:\Maven\apache-maven-3.8.8\conf\settings.xml" />
         <option name="workOffline" value="true" />
       </MavenGeneralSettings>
@@ -81,19 +107,24 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;corretto-1.8&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/java/Java练习/Music1.0/src/main/webapp/css&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/java/Java练习/Music1.0/src/main/webapp/WEB-INF&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;库&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;service.view.auto.scroll.to.source&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
+    &quot;ChangesTree.GroupingKeys&quot;: [
+      &quot;module&quot;,
+      &quot;directory&quot;
+    ],
     &quot;DatabaseDriversLRU&quot;: [
       &quot;mysql&quot;
     ]
@@ -101,33 +132,31 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\java\Java练习\Music1.0\src\main\webapp\css" />
       <recent name="E:\java\Java练习\Music1.0\src\main\webapp\WEB-INF" />
-      <recent name="E:\java\Java练习\Music1.0\src\main\webapp\songs" />
+      <recent name="E:\java\Java练习\Music1.0\src\main\webapp" />
       <recent name="E:\java\Java练习\Music1.0\src\main\webapp\image" />
-      <recent name="E:\java\Java练习\Music1.0\src\main\webapp\music" />
+      <recent name="E:\java\Java练习\Music1.0\src\main\webapp\css" />
+      <recent name="E:\java\Java练习\Music1.0\src\main\webapp\songs" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\java\Java练习\Music1.0\src\main\webapp\image" />
       <recent name="E:\java\Java练习\Music1.0\src\main\webapp" />
       <recent name="E:\java\Java练习\Music1.0\src\main\java\com\music\dao" />
       <recent name="E:\java\Java练习\Music1.0\src\main\resources\com\music\mapper" />
       <recent name="E:\java\Java练习\Music1.0\src\main\webapp\songs" />
-      <recent name="E:\java\Java练习\Music1.0\src\main\resources" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
       <recent name="com.music" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.music.app" />
       <recent name="com.music" />
     </key>
   </component>
   <component name="RunManager">
     <configuration name="Tomcat 9.0.76" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.76" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
       <option name="BROWSER_ID" value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
-      <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
-      <option name="UPDATE_CLASSES_ON_FRAME_DEACTIVATION" value="true" />
-      <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
         <artifact name="Music1.0:war exploded">
           <settings>
@@ -141,7 +170,8 @@
         </file>
       </deployment>
       <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="95ee00e4-c674-4868-be89-865436737896" />
+        <option name="BASE_DIRECTORY_NAME" value="b0b0ce02-909a-40b3-aa26-5fb696cfd54c" />
+        <option name="JNDI_PORT" value="1098" />
       </server-settings>
       <predefined_log_file enabled="true" id="Tomcat" />
       <predefined_log_file enabled="true" id="Tomcat Catalina" />
@@ -149,7 +179,7 @@
       <predefined_log_file id="Tomcat Host Manager" />
       <predefined_log_file id="Tomcat Localhost Access" />
       <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="57495" />
+        <option name="DEBUG_PORT" value="63892" />
       </RunnerSettings>
       <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
         <option name="USE_ENV_VARIABLES" value="true" />
@@ -213,9 +243,6 @@
       </ConfigurationWrapper>
       <method v="2">
         <option name="Make" enabled="true" />
-        <option name="BuildArtifacts" enabled="true">
-          <artifact name="Music1.0:war exploded" />
-        </option>
       </method>
     </configuration>
   </component>
@@ -278,7 +305,67 @@
       <workItem from="1690594804760" duration="67226000" />
       <workItem from="1690766715683" duration="35611000" />
       <workItem from="1690873303897" duration="35096000" />
-      <workItem from="1690940477415" duration="9019000" />
+      <workItem from="1690940477415" duration="35379000" />
+      <workItem from="1691025836230" duration="12847000" />
+      <workItem from="1691042622293" duration="5009000" />
+      <workItem from="1691048134701" duration="504000" />
+      <workItem from="1691048794259" duration="31459000" />
+      <workItem from="1691111129065" duration="48663000" />
+      <workItem from="1691199013909" duration="20352000" />
+      <workItem from="1691234014764" duration="19070000" />
+      <workItem from="1691302013602" duration="32090000" />
+      <workItem from="1691370403840" duration="36244000" />
+      <workItem from="1691455456095" duration="45269000" />
+      <workItem from="1691544484781" duration="51472000" />
+      <workItem from="1691608012695" duration="295000" />
+      <workItem from="1691629462312" duration="37755000" />
+      <workItem from="1691715971736" duration="33678000" />
+      <workItem from="1691803825397" duration="21799000" />
+      <workItem from="1691918851211" duration="10412000" />
+      <workItem from="1691936199801" duration="6688000" />
+      <workItem from="1691975072545" duration="31024000" />
+      <workItem from="1692064805046" duration="39916000" />
+      <workItem from="1692148044961" duration="5890000" />
+      <workItem from="1692154499288" duration="35767000" />
+      <workItem from="1692235217590" duration="29608000" />
+      <workItem from="1692321672065" duration="17207000" />
+      <workItem from="1692407592432" duration="4741000" />
+      <workItem from="1692413824599" duration="24754000" />
+      <workItem from="1692497903960" duration="17270000" />
+      <workItem from="1692713316404" duration="2522000" />
+      <workItem from="1692750298045" duration="16437000" />
+      <workItem from="1693464397916" duration="910000" />
+      <workItem from="1693579444137" duration="214000" />
+      <workItem from="1693718301111" duration="1064000" />
+      <workItem from="1693965836886" duration="802000" />
+      <workItem from="1693967881414" duration="82000" />
+      <workItem from="1693968030124" duration="1269000" />
+      <workItem from="1694919158889" duration="2501000" />
+      <workItem from="1694922271888" duration="109000" />
+      <workItem from="1695634047218" duration="207000" />
+      <workItem from="1695704645714" duration="1841000" />
+      <workItem from="1697424983429" duration="872000" />
+      <workItem from="1697550202035" duration="24000" />
+      <workItem from="1697686252529" duration="283000" />
+      <workItem from="1697716218686" duration="7000" />
+      <workItem from="1697721684717" duration="1369000" />
+      <workItem from="1697940543413" duration="1948000" />
+      <workItem from="1698511088952" duration="731000" />
+      <workItem from="1698543500998" duration="749000" />
+      <workItem from="1698564176224" duration="588000" />
+      <workItem from="1698665646674" duration="2714000" />
+      <workItem from="1698740434448" duration="178000" />
+      <workItem from="1698799451011" duration="668000" />
+      <workItem from="1698800184536" duration="280000" />
+      <workItem from="1698800593876" duration="17000" />
+      <workItem from="1698890705796" duration="181000" />
+      <workItem from="1698890927704" duration="144000" />
+      <workItem from="1702894689966" duration="339000" />
+      <workItem from="1703163305513" duration="16000" />
+      <workItem from="1704022705406" duration="676000" />
+      <workItem from="1704715468650" duration="78000" />
+      <workItem from="1704718443668" duration="523000" />
+      <workItem from="1705825789136" duration="523000" />
     </task>
     <task id="LOCAL-00001" summary="初代">
       <created>1690104329910</created>
@@ -301,7 +388,14 @@
       <option name="project" value="LOCAL" />
       <updated>1690641116530</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="最近播放界面(有最新播放时间），单曲循环，随机播放，循环播放，歌单，歌曲播放次数（乐观锁），主界面显示优化（关注按钮）播放列表保存，退出登录之后或者会话结束会和id保存到本地，下次登录可以查看">
+      <created>1690957016506</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1690957016506</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -333,15 +427,101 @@
     <MESSAGE value="初代" />
     <MESSAGE value="歌词" />
     <MESSAGE value="我的喜欢，播放列表，创建歌单，我的主页" />
-    <option name="LAST_COMMIT_MESSAGE" value="我的喜欢，播放列表，创建歌单，我的主页" />
+    <MESSAGE value="最近播放界面(有最新播放时间），单曲循环，随机播放，循环播放，歌单，歌曲播放次数（乐观锁），主界面显示优化（关注按钮）播放列表保存，退出登录之后或者会话结束会和id保存到本地，下次登录可以查看" />
+    <option name="LAST_COMMIT_MESSAGE" value="最近播放界面(有最新播放时间），单曲循环，随机播放，循环播放，歌单，歌曲播放次数（乐观锁），主界面显示优化（关注按钮）播放列表保存，退出登录之后或者会话结束会和id保存到本地，下次登录可以查看" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/main/webapp/js/home.js</url>
+          <line>6644</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/main/webapp/js/home.js</url>
+          <line>801</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/main/webapp/js/home.js</url>
+          <line>757</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/main/webapp/js/home.js</url>
+          <line>5358</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/main/webapp/js/home.js</url>
+          <line>5354</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/main/webapp/js/home.js</url>
+          <line>5363</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/main/webapp/authentication.html</url>
+          <line>188</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/music/servlet/UserServlet.java</url>
-          <line>80</line>
-          <option name="timeStamp" value="2" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/music/mapper/UploadedmusicMapper.java</url>
+          <line>2</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/music/mapper/MembershipMapper.java</url>
+          <line>2</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/music/mapper/UploadedmusicMapper.java</url>
+          <line>9</line>
+          <properties class="com.music.mapper.UploadedmusicMapper">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/music/mapper/MembershipMapper.java</url>
+          <line>17</line>
+          <properties class="com.music.mapper.MembershipMapper" method="updateMembership">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/music/mapper/UserMapper.java</url>
+          <line>23</line>
+          <properties class="com.music.mapper.UserMapper" method="updateAuthStatus">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/music/mapper/ManageMapper.java</url>
+          <line>16</line>
+          <properties class="com.music.mapper.ManageMapper" method="getAlltags">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/music/mapper/UserMapper.java</url>
+          <line>34</line>
+          <properties class="com.music.mapper.UserMapper" method="selectSongs">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="24" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

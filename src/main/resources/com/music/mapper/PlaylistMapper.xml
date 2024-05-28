@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.music.mapper.PlaylistMapper">
+
+    <!-- 定义查询方法，获取用户播放过的歌曲ID列表 -->
+    <select id="getUserPlayedSongIds" resultType="Integer" parameterType="int">
+        SELECT song_id
+        FROM user_interests
+        WHERE user_id = #{userId}
+    </select>
+
+    <insert id="followUser">
+        INSERT INTO follows (follower_id, followed_id) VALUES (#{followerId}, #{followedId})
+    </insert>
+
+    <delete id="unfollowUser">
+        DELETE FROM follows WHERE follower_id = #{followerId} AND followed_id = #{followedId}
+    </delete>
+
+    <select id="isUserFollowed" resultType="boolean">
+        SELECT COUNT(*) FROM follows WHERE follower_id = #{followerId} AND followed_id = #{followedId}
+    </select>
+
+    <select id="getPlaylistByUserId" resultType="com.music.app.Playlist">
+        SELECT * FROM playlists WHERE creator = #{userId} AND name = #{name}
+    </select>
+
+
+
+    <insert id="createPlaylist">
+        INSERT INTO playlists (creator, name,avatar) VALUES (#{creator}, #{name},#{avatar})
+    </insert>
+
+
+    <insert id="addSongToPlaylist">
+        INSERT INTO playlist_songs (playlist_id, song_id) VALUES (#{playlistId}, #{songId})
+    </insert>
+
+    <delete id="removeSongFromPlaylist">
+        DELETE FROM playlist_songs WHERE playlist_id = #{playlistId} AND song_id = #{songId}
+    </delete>
+
+    <select id="getPlaylistId"  resultType="int">
+        SELECT id
+        FROM playlists
+        WHERE name = #{name} AND creator = #{userId}
+    </select>
+
+    <select id="getSongInPlaylist" resultType="int">
+        SELECT COUNT(*)
+        FROM playlist_songs
+        WHERE playlist_id = #{playlistId} AND song_id = #{songId}
+    </select>
+
+
+    <insert id="createPlaylist1" useGeneratedKeys="true" keyProperty="playlist.id" keyColumn="id">
+        INSERT INTO playlists (creator, name, avatar) VALUES (#{playlist.creator}, #{playlist.name}, #{playlist.avatar})
+    </insert>
+
+    <select id="getSongsInPlaylist" resultType="com.music.app.Song">
+        SELECT songs.*
+        FROM songs
+        JOIN playlist_songs ON songs.id = playlist_songs.song_id
+        WHERE playlist_songs.playlist_id = #{playlistId}
+    </select>
+
+    <select id="getPlaylistByNameAndUserId" resultType="com.music.app.Playlist">
+        SELECT * FROM playlists WHERE creator = #{userId} AND name = #{name}
+    </select>
+
+    <select id="getPlaylistByNameAndUserId1" resultType="com.music.app.Playlist">
+        SELECT * FROM playlists WHERE creator = #{userId} AND name = #{name}
+    </select>
+
+    <select id="getPlaylistsCreatedByUser" resultType="com.music.app.Playlist">
+        SELECT playlists.*, COUNT(playlist_songs.song_id) AS songCount
+        FROM playlists
+        LEFT JOIN playlist_songs ON playlists.id = playlist_songs.playlist_id
+        WHERE creator = #{userId}
+        GROUP BY playlists.id
+    </select>
+
+    <select id="getAllPlaylistsExcept" resultType="com.music.app.Playlist">
+        SELECT * FROM playlists
+        WHERE name != #{name}
+    </select>
+
+    <select id="getPlaylistsCollectedByUser" resultType="com.music.app.Playlist">
+        SELECT playlists.*, COUNT(playlist_songs.song_id) AS songCount
+        FROM favorites
+        INNER JOIN playlists ON favorites.playlist_id = playlists.id
+        LEFT JOIN playlist_songs ON playlists.id = playlist_songs.playlist_id
+        WHERE favorites.user_id = #{userId}
+        GROUP BY playlists.id
+    </select>
+
+    <delete id="removeSongsFromPlaylist">
+        DELETE FROM playlist_songs WHERE playlist_id = #{playlistId}
+    </delete>
+
+
+    <select id="getSongCountInPlaylist" resultType="int">
+        SELECT COUNT(*)
+        FROM playlist_songs
+        WHERE playlist_id = #{playlistId}
+    </select>
+
+    <delete id="deletePlaylist">
+        DELETE FROM playlists WHERE id = #{playlistId}
+    </delete>
+
+    <select id="getPlaylistById" resultType="com.music.app.Playlist">
+        SELECT * FROM playlists WHERE id = #{id}
+    </select>
+
+    <update id="updatePlaylist">
+        UPDATE playlists
+        SET name = #{name}, avatar = #{avatar},tags = #{tags}
+        WHERE id = #{id}
+    </update>
+
+    <insert id="savePlayLog">
+        INSERT INTO play_logs (user_id, song_id, play_time)
+        VALUES (#{userId}, #{songId}, #{playTime})
+        ON DUPLICATE KEY UPDATE play_time = #{playTime}
+    </insert>
+
+    <select id="getPlayLogsByUserId" resultType="com.music.app.PlayLog">
+        SELECT * FROM play_logs WHERE user_id = #{userId}
+    </select>
+    <delete id="deletePlayLogsByUserId">
+        DELETE FROM play_logs WHERE user_id = #{userId}
+    </delete>
+
+    <select id="getSongById" resultType="com.music.app.Song">
+        SELECT * FROM songs WHERE id = #{id}
+    </select>
+
+
+    <update id="incrementPlayCount" parameterType="map">
+        UPDATE playlists
+        SET play_count = play_count + 1, version = version + 1
+        WHERE id = #{playlistId} AND version = #{version}
+    </update>
+
+    <select id="selectVersion" resultType="int" parameterType="int">
+        SELECT version FROM playlists WHERE id = #{playlistId}
+    </select>
+
+    <update id="incrementSongPlayCount" parameterType="map">
+        UPDATE songs
+        SET play_count = play_count + 1, version = version + 1
+        WHERE id = #{songId} AND version = #{version}
+    </update>
+
+    <select id="selectSongVersion" resultType="int" parameterType="int">
+        SELECT version FROM songs WHERE id = #{songId}
+    </select>
+
+    <select id="getFourPlaylistsExcludeCreator" resultType="com.music.app.Playlist">
+        SELECT * FROM playlists WHERE creator != #{userId} ORDER BY RAND() LIMIT 4
+    </select>
+
+    <insert id="saveFavorite">
+        INSERT INTO favorites (user_id, playlist_id) VALUES (#{userId}, #{playlistId})
+    </insert>
+
+    <select id="isFavoriteExist" resultType="boolean">
+        SELECT COUNT(*) > 0 FROM favorites WHERE user_id = #{userId} AND playlist_id = #{playlistId}
+    </select>
+
+
+    <delete id="deleteFromFavorites">
+        DELETE FROM favorites WHERE user_id = #{userId} AND playlist_id = #{playlistId}
+    </delete>
+
+
+    <resultMap id="artistsInfoResultMap" type="com.music.app.ArtistInfo">
+        <id column="id" property="id" />
+        <result column="nickname" property="nickname" />
+        <result column="avatar" property="avatar" />
+        <result column="bio" property="bio" />
+        <result column="genre" property="genre" />
+        <collection property="songs" ofType="com.music.app.Song">
+            <id property="id" column="s_id" />
+            <result property="name" column="name" />
+            <result property="artist" column="artist" />
+            <result property="album" column="album" />
+            <result property="filepath" column="filepath" />
+            <result property="lyric" column="lyric" />
+            <result property="avatar" column="avatar" />
+            <result property="play_count" column="play_count" />
+            <result property="version" column="version" />
+            <result property="artist_id" column="artist_id" />
+            <result property="is_member_song" column="is_member_song" />
+            <result property="tag_id" column="tag_id" />
+        </collection>
+    </resultMap>
+
+    <select id="getAllArtistsInfo" resultMap="artistsInfoResultMap">
+        SELECT
+        u.id, u.nickname, u.avatar,
+        a.bio, a.genre,
+        s.id AS s_id, s.name, s.artist, s.album, s.filepath, s.lyric, s.version, s.play_count,s.is_member_song,s.tag_id
+        FROM users u
+        JOIN artists a ON u.id = a.user_id
+        LEFT JOIN songs s ON u.id = s.artist_id
+        WHERE u.user_type = 'ARTIST'
+    </select>
+
+    <select id="getFavoriteArtistsInfoByUserId" parameterType="int" resultMap="artistsInfoResultMap">
+        SELECT
+        u.id, u.nickname, u.avatar,
+        a.bio, a.genre,
+        s.id AS s_id, s.name, s.artist, s.album, s.filepath, s.lyric, s.version, s.play_count,s.is_member_song,s.tag_id
+        FROM users u
+        JOIN artists a ON u.id = a.user_id
+        LEFT JOIN songs s ON u.id = s.artist_id
+        WHERE u.user_type = 'ARTIST'
+        AND u.id IN (SELECT userA_id FROM favorites WHERE user_id = #{userId})
+    </select>
+
+    <delete id="deleteArtistFromFavorites">
+        DELETE FROM favorites WHERE user_id = #{userId} AND userA_id = #{artistId}
+    </delete>
+
+    <select id="isArtistFavoriteExist" resultType="boolean">
+        SELECT COUNT(*) > 0 FROM favorites WHERE user_id = #{userId} AND userA_id= #{artistId}
+    </select>
+
+
+    <select id="getAllSongsByArtist" resultType="com.music.app.Song">
+        SELECT * FROM songs WHERE artist_id = #{artist_id}
+    </select>
+
+    <!-- 获取创建者的所有歌单信息 -->
+    <select id="getPlaylistsCreatedByUser5" resultType="com.music.app.Playlist">
+        SELECT *
+        FROM playlists
+        WHERE creator = #{userId}
+    </select>
+
+    <!-- 获取歌单中的所有歌曲信息 -->
+    <select id="getSongsInPlaylist5" resultType="com.music.app.Song">
+        SELECT songs.*
+        FROM playlist_songs
+        JOIN songs ON playlist_songs.song_id = songs.id
+        WHERE playlist_songs.playlist_id = #{playlistId}
+    </select>
+
+    <select id="isFavoriteArtistExist" resultType="boolean">
+        SELECT COUNT(*)
+        FROM favorites
+        WHERE user_id = #{userId}
+        AND userA_id = #{artistId}
+    </select>
+
+    <insert id="saveFavoriteArtist">
+        INSERT INTO favorites (user_id, userA_id)
+        VALUES (#{userId}, #{artistId})
+    </insert>
+
+
+
+        <resultMap id="SongWithArtistResult" type="SongWithArtistDetails">
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+            <result column="artist" property="artist"/>
+            <result column="album" property="album"/>
+            <result column="filepath" property="filepath"/>
+            <result column="lyric" property="lyric"/>
+            <result column="version" property="version"/>
+            <result column="play_count" property="play_count"/>
+            <result column="artist_id" property="artist_id"/>
+            <result column="nickname" property="nickname"/>
+            <result column="avatar" property="avatar"/>
+            <result column="bio" property="bio"/>
+            <result column="genre" property="genre"/>
+        </resultMap>
+
+
+    <select id="getAllSongsInfo" resultMap="SongWithArtistResult">
+        SELECT s.*, u.nickname, u.avatar, a.bio, a.genre
+        FROM songs s
+        INNER JOIN users u ON s.artist_id = u.id
+        INNER JOIN artists a ON u.id = a.user_id
+        WHERE s.status = '已通过'
+    </select>
+
+
+
+</mapper>

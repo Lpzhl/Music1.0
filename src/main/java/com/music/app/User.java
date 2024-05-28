@@ -1,5 +1,7 @@
 package com.music.app;
 
+import java.util.Date;
+
 public class User {
     private int id;
     private String username;
@@ -8,6 +10,64 @@ public class User {
     private String nickname;
     private String avatar;
     private String remember;
+    private String bio;
+    private String genre;
+    private String user_type;
+    private boolean is_member;
+    private String account_status;
+    private UserMembership userMembership;
+
+    private Date membershipStartDate;
+    private Date membershipEndDate;
+
+
+    public String getAccount_status() {
+        return account_status;
+    }
+
+    public void setAccount_status(String account_status) {
+        this.account_status = account_status;
+    }
+
+    public Date getMembershipStartDate() {
+        return membershipStartDate;
+    }
+
+    public void setMembershipStartDate(Date membershipStartDate) {
+        this.membershipStartDate = membershipStartDate;
+    }
+
+    public Date getMembershipEndDate() {
+        return membershipEndDate;
+    }
+
+    public void setMembershipEndDate(Date membershipEndDate) {
+        this.membershipEndDate = membershipEndDate;
+    }
+
+    public UserMembership getUserMembership() {
+        return userMembership;
+    }
+
+    public void setUserMembership(UserMembership userMembership) {
+        this.userMembership = userMembership;
+    }
+
+    public boolean isIs_member() {
+        return is_member;
+    }
+
+    public void setIs_member(boolean is_member) {
+        this.is_member = is_member;
+    }
+
+    public String getUser_type() {
+        return user_type;
+    }
+
+    public void setUser_type(String user_type) {
+        this.user_type = user_type;
+    }
 
     public User(int id, String username, String password, String email, String nickname, String avatar) {
         this.id = id;
@@ -26,7 +86,21 @@ public class User {
         this.password = password;
     }
 
-    // Getters and Setters
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
     public String getRemember() {
     return remember;
 }
@@ -93,6 +167,14 @@ public class User {
                 ", nickname='" + nickname + '\'' +
                 ", avatar='" + avatar + '\'' +
                 ", remember='" + remember + '\'' +
+                ", bio='" + bio + '\'' +
+                ", genre='" + genre + '\'' +
+                ", user_type='" + user_type + '\'' +
+                ", is_member=" + is_member +
+                ", account_status='" + account_status + '\'' +
+                ", userMembership=" + userMembership +
+                ", membershipStartDate=" + membershipStartDate +
+                ", membershipEndDate=" + membershipEndDate +
                 '}';
     }
 }

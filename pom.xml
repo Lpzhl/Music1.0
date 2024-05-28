@@ -17,7 +17,14 @@
     </properties>
 
     <dependencies>
-<!-- JavaMail依赖 -->
+
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20210307</version>
+        </dependency>
+
+        <!-- JavaMail依赖 -->
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>javax.mail-api</artifactId>
@@ -41,12 +48,18 @@
             <version>3.1.0</version>
             <scope>provided</scope>
         </dependency>
+<!---拼音-->
+        <dependency>
+            <groupId>com.belerweb</groupId>
+            <artifactId>pinyin4j</artifactId>
+            <version>2.5.1</version>
+        </dependency>
 
 
 
 
 
-<!-- fastjson依赖 -->
+        <!-- fastjson依赖 -->
 
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -85,11 +98,6 @@
             <version>1.2.3</version>
         </dependency>
 
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-core</artifactId>
-            <version>1.2.3</version>
-        </dependency>
 
 
         <dependency>
@@ -99,11 +107,7 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-api</artifactId>
-            <version>0.11.2</version>
-        </dependency>
+
 
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
@@ -116,12 +120,7 @@
                 <version>0.11.2</version>
                 <scope>runtime</scope>
             </dependency>
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt-jackson</artifactId>
-                <version>0.11.2</version> <!-- or, if using Jackson ObjectMapper -->
-                <scope>runtime</scope>
-            </dependency>
+
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>

@@ -1,6 +1,7 @@
 package com.music.servlet;
 
 import com.alibaba.fastjson.JSONObject;
+import com.google.gson.Gson;
 import com.music.app.User;
 import com.music.mapper.UserMapper;
 import org.apache.ibatis.io.Resources;
@@ -20,7 +21,9 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 
 @WebServlet("/home")
-public class HomeServlet extends HttpServlet {
+public class
+
+HomeServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, IOException {
@@ -53,7 +56,7 @@ public class HomeServlet extends HttpServlet {
         InputStream inputStream = Resources.getResourceAsStream(resource);
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 
-        //2.获取SqlSession对象，用它来执行sql
+/*        //2.获取SqlSession对象，用它来执行sql
         try ( SqlSession sqlSession = sqlSessionFactory.openSession()) {
             // 获取 UserMapper 的实例
             UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
@@ -70,6 +73,26 @@ public class HomeServlet extends HttpServlet {
             System.out.println("nickname:"+user.getNickname());
             System.out.println("avatar:"+ user.getAvatar());
             out.print("{ \"id\": \"" + user.getId() + "\", \"nickname\": \"" + user.getNickname() + "\", \"avatar\": \"" + user.getAvatar() + "\" }");
+            out.flush();
+        }*/
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            // 获取 UserMapper 的实例
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            System.out.println("有吗：" + userMapper);
+
+            // 调用方法获取用户信息
+            User user = userMapper.getUserByUsername(username);
+            System.out.println("用户：" + user);
+
+            // 将用户信息作为响应返回给客户端
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
+            PrintWriter out = resp.getWriter();
+
+            Gson gson = new Gson();
+            String userJson = gson.toJson(user); // 将user对象转化为JSON字符串
+
+            out.print(userJson);
             out.flush();
         }
     }

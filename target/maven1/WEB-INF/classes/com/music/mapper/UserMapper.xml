@@ -6,6 +6,31 @@
 <!--namespace:名称空间-->
 <mapper namespace="com.music.mapper.UserMapper">
 
+
+    <!-- 定义 getUserInterestByUserId 方法的 SQL 查询 -->
+    <select id="getUserInterestByUserId" resultType="com.music.app.UserInterest">
+        SELECT * FROM user_interests
+        WHERE user_id = #{userId}
+    </select>
+
+    <!-- 定义查询用户兴趣记录的SQL语句 -->
+    <select id="getUserInterest" parameterType="int" resultType="com.music.app.UserInterest">
+        SELECT * FROM user_interests WHERE user_id = #{user_id} AND song_id = #{song_id}
+    </select>
+
+    <!-- 定义插入用户兴趣记录的SQL语句 -->
+    <insert id="insertUserInterest" parameterType="com.music.app.UserInterest">
+        INSERT INTO user_interests (user_id, song_id, interest_count)
+        VALUES (#{user_id}, #{song_id}, #{interest_count})
+    </insert>
+
+    <!-- 定义更新用户兴趣记录的SQL语句 -->
+    <update id="updateUserInterest" parameterType="com.music.app.UserInterest">
+        UPDATE user_interests
+        SET interest_count = #{interest_count}
+        WHERE user_id = #{user_id} AND song_id = #{song_id}
+    </update>
+
     <select id="getFollowerCount" resultType="int">
         SELECT COUNT(*) FROM follows WHERE followed_id = #{userId}
     </select>
@@ -29,14 +54,59 @@
         SELECT * FROM users WHERE username = #{username}
     </select>
 
+        <resultMap id="userMap" type="com.music.app.User">
+            <id property="id" column="id"/>
+            <result property="username" column="username"/>
+            <result property="password" column="password"/>
+            <result property="email" column="email"/>
+            <result property="nickname" column="nickname"/>
+            <result property="avatar" column="avatar"/>
+            <result property="remember" column="remember"/>
+            <result property="bio" column="bio"/>
+            <result property="genre" column="genre"/>
+            <result property="user_type" column="user_type"/>
+            <result property="is_member" column="is_member"/>
+
+
+            <association property="userMembership" javaType="com.music.app.UserMembership">
+                <result property="user_Id" column="user_Id"/>
+                <result property="start_date" column="m_start_date"/>
+                <result property="end_date" column="m_end_date"/>
+            </association>
+        </resultMap>
+
+        <select id="getUserByUsername1" resultMap="userMap">
+            SELECT
+            u.id,
+            u.username,
+            u.password,
+            u.email,
+            u.nickname,
+            u.avatar,
+            u.user_type,
+            u.is_member,
+            m.user_id as "user_Id",
+            m.start_date as "m_start_date",
+            m.end_date as "m_end_date"
+            FROM
+            users u
+            LEFT JOIN
+            user_membership m ON u.id = m.user_id
+            WHERE
+            u.username = #{username}
+        </select>
+
+    <!--    <select id="selectSongs" resultType="com.music.app.Song">
+            SELECT * FROM songs ORDER BY id DESC LIMIT 4
+        </select>-->
+
 <!--    <select id="selectSongs" resultType="com.music.app.Song">
-        SELECT * FROM songs ORDER BY id DESC LIMIT 4
+        SELECT * FROM songs ORDER BY RAND() LIMIT 4
     </select>-->
 
     <select id="selectSongs" resultType="com.music.app.Song">
-        SELECT * FROM songs ORDER BY RAND() LIMIT 4
+        SELECT * FROM songs ORDER BY name ASC
     </select>
-
 
     <select id="getUserById" resultType="com.music.app.User">
         SELECT * FROM users WHERE id = #{id}
@@ -67,4 +137,61 @@
             select *from users;
         </select>-->
 
+    <select id="getSongFilePathById" parameterType="Integer" resultType="String">
+        SELECT filepath FROM songs WHERE id = #{songId}
+    </select>
+
+    <!-- 获取封面图片路径 -->
+    <select id="getAvatarPathById" parameterType="Integer" resultType="String">
+        SELECT avatar FROM songs WHERE id = #{songId}
+    </select>
+
+    <!-- 获取歌词文件路径 -->
+
+    <insert id="insertAuthenticationInfo" parameterType="com.music.app.AuthenticationInfo">
+        INSERT INTO authentication_info (user_id, auth_status, submission_time, artistName, avatarUrl, genre, introduction)
+        VALUES (#{user_id}, #{auth_status}, NOW(), #{artistName}, #{avatarUrl}, #{genre}, #{introduction})
+    </insert>
+
+    <select id="getLyricPathById" parameterType="Integer" resultType="String">
+        SELECT lyric FROM songs WHERE id = #{songId}
+    </select>
+
+    <select id="getAuthenticationRecords" resultType="com.music.app.AuthenticationInfo">
+        SELECT * FROM authentication_info WHERE user_id = #{userId}
+
+    </select>
+
+
+    <select id="getAllPendingAuthenticationRecords" resultType="com.music.app.AuthenticationInfo">
+        SELECT *
+        FROM authentication_info
+        WHERE auth_status = 0
+    </select>
+
+
+    <insert id="insertArtist" parameterType="com.music.app.Artist">
+        INSERT INTO artists (user_id, bio, genre)
+        VALUES (#{id}, #{introduction}, #{genre})
+    </insert>
+
+    <!-- 根据ID获取认证信息 -->
+    <select id="getAuthenticationInfoById" resultType="com.music.app.AuthenticationInfo">
+        SELECT * FROM authentication_info WHERE id = #{id}
+    </select>
+
+    <!-- 更新认证状态 -->
+    <update id="updateAuthStatus" parameterType="map">
+        UPDATE authentication_info
+        SET auth_status = #{auth_status}
+        WHERE id = #{id}
+    </update>
+
+
+    <!-- 更新用户艺术家详细信息 -->
+    <update id="updateUserArtistDetails">
+        UPDATE users
+        SET nickname = #{nickname}, avatar = #{avatar}, user_type = 'ARTIST'
+        WHERE id = #{id}
+    </update>
 </mapper>

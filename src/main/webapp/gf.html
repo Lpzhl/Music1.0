@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>发表动态</title>
+ <style>
+
+ </style>
+</head>
+<body>
+
+<script src="scripts.js"></script>
+</body>
+<script>
+  document.getElementById('emoji-picker').addEventListener('click', function() {
+    alert('选择表情包功能未实现。');
+  });
+
+  document.getElementById('img-picker').addEventListener('click', function() {
+    alert('图片上传功能未实现。');
+  });
+
+  document.getElementById('share').addEventListener('click', function() {
+    const content = document.getElementById('content').value;
+    if (content.trim() === '') {
+      alert('请输入动态内容！');
+      return;
+    }
+
+    // 这里可以进行后端的调用，将动态存储到数据库。
+    alert('分享成功！');
+  });
+
+</script>
+</html>

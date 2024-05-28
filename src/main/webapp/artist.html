@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link rel="stylesheet" type="text/css" href="css/home.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+  <script src="https://kit.fontawesome.com/ca18b065e2.js" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="js/axios.min.js"></script>
+  <style>
+    .active-tab {
+      font-weight: bold; /* 字体加粗 */
+      color: black;
+      border-bottom: 4px solid red; /* 红色下划线 */
+    }
+  </style>
+
+</head>
+<body>
+<div id="6">
+  <div class="playlist1">
+    <img id="playlist-image6" src="{{avatar}}" alt="Playlist Image" >
+    <div class="playlist-info">
+      <h1 id="playlist-title6" style=" margin-bottom: 50px;">梓梓向阳</h1>
+      <button style="background-color: red; border-radius: 12px; margin-bottom: 40px; border: none; padding: 10px 10px; font-size: 15px;color: #FFFFFF;cursor: pointer;">收藏</button>
+
+
+      <div style="display: flex">
+        <p style=" margin-bottom: 50px;">歌曲数量: </p><span id="num">0</span>
+      </div>
+      <div style="display:flex">
+        <p style=" margin-bottom: 30px;">歌单数量: </p><span id="playList-num">0</span>
+      </div>
+    </div>
+
+  </div>
+
+  <br><br>
+
+  <div class="tabs1">
+    <a href="#" id="song-list-tab2" style="margin-left: 20px; text-decoration: none; font-size: 30px;color: black" >歌单</a>
+    <a href="#" id="comments-tab2" style="margin-left: 20px; text-decoration: none; font-size: 30px;color: black">个人简介</a>
+  </div>
+  <div id="artists-playlist"></div> <!--歌单列表--->
+  <div id="bio" style="white-space: pre;margin-left: 25px"></div> <!--个人简介--->
+  <br><br>
+</div>
+<br><br>
+</body>
+
+
+<script>
+  window.onload = function() {
+    var artistsPlaylists;
+    var artist = JSON.parse(sessionStorage.getItem('artist'));
+    console.log(artist)
+    var artistInfo = artist.bio;
+    // 使用 artist 对象的信息
+    document.getElementById('playlist-image6').src = "/upload/" + artist.avatar;
+    document.getElementById('playlist-title6').textContent = artist.nickname;
+    document.getElementById('num').textContent = artist.songs.length;
+
+    // 发送请求获取歌手的歌单信息
+    axios.get('/Music1_0_war/playlist/getArtistsPlaylists', {
+      params: {
+        artistId: artist.id
+      }
+    }).then(function(response) {
+      // 将返回的数据保存到 artistsPlaylists
+      artistsPlaylists = response.data;
+      console.log("歌手歌单信息：" + artistsPlaylists)
+      document.getElementById('playList-num').textContent = artistsPlaylists.length;
+    }).catch(function(error) {
+      console.error('获取歌手歌单信息失败:', error);
+    });
+
+
+
+    function displaySongs(songs, limit) {
+      let songList = document.createElement('ul');
+      songs.slice(0, limit).forEach(song => {
+        let li = document.createElement('li');
+        let minutes = Math.floor(song.duration / 60);
+        let seconds = Math.floor(song.duration % 60).toString().padStart(2, '0');
+        li.textContent = song.name + ' ' + minutes + ':' + seconds;
+        songList.appendChild(li);
+      });
+      return songList;
+    }
+    function createSongElement(song, index) {
+      let li = document.createElement('li');
+      li.style.backgroundColor = index % 2 === 0 ? '#f5f5f5' : '#fff'; // 隔行变色
+      li.style.padding = '10px 0'; // 增加行高
+      li.style.fontSize = '20px'; // 更大的歌曲文字
+      li.style.display = 'flex'; // 将此行设为 Flexbox
+      li.style.cursor = 'pointer'; // 设置鼠标指针为指针形状
+
+      // Add hover effect
+      li.addEventListener('mouseover', function () {
+        li.style.backgroundColor = '#d3d3d3'; // 设置悬浮时的背景颜色
+      });
+
+      li.addEventListener('mouseout', function () {
+        li.style.backgroundColor = index % 2 === 0 ? '#f5f5f5' : '#fff'; // 恢复原始的背景颜色
+      });
+
+      let songName = document.createElement('span');
+      songName.textContent = song.name;
+
+      let songTime = document.createElement('span');
+      songTime.style.position = 'absolute';
+      songTime.style.right = '400px'; // 将时间距离最右边固定在400px
+
+
+      let audio = new Audio("/upload/" + song.filepath);
+      audio.addEventListener('loadedmetadata', function () {
+        let duration = audio.duration;
+        let minutes = Math.floor(duration / 60);
+        let seconds = Math.floor(duration % 60).toString().padStart(2, '0');
+        songTime.textContent = minutes + ':' + seconds;
+      });
+
+      li.addEventListener('click', function () {
+        playSong(song.id, song.filepath, song.name, song.artist, song.lyric, song.avatar);
+      });
+
+      li.appendChild(songName);
+      li.appendChild(songTime);
+
+      return li;
+    }
+
+
+
+    function loadPlaylists() {
+      const playlistContainer = document.getElementById('artists-playlist');
+      playlistContainer.innerHTML = ''; // 清空之前的内容
+
+      artistsPlaylists.forEach((playlist, index) => {
+        playlist.expanded = false; // 新增，标记此歌单是否已完全展开
+        let additionalSongs = []; // 新增，保存超过六首的歌曲的元素
+        // 创建元素
+        const div = document.createElement('div');
+        div.style.display = 'flex'; // 使用 Flexbox 布局
+        div.style.marginBottom = '30px'; // 每个歌单之间的间隔
+
+        const divLeft = document.createElement('div');
+        const img = document.createElement('img');
+        img.src = "/upload/" + playlist.avatar;
+        img.style.width = '400px'; // 更大的图片
+        img.style.height = '300px'; // 更大的图片
+
+        const pDate = document.createElement('p');
+        pDate.textContent = '创建时间: ' + playlist.created_time;
+        pDate.style.fontSize = '20px'; // 更大的文字
+        pDate.style.marginTop = '30px'; // 增加10px间隔
+
+        divLeft.appendChild(img);
+        divLeft.appendChild(pDate);
+
+        const divRight = document.createElement('div');
+        divRight.style.marginLeft = '50px'; // 更大的间距
+        divRight.style.flexGrow = '1'; // 允许右侧部分占用剩余空间
+
+        const h4 = document.createElement('h4');
+        h4.textContent = playlist.name;
+        h4.style.marginLeft = '500px'; // 设置左边距为500px
+        h4.style.fontSize = '25px';
+
+        const ul = document.createElement('ul');
+        ul.style.listStyle = 'none'; // 去掉列表前的点标记
+
+        playlist.songs.slice(0, 6).forEach((song, index) => {
+          ul.appendChild(createSongElement(song, index));
+        });
+
+        const a = document.createElement('a');
+
+        a.href = '#';
+        a.textContent = '查看所有';
+        a.style.fontSize = '20px'; // 更大的链接文字
+        a.addEventListener('click', function(event) {
+          event.preventDefault();
+          if (playlist.expanded) { // 如果已经展开，则收起
+            additionalSongs.forEach(songElem => {
+              ul.removeChild(songElem);
+            });
+            additionalSongs = []; // 清空额外的歌曲列表
+            a.textContent = '查看所有';
+            playlist.expanded = false;
+          } else { // 如果尚未展开，则展开
+            playlist.songs.slice(6).forEach((song, index) => {
+              let songElem = createSongElement(song, index + 6);
+              ul.appendChild(songElem);
+              additionalSongs.push(songElem); // 记录此歌曲元素，以便之后移除
+            });
+            a.textContent = '收回';
+            playlist.expanded = true;
+          }
+        });
+
+        // 构建元素结构
+        divRight.appendChild(h4);
+        divRight.appendChild(ul);
+        divRight.appendChild(a);
+
+        div.appendChild(divLeft);
+        div.appendChild(divRight);
+
+        playlistContainer.appendChild(div);
+      });
+    }
+
+
+    document.getElementById('comments-tab2').addEventListener('click', function(event) {
+      event.preventDefault();  // 阻止默认行为
+      // 改变"个人简介"链接的样式
+      this.className = 'active-tab';
+      // 恢复"歌单"链接的样式
+      document.getElementById('song-list-tab2').className = '';
+      // 显示歌手简介
+      document.getElementById('bio').textContent = artistInfo;
+      // 设置歌手简介为可见
+      document.getElementById('bio').style.display = 'block';
+      // 设置歌单列表为不可见
+      document.getElementById('artists-playlist').style.display = 'none';
+
+    });
+
+    document.getElementById('song-list-tab2').addEventListener('click', function(event) {
+      event.preventDefault(); // 阻止默认行为
+      // 当链接被点击时，改变其样式
+      this.className = 'active-tab';
+      // 恢复"个人简介"链接的样式
+      document.getElementById('comments-tab2').className = '';
+      // 加载歌单
+      loadPlaylists();
+      // 设置歌单列表为可见
+      document.getElementById('artists-playlist').style.display = 'block';
+      // 设置歌手简介为不可见
+      document.getElementById('bio').style.display = 'none';
+    });
+  }
+
+</script>
+
+
+</html>
